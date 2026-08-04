@@ -5,6 +5,16 @@
   ],
   "tasks": {
     "build": "vite build"
+  },
+  "deploy": {
+    "install": "deno install",
+    "build": "deno task build",
+    "runtime": {
+      "type": "dynamic",
+      "entrypoint": "./functions/telegram-notify/index.ts",
+      "cwd": "."
+    }
   }
 }
+
 
