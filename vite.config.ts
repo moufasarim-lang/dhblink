@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(import.meta.dirname, './src'),
+      // Utilisation de process.cwd() pour être compatible avec tous les environnements
+      '@': path.resolve(process.cwd(), './src'),
     },
   },
   server: {
