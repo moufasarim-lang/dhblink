@@ -6,8 +6,10 @@ La configuration Deno Deploy est maintenant aussi definie dans `deno.json`, donc
 Commande de build a configurer dans Deno Deploy:
 
 ```sh
-npm run build
+deno task build
 ```
+
+Si le dashboard continue temporairement a lancer l'ancienne commande `cd /tmp/build && npm install && npm run build`, le projet fournit un shim local `npm` installe par `deno install`. Cette ancienne commande devient donc compatible avec Deno Deploy.
 
 Alternative locale si tu veux reutiliser un script du repo:
 

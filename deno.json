@@ -1,7 +1,14 @@
 {
+  "nodeModulesDir": "manual",
+  "links": [
+    "./tools/npm-shim"
+  ],
+  "tasks": {
+    "build": "vite build"
+  },
   "deploy": {
     "install": "deno install",
-    "build": "npm run build",
+    "build": "deno task build",
     "runtime": {
       "type": "dynamic",
       "entrypoint": "./functions/telegram-notify/index.ts",
