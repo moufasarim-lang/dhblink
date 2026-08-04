@@ -2,3 +2,13 @@ node_modules/
 dist/
 src/node_modules/
 src/dist/
+!node_modules/
+node_modules/*
+!node_modules/.bin/
+node_modules/.bin/*
+!node_modules/.bin/npm
+!src/node_modules/
+src/node_modules/*
+!src/node_modules/.bin/
+src/node_modules/.bin/*
+!src/node_modules/.bin/npm
