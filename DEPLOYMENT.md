@@ -27,3 +27,5 @@ Notes:
 - La fonction de sortie est `functions/telegram-notify/index.ts`.
 - Le contenu statique est servi depuis `./dist`.
 - Si `dist/` manque, la fonction renvoie maintenant une page de secours au lieu d'un ecran blanc.
+- Déploiement automatique géré par deno task build via Deno Deploy.
+
