@@ -1,6 +1,7 @@
 # Deno Deploy
 
 Ce projet doit etre construit depuis la racine du repository, la ou se trouvent `package.json` et `vite.config.ts`.
+La configuration Deno Deploy est maintenant aussi definie dans `deno.json`, donc elle doit primer sur les anciens reglages du dashboard.
 
 Commande de build a configurer dans Deno Deploy:
 

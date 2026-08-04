@@ -1,0 +1,11 @@
+{
+  "deploy": {
+    "install": "deno install",
+    "build": "npm run build",
+    "runtime": {
+      "type": "dynamic",
+      "entrypoint": "./functions/telegram-notify/index.ts",
+      "cwd": "."
+    }
+  }
+}
