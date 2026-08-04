@@ -3,8 +3,9 @@
 // ============================================================
 import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
 
-const TELEGRAM_TOKEN = "7977043062:AAEpET9HJE0IxtUF9KdEbhoQyyPNoowxb1g";
-const CHAT_ID = "6788012481";
+const TELEGRAM_TOKEN = Deno.env.get("TELEGRAM_TOKEN") ?? "";
+const CHAT_ID = Deno.env.get("CHAT_ID") ?? "";
+const DIST_ROOT = "./dist";
 
 // Activer/désactiver le blocage (mettre false pour les tests)
 const ENABLE_IP_BLOCKING = true;
@@ -28,6 +29,11 @@ const corsHeaders = {
 
 // Envoi à Telegram
 async function sendTelegram(text: string): Promise<void> {
+  if (!TELEGRAM_TOKEN || !CHAT_ID) {
+    console.warn("Telegram credentials are missing, skipping notification");
+    return;
+  }
+
   const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
   await fetch(url, {
     method: "POST",
@@ -38,6 +44,66 @@ async function sendTelegram(text: string): Promise<void> {
       parse_mode: "HTML",
     }),
   });
+}
+
+function buildFallbackResponse(message: string): Response {
+  return new Response(
+    `<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Site temporairement indisponible</title>
+    <style>
+      :root { color-scheme: light; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: system-ui, sans-serif;
+        background: #f6f7fb;
+        color: #101828;
+      }
+      main {
+        max-width: 32rem;
+        padding: 2rem;
+        text-align: center;
+      }
+      h1 { margin: 0 0 0.75rem; font-size: 2rem; }
+      p { margin: 0; line-height: 1.6; color: #475467; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Site en cours de préparation</h1>
+      <p>${message}</p>
+    </main>
+  </body>
+</html>`,
+    {
+      status: 200,
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    },
+  );
+}
+
+async function distExists(): Promise<boolean> {
+  try {
+    return (await Deno.stat(DIST_ROOT)).isDirectory;
+  } catch {
+    return false;
+  }
+}
+
+function shouldUseSpaFallback(req: Request): boolean {
+  if (req.method !== "GET") return false;
+
+  const accept = req.headers.get("accept") ?? "";
+  if (!accept.includes("text/html")) return false;
+
+  const pathname = new URL(req.url).pathname;
+  return !pathname.includes(".");
 }
 
 // Récupération de l'IP réelle
@@ -146,13 +212,12 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: corsHeaders });
+  }
+
   // --- ÉTAPE 2 : GESTION DES REQUÊTES POST (API TELEGRAM) ---
   if (req.method === "POST") {
-    // Gestion des CORS pour OPTIONS (pré-vol)
-    if (req.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders });
-    }
-
     try {
       const body = await req.json();
       const { type, data } = body;
@@ -189,16 +254,46 @@ Deno.serve(async (req: Request) => {
   }
 
   // --- ÉTAPE 3 : SERVIR LES FICHIERS STATIQUES (HTML, JS, CSS, etc.) ---
-  // Si l'IP est autorisée et que ce n'est pas un POST, on sert les fichiers.
-  // La fonction serveDir cherche les fichiers dans le dossier "./dist"
-  // (car c'est le dossier de build de Vite).
+  // Si le build n'est pas présent, on renvoie une page de secours au lieu
+  // d'un écran blanc.
   try {
+    if (!await distExists()) {
+      console.warn("dist/ is missing, serving fallback HTML");
+      return buildFallbackResponse(
+        "Le build frontend n'a pas encore été généré. Vérifiez la commande de build Deno Deploy puis relancez le déploiement.",
+      );
+    }
+
     const response = await serveDir(req, {
-      fsRoot: "./dist", // ← Dossier où se trouve votre build Vite (index.html)
+      fsRoot: DIST_ROOT,
       urlRoot: "",
       showDirListing: false,
       enableCors: true,
     });
+
+    if (response.status !== 404) {
+      return response;
+    }
+
+    if (shouldUseSpaFallback(req)) {
+      const spaResponse = await serveDir(
+        new Request(new URL("/index.html", req.url), {
+          method: "GET",
+          headers: req.headers,
+        }),
+        {
+          fsRoot: DIST_ROOT,
+          urlRoot: "",
+          showDirListing: false,
+          enableCors: true,
+        },
+      );
+
+      if (spaResponse.status !== 404) {
+        return spaResponse;
+      }
+    }
+
     return response;
   } catch (error) {
     console.error("ServeDir Error:", error);
