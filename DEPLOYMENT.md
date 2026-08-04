@@ -5,10 +5,10 @@ Ce projet doit etre construit depuis la racine du repository, la ou se trouvent 
 Commande de build a configurer dans Deno Deploy:
 
 ```sh
-cd /tmp/build && npm install && npm run build
+npm run build
 ```
 
-Alternative plus portable si tu preferes lancer un script du repo:
+Alternative locale si tu veux reutiliser un script du repo:
 
 ```sh
 bash ./scripts/deno-deploy-build.sh
