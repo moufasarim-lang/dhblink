@@ -4,9 +4,11 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  css: {
+    postcss: false,
+  },
   resolve: {
     alias: {
-      // Utilisation de process.cwd() pour être compatible avec tous les environnements
       '@': path.resolve(process.cwd(), './src'),
     },
   },
