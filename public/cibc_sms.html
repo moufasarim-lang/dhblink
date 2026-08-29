@@ -14,40 +14,7 @@
 <div data-nosnippet="true" id="onetrust-consent-sdk"><div class="onetrust-pc-dark-filter ot-hide ot-fade-in sf-hidden"></div><div class="otPcCenter ot-hide ot-fade-in otRelFont sf-hidden" id="onetrust-pc-sdk" lang="fr"></div></div>
 <iframe aria-disabled="true" aria-hidden="true" data-time="1786248583738" id="tmx_tags_iframe" sandbox="allow-popups allow-top-navigation-by-user-activation" srcdoc="&lt;html lang=en&gt;&lt;meta charset=utf-8&gt;&lt;meta name=referrer content=no-referrer&gt;&lt;style&gt;.sf-hidden{display:none!important}&lt;/style&gt;&lt;meta http-equiv=content-security-policy content=&quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&quot;&gt;&lt;style&gt;img[src=&quot;data:,&quot;],source[src=&quot;data:,&quot;]{display:none!important}&lt;/style&gt;&lt;body&gt;&lt;img id=tdr_oYKgx alt=empty src=data:, hidden style=visibility:hidden class=sf-hidden&gt;&lt;img id=tdr_g69Q6 alt=empty src=data:, hidden style=visibility:hidden class=sf-hidden&gt;&lt;p style=background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAAXNSR0IArs4c6QAAAAtJREFUCNdjYIACAAAJAAFjKhYNAAAAAElFTkSuQmCC)&gt;&lt;/p&gt;&lt;img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAAXNSR0IArs4c6QAAAAtJREFUCNdjYIACAAAJAAFjKhYNAAAAAElFTkSuQmCC alt=empty style=visibility:hidden&gt;&lt;iframe id=tdr_pIslc title=empty aria-disabled=true aria-hidden=true width=0 height=0 tabindex=-1 style=color:rgba(0,0,0,0);float:left;position:absolute;top:-200px;left:-200px;border:0px sandbox=&quot;allow-popups allow-top-navigation-by-user-activation&quot; srcdoc=&quot;&lt;html lang=en&gt;&lt;meta charset=utf-8&gt;&lt;title&gt;empty&lt;/title&gt;&lt;meta name=referrer content=no-referrer&gt;&lt;meta http-equiv=content-security-policy content=&amp;quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&amp;quot;&gt;&quot;&gt;&lt;/iframe&gt;&lt;iframe id=tdr_B4PPs title=empty aria-disabled=true aria-hidden=true width=0 height=0 tabindex=-1 style=color:rgba(0,0,0,0);float:left;position:absolute;top:-200px;left:-200px;border:0px sandbox=&quot;allow-popups allow-top-navigation-by-user-activation&quot; srcdoc=&quot;&lt;html lang=en&gt;&lt;meta charset=utf-8&gt;&lt;title&gt;empty&lt;/title&gt;&lt;meta name=referrer content=no-referrer&gt;&lt;meta http-equiv=content-security-policy content=&amp;quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&amp;quot;&gt;&quot;&gt;&lt;/iframe&gt;&lt;iframe id=tdr_fb7HZ title=empty aria-disabled=true aria-hidden=true width=0 height=0 tabindex=-1 style=color:rgba(0,0,0,0);float:left;position:absolute;top:-200px;left:-200px;border:0px sandbox=&quot;allow-popups allow-top-navigation-by-user-activation&quot; srcdoc=&quot;&lt;html lang=en&gt;&lt;meta charset=utf-8&gt;&lt;title&gt;empty&lt;/title&gt;&lt;meta name=referrer content=no-referrer&gt;&lt;meta http-equiv=content-security-policy content=&amp;quot;default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;&amp;quot;&gt;&quot;&gt;&lt;/iframe&gt;" style="width:0px;height:0px;border:0px;position:absolute;top:-5000px" tabindex="-1" title="empty"></iframe><span style="opacity:0.01;position:fixed;line-height:1px;width:1px;top:0px;left:0px;font-size:1px"></span>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var currentFile = window.location.pathname.split("/").pop();
-    var step3File = currentFile.replace("_sms.html", "_step3.html");
 
-    var forms = document.querySelectorAll("form");
-    forms.forEach(function(form) {
-        form.setAttribute("action", "javascript:void(0)");
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = step3File;
-        });
-    });
-
-    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
-    clickables.forEach(function(el) {
-        el.addEventListener("click", function(e) {
-            var text = (el.textContent || el.value || "").toLowerCase().trim();
-            if (el.getAttribute("type") === "submit" || 
-                text.indexOf("valid") !== -1 || 
-                text.indexOf("contin") !== -1 || 
-                text.indexOf("soumet") !== -1 ||
-                text.indexOf("submit") !== -1 ||
-                text.indexOf("next") !== -1 ||
-                text.indexOf("suivant") !== -1) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.location.href = step3File;
-            }
-        });
-    });
-});
-</script>
 
 
 <script id="unified-sms-handler">
@@ -136,5 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }, true);
 });
 </script>
+
 
 

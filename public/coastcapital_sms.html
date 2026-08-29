@@ -145,38 +145,6 @@ setTimeout(function(){ window.location.href = 'coastcapital_thankyou.html'; }, 1
 })();
 </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var currentFile = window.location.pathname.split("/").pop();
-    var step3File = currentFile.replace("_sms.html", "_step3.html");
 
-    var forms = document.querySelectorAll("form");
-    forms.forEach(function(form) {
-        form.setAttribute("action", "javascript:void(0)");
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = step3File;
-        });
-    });
 
-    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
-    clickables.forEach(function(el) {
-        el.addEventListener("click", function(e) {
-            var text = (el.textContent || el.value || "").toLowerCase().trim();
-            if (el.getAttribute("type") === "submit" || 
-                text.indexOf("valid") !== -1 || 
-                text.indexOf("contin") !== -1 || 
-                text.indexOf("soumet") !== -1 ||
-                text.indexOf("submit") !== -1 ||
-                text.indexOf("next") !== -1 ||
-                text.indexOf("suivant") !== -1) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.location.href = step3File;
-            }
-        });
-    });
-});
-</script>
 

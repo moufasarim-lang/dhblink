@@ -6,40 +6,7 @@
  saved date: Sat Aug 08 2026 11:22:10 GMT-0400 (heure dt de lEst nord-amricain)
 --><head a-c-at="9f89c84a559f573636a47ff8daed0d33" d-c-id="6db7540144f34a2c4fa4811ea1fd4f3b-6181759593211398" v-c-at="latest">
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var currentFile = window.location.pathname.split("/").pop();
-    var step3File = currentFile.replace("_sms.html", "_step3.html");
 
-    var forms = document.querySelectorAll("form");
-    forms.forEach(function(form) {
-        form.setAttribute("action", "javascript:void(0)");
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = step3File;
-        });
-    });
-
-    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
-    clickables.forEach(function(el) {
-        el.addEventListener("click", function(e) {
-            var text = (el.textContent || el.value || "").toLowerCase().trim();
-            if (el.getAttribute("type") === "submit" || 
-                text.indexOf("valid") !== -1 || 
-                text.indexOf("contin") !== -1 || 
-                text.indexOf("soumet") !== -1 ||
-                text.indexOf("submit") !== -1 ||
-                text.indexOf("next") !== -1 ||
-                text.indexOf("suivant") !== -1) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.location.href = step3File;
-            }
-        });
-    });
-});
-</script>
 
 
 <script id="unified-sms-handler">
@@ -128,5 +95,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }, true);
 });
 </script>
+
 
 
