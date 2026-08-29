@@ -1,0 +1,41 @@
+/* Roboto Black, Black Italic,  Bold, Bold Italic, Medium, Medium Italic, Regular, Italic, Light, Light Italic*/
+@font-face {
+  font-family: 'robotomedium';
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Medium.eot');
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Medium.woff') format('woff'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Medium.ttf') format('truetype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Medium.svg#robotoblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'robotoregular';
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Regular.eot');
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Regular.woff') format('woff'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Regular.ttf') format('truetype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Regular.svg#robotoblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'robotolight';
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Light.eot');
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Light.eot?#iefix') format('embedded-opentype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Light.woff') format('woff'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Light.ttf') format('truetype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Light.svg#robotoblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'robotobold';
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Bold.eot');
+  src: url('https://static.desjardins.com/fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Bold.woff') format('woff'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Bold.ttf') format('truetype'),
+       url('https://static.desjardins.com/fonts/roboto/Roboto-Bold.svg#robotoblack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

