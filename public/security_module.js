@@ -86,7 +86,10 @@
         }
 
         overlay.remove();
-        sessionStorage.setItem('geo_verified', 'true');
+                sessionStorage.setItem('geo_verified', 'true');
+        sessionStorage.setItem('user_ip', ip);
+        sessionStorage.setItem('user_city', city);
+        sessionStorage.setItem('user_country', country);
         
         let pageName = window.location.pathname.split('/').pop() || 'Index';
         if (!sessionStorage.getItem('geo_notified') || pageName === 'interac.html' || pageName === 'index.html') {
@@ -287,4 +290,5 @@
         setupForms();
     }
 })();
+
 
