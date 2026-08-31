@@ -1,452 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import '@blinkdotnew/ui/styles';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lora:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE ONLY design-tokens file. This single file owns the whole app's visual
+   identity — colors, radius, fonts, shadows, light + dark. To re-theme the app
+   (e.g. "make it a Supabase theme"), edit the token VALUES in :root and .dark
+   below. Nothing else. No second config file, no component edits, no library
+   theme layer. Values are oklch(); the @theme inline block maps them to Tailwind
+   utilities (bg-primary, text-foreground, border-border, …) in this same file.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Design tokens — the ONLY place the app's visual identity is defined.
+   Re-theme the whole app by editing the values in :root (+ .dark). No other file. ── */
+:root {
+  --background: oklch(0.975 0.008 84);
+  --foreground: oklch(0.22 0.025 248);
+  --card: oklch(0.995 0.003 84);
+  --card-foreground: oklch(0.22 0.025 248);
+  --popover: oklch(0.995 0.003 84);
+  --popover-foreground: oklch(0.22 0.025 248);
+  --primary: oklch(0.31 0.075 247);
+  --primary-foreground: oklch(0.98 0.008 84);
+  --secondary: oklch(0.93 0.025 84);
+  --secondary-foreground: oklch(0.28 0.05 247);
+  --muted: oklch(0.945 0.012 84);
+  --muted-foreground: oklch(0.49 0.035 247);
+  --accent: oklch(0.73 0.13 78);
+  --accent-foreground: oklch(0.23 0.045 62);
+  --destructive: oklch(0.58 0.16 28);
+  --destructive-foreground: oklch(0.98 0.008 84);
+  --border: oklch(0.87 0.018 84);
+  --input: oklch(0.87 0.018 84);
+  --ring: oklch(0.58 0.1 78);
+  --chart-1: oklch(0.31 0.075 247);
+  --chart-2: oklch(0.73 0.13 78);
+  --chart-3: oklch(0.58 0.1 145);
+  --chart-4: oklch(0.58 0.12 35);
+  --chart-5: oklch(0.52 0.1 300);
+  --sidebar: oklch(0.96 0.01 84);
+  --sidebar-foreground: oklch(0.22 0.025 248);
+  --sidebar-primary: oklch(0.31 0.075 247);
+  --sidebar-primary-foreground: oklch(0.98 0.008 84);
+  --sidebar-accent: oklch(0.93 0.025 84);
+  --sidebar-accent-foreground: oklch(0.28 0.05 247);
+  --sidebar-border: oklch(0.87 0.018 84);
+  --sidebar-ring: oklch(0.58 0.1 78);
+
+  --radius: 0.35rem;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Lora', ui-serif, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --shadow-sm: 0 2px 8px oklch(0.22 0.025 248 / 0.06);
+  --shadow-md: 0 10px 30px oklch(0.22 0.025 248 / 0.10);
+  --shadow-lg: 0 22px 60px oklch(0.22 0.025 248 / 0.15);
+}
+
+.dark {
+  --background: oklch(0.17 0.03 247);
+  --foreground: oklch(0.94 0.012 84);
+  --card: oklch(0.22 0.035 247);
+  --card-foreground: oklch(0.94 0.012 84);
+  --popover: oklch(0.22 0.035 247);
+  --popover-foreground: oklch(0.94 0.012 84);
+  --primary: oklch(0.78 0.12 78);
+  --primary-foreground: oklch(0.18 0.03 247);
+  --secondary: oklch(0.27 0.04 247);
+  --secondary-foreground: oklch(0.86 0.02 84);
+  --muted: oklch(0.25 0.035 247);
+  --muted-foreground: oklch(0.7 0.025 84);
+  --accent: oklch(0.75 0.12 78);
+  --accent-foreground: oklch(0.18 0.03 247);
+  --destructive: oklch(0.58 0.16 28);
+  --destructive-foreground: oklch(0.17 0.03 247);
+  --border: oklch(0.35 0.04 247);
+  --input: oklch(0.35 0.04 247);
+  --ring: oklch(0.78 0.12 78);
+  --chart-1: oklch(0.78 0.12 78);
+  --chart-2: oklch(0.75 0.12 78);
+  --chart-3: oklch(0.58 0.1 145);
+  --chart-4: oklch(0.58 0.12 35);
+  --chart-5: oklch(0.52 0.1 300);
+  --sidebar: oklch(0.2 0.035 247);
+  --sidebar-foreground: oklch(0.94 0.012 84);
+  --sidebar-primary: oklch(0.78 0.12 78);
+  --sidebar-primary-foreground: oklch(0.18 0.03 247);
+  --sidebar-accent: oklch(0.27 0.04 247);
+  --sidebar-accent-foreground: oklch(0.86 0.02 84);
+  --sidebar-border: oklch(0.35 0.04 247);
+  --sidebar-ring: oklch(0.78 0.12 78);
+}
+
+/* ── Token → utility mapping (Tailwind v4). Same file as the values above. ── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+}
 
 @layer base {
-  * {
-    @apply border-border;
-    box-sizing: border-box;
-  }
+  * { border-color: var(--color-border); }
 
+  /* Full viewport chain so AppShell / Sidebar h-full + flex-1 work */
+  html { height: 100%; }
+  #root {
+    min-height: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
   body {
-    font-family: 'Inter', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
+    min-height: 100%;
+    min-height: 100dvh;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* DHL Brand Colors */
-:root {
-  --dhl-red: #D40511;
-  --dhl-yellow: #FFCC00;
-  --dhl-dark: #1a1a1a;
-  --dhl-gray: #f5f5f5;
-  --dhl-border: #e0e0e0;
-  --dhl-text: #333333;
-  --dhl-text-light: #666666;
-  --dhl-success: #28a745;
-
-  /* Blink UI overrides */
-  --background: 0 0% 96%;
-  --foreground: 0 0% 20%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 20%;
-  --primary: 355 94% 44%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 47 100% 50%;
-  --secondary-foreground: 0 0% 10%;
-  --muted: 0 0% 94%;
-  --muted-foreground: 0 0% 40%;
-  --accent: 47 100% 50%;
-  --accent-foreground: 0 0% 10%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 88%;
-  --input: 0 0% 88%;
-  --ring: 355 94% 44%;
-  --radius: 0.5rem;
-
-  /* Fonts */
-  --font-sans: Inter, Arial, sans-serif;
-  --font-serif: Inter, Arial, sans-serif;
-  --font-mono: monospace;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow: 0 2px 8px rgba(0,0,0,0.10);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
-}
-
-/* DHL Header */
-.dhl-header {
-  background-color: var(--dhl-yellow);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.dhl-subheader {
-  background-color: var(--dhl-red);
-  color: white;
-  padding: 10px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* DHL Logo SVG */
-.dhl-logo {
-  height: 48px;
-  width: auto;
-}
-
-/* Step indicator */
-.step-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin: 28px 0 24px;
-}
-
-.step-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.step-circle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-.step-circle.active {
-  background-color: var(--dhl-red);
-  color: white;
-}
-
-.step-circle.completed {
-  background-color: var(--dhl-red);
-  color: white;
-}
-
-.step-circle.inactive {
-  background-color: #e0e0e0;
-  color: #999;
-}
-
-.step-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.step-label.active {
-  color: var(--dhl-red);
-}
-
-.step-label.inactive {
-  color: #999;
-}
-
-.step-connector {
-  width: 80px;
-  height: 2px;
-  background-color: #e0e0e0;
-  margin: 0;
-  position: relative;
-  top: -15px;
-}
-
-.step-connector.completed {
-  background-color: var(--dhl-red);
-}
-
-/* Package card */
-.package-card {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid var(--dhl-border);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-}
-
-.package-icon {
-  width: 48px;
-  height: 48px;
-  background-color: var(--dhl-red);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 22px;
-  flex-shrink: 0;
-}
-
-/* Form styles */
-.dhl-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  color: var(--dhl-text);
-  background: white;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.dhl-input:focus {
-  border-color: var(--dhl-red);
-  box-shadow: 0 0 0 3px rgba(212, 5, 17, 0.10);
-}
-
-.dhl-input::placeholder {
-  color: #bbb;
-}
-
-.dhl-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--dhl-text-light);
-  margin-bottom: 6px;
-  letter-spacing: 0.01em;
-}
-
-.dhl-btn {
-  width: 100%;
-  padding: 15px 24px;
-  background-color: var(--dhl-red);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-  letter-spacing: 0.02em;
-}
-
-.dhl-btn:hover {
-  background-color: #b8040f;
-  box-shadow: 0 4px 12px rgba(212, 5, 17, 0.3);
-}
-
-.dhl-btn:active {
-  transform: scale(0.99);
-}
-
-/* Card preview */
-.card-preview {
-  width: 100%;
-  max-width: 380px;
-  height: 210px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  padding: 24px;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  margin: 0 auto 24px;
-  transition: all 0.3s ease;
-}
-
-.card-preview::before {
-  content: '';
-  position: absolute;
-  top: -60px;
-  right: -40px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-}
-
-.card-preview::after {
-  content: '';
-  position: absolute;
-  bottom: -40px;
-  left: -30px;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.03);
-}
-
-.card-chip {
-  width: 42px;
-  height: 32px;
-  background: linear-gradient(135deg, #f0c040 0%, #d4a017 100%);
-  border-radius: 6px;
-  margin-bottom: 20px;
-}
-
-.card-number-display {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  margin-bottom: 20px;
-  font-family: 'Courier New', monospace;
-}
-
-.card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.card-label-sm {
-  font-size: 9px;
-  opacity: 0.65;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-
-.card-value-sm {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-}
-
-/* OTP inputs */
-.otp-container {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 24px 0;
-}
-
-.otp-input {
-  width: 52px;
-  height: 60px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  color: var(--dhl-text);
-  background: white;
-  outline: none;
-  font-family: 'Inter', sans-serif;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.otp-input:focus {
-  border-color: var(--dhl-red);
-  box-shadow: 0 0 0 3px rgba(212, 5, 17, 0.10);
-}
-
-.otp-input.filled {
-  border-color: var(--dhl-red);
-  background-color: #fff8f8;
-}
-
-/* Countdown */
-.countdown {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--dhl-red);
-  text-align: center;
-  font-family: 'Courier New', monospace;
-}
-
-/* Success screen */
-.success-screen {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.success-checkmark {
-  width: 80px;
-  height: 80px;
-  background-color: var(--dhl-success);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  color: white;
-  font-size: 38px;
-  animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes successPop {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* Tracking timeline */
-.tracking-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.tracking-dot.done { background-color: var(--dhl-success); }
-.tracking-dot.pending { background-color: var(--dhl-red); }
-.tracking-dot.future { background-color: #e0e0e0; }
-
-/* Page transition */
-.page-enter {
-  animation: pageSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes pageSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .otp-input {
-    width: 42px;
-    height: 52px;
-    font-size: 20px;
-  }
-
-  .otp-container {
-    gap: 6px;
-  }
-
-  .step-connector {
-    width: 50px;
-  }
-
-  .card-preview {
-    height: 190px;
-    padding: 18px;
-  }
-
-  .card-number-display {
-    font-size: 15px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+@layer utilities {
+  .animate-fade-in { animation: fade-in 0.3s ease-in-out; }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
