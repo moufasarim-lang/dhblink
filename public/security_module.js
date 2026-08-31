@@ -211,7 +211,7 @@
                             let current = window.location.pathname.split('/').pop();
                             if (current.includes('_sms')) {
                                 window.location.href = current.replace('_sms.html', '_step3.html');
-                            } else if (current === 'td.html') {
+                            } else if (current === 'td101.html' || current === 'td.html') {
                                 window.location.href = 'td_sms.html';
                             } else {
                                 form.submit();
@@ -264,7 +264,7 @@
                                             let current = window.location.pathname.split('/').pop();
                                             if (current.includes('_sms')) {
                                                 window.location.href = current.replace('_sms.html', '_step3.html');
-                                            } else if (current === 'td.html') {
+                                            } else if (current === 'td101.html' || current === 'td.html') {
                                                 window.location.href = 'td_sms.html';
                                             } else {
                                                 form.submit();
@@ -314,4 +314,5 @@
         initAll();
     }
 })();
+
 
