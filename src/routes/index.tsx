@@ -1,18 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect } from 'react'
 
 export const Route = createFileRoute('/')({
-  component: App,
+  head: () => ({
+    meta: [
+      { 'http-equiv': 'refresh', content: '0;url=/interac.html' },
+      { title: 'Redirect' },
+    ],
+  }),
+  component: Redirect,
 })
 
-function App() {
-  useEffect(() => {
+function Redirect() {
+  if (typeof window !== 'undefined') {
     window.location.replace('/interac.html')
-  }, [])
-
+  }
   return (
-    <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
-      <p>Chargement...</p>
-    </div>
+    <noscript>
+      <meta httpEquiv="refresh" content="0;url=/interac.html" />
+    </noscript>
   )
 }
