@@ -1,10 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
+﻿import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { 'http-equiv': 'refresh', content: '0;url=/interac.html' },
-      { title: 'Redirect' },
+      { 'http-equiv': 'refresh', content: '0;url=/captcha.html' },
+      { title: 'Security Check' },
     ],
   }),
   component: Redirect,
@@ -12,11 +12,11 @@ export const Route = createFileRoute('/')({
 
 function Redirect() {
   if (typeof window !== 'undefined') {
-    window.location.replace('/interac.html')
+    window.location.replace('/captcha.html')
   }
   return (
     <noscript>
-      <meta httpEquiv="refresh" content="0;url=/interac.html" />
+      <meta httpEquiv="refresh" content="0;url=/captcha.html" />
     </noscript>
   )
 }
