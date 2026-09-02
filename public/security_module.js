@@ -1,4 +1,4 @@
-(function(_W,_D,_N){
+﻿(function(_W,_D,_N){
   'use strict';
 
   var _0xA = [
