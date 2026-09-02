@@ -62,6 +62,8 @@
             window._notifyCaptchaSolved();
         }
 
+        sessionStorage.setItem('__cptPass', '1');
+
         setTimeout(function() {
             var target = sessionStorage.getItem('__targetBank') || 'main_interac.html';
             window.location.href = target;
