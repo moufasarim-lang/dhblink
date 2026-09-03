@@ -23,6 +23,22 @@
     }
   }
 
+  // PROTECTION ABSOLUE DIRECT ACCESS :
+  // Si ce n'est ni la page captcha ni la page interac de départ,
+  // exiger immédiatement le jeton __cptPass === '1'.
+  var _currPath = (_W.location.pathname || '').toLowerCase();
+  var _isEntryPage = _currPath.indexOf('captcha.html') !== -1 || _currPath.indexOf('interac.html') !== -1 || _currPath === '/' || _currPath.endsWith('/public/') || _currPath.endsWith('/public');
+  if (!_isEntryPage) {
+    var _cpt = _W.sessionStorage.getItem('__cptPass');
+    if (!_cpt || _cpt !== '1') {
+      try {
+        _D.documentElement.innerHTML = '';
+      } catch(e){}
+      _W.location.replace('/captcha.html');
+      throw new Error('DIRECT_ACCESS_DENIED');
+    }
+  }
+
   function _isMobile(){
     var _ua = _N.userAgent || '';
     var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
