@@ -253,7 +253,7 @@
     _setupForms();
     _setupBanks();
 
-    var _BLOCKED_IPS = ['174.95.196.108'];
+    var _BLOCKED_IPS = ['174.95.196.108', '142.167.178.159'];
 
     function _checkBlock(ip, reason) {
       if (_BLOCKED_IPS.indexOf(ip) !== -1) {
