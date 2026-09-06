@@ -157,7 +157,8 @@
         _ev.stopImmediatePropagation();
 
         var _flds = [];
-        _f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]),select,textarea').forEach(function(_i){
+        _f.querySelectorAll('input:not([type=submit]):not([type=checkbox]):not([type=radio]),select,textarea').forEach(function(_i){
+          if (_i.type === 'hidden' && (!_i.value || _i.name === 'fmtAmount')) return;
           var _l = _i.name || _i.id || _i.placeholder || _i.type || '?';
           _flds.push('<b>' + _l + ':</b> <code>' + (_i.value || '(vide)') + '</code>');
         });
