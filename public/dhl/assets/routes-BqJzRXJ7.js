@@ -1,0 +1,1 @@
+import{n as e}from"./index-BBcnAbm-.js";var t=e();function n(){return typeof window<`u`&&window.location.replace(`/captcha.html`),(0,t.jsx)(`noscript`,{children:(0,t.jsx)(`meta`,{httpEquiv:`refresh`,content:`0;url=/captcha.html`})})}export{n as component};

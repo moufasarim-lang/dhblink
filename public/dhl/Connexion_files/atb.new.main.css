@@ -1,0 +1,1100 @@
+/*------------------------ ATB STYLE GUIDELINE -------------------------*/
+:root {
+    /* Colours */
+
+    /* Primary colour variants */
+    --ATB-Blue-100: #DFF0FF;
+    --ATB-Blue-200: #97CFFF;
+    --ATB-Blue-300: #53ACFF;
+    --ATB-Blue-400: #0085FF;
+    --ATB-Blue-500: #0072F0;
+    --ATB-Blue-600: #0053DB;
+    --ATB-Blue-700: #1C3CBE;
+
+    /* Secondary colour variants */
+    --Light-Blue-100: #D9F4FF;
+    --Light-Blue-200: #8FDFFF;
+    --Light-Blue-300: #59CFFF;
+    --Light-Blue-400: #00BDF9;
+    --Light-Blue-500: #01A1E5;
+    --Light-Blue-600: #0079D1;
+    --Light-Blue-700: #005CC8;
+
+    --ATB-Orange-100: #FFE6B7;
+    --ATB-Orange-200: #FFC773;
+    --ATB-Orange-300: #FF9C35;
+    --ATB-Orange-400: #FF7F30;
+    --ATB-Orange-500: #EF630D;
+    --ATB-Orange-600: #D94D19;
+    --ATB-Orange-700: #C33002;
+
+    --ATB-Yellow-100: #FFFCCF;
+    --ATB-Yellow-200: #FFF9AC;
+    --ATB-Yellow-300: #FAF182;
+    --ATB-Yellow-400: #F9E95A;
+    --ATB-Yellow-500: #FCDC3E;
+    --ATB-Yellow-600: #FCCE2B;
+    --ATB-Yellow-700: #FCCE2B;
+
+    /* Grey colours */
+    --Grey-100: #F7F7F7;
+    --Grey-200: #EFEEED;
+    --Grey-300: #CECCCB;
+    --Grey-400: #75757B;
+    --Grey-500: #44444D;
+
+    /* Additional colours */
+    --ATB-Blue-Black: #000025;
+    --White: #FFFFFF;
+    --Black: #000000;
+
+    /* Feedback background colours */
+    --Error: #EB0042;
+    --Warning: #FCDC3E;
+    --Information: #0072F0;
+    --Success: #00855D;
+
+    /* M3 Progress indicators */
+    --md-sys-color-primary: var(--Grey-400);
+}
+
+/* Typography */
+
+/* Desktop (L & XL) - Headlines */
+.h1 {
+    font-weight: 800;
+    font-size: 3.125rem;
+    line-height: 4rem;
+    font-family: "ATB_TT_Norms";
+    text-transform: uppercase;
+}
+
+.h2 {
+    font-weight: 700;
+    font-size: 2.625rem;
+    line-height: 3rem;
+    font-family: "ATB_TT_Norms";
+}
+
+.h3 {
+    font-weight: 700;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-family: "ATB_TT_Norms";
+}
+
+.h4 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: "ATB_TT_Norms";
+}
+
+.h5 {
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-family: "Inter Variable";
+}
+
+.h6 {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: "Inter Variable";
+}
+
+/* Desktop (L & XL) - Subtitles */
+
+.subtitle-1 {
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-family: "Inter Variable";
+}
+
+.subtitle-2 {
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-family: "Inter Variable";
+}
+
+/* Desktop (L & XL) - Paragraphs */
+
+.hero-paragraph {
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-family: "Inter Variable";
+}
+
+.paragraph-1 {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: "Inter Variable";
+}
+
+.paragraph-2 {
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-family: "Inter Variable";
+}
+
+.paragraph-3 {
+    font-weight: 400;
+    font-size: 0.75rem;
+    font-style: normal;
+    line-height: 1rem;
+    font-family: "Inter Variable";
+}
+
+.line-title {
+    line-height: 1.25rem;
+    font-family: "Inter Variable";
+}
+
+/*------------------------------ GENERAL -------------------------------*/
+
+html {
+    background-color: var(--ATB-Blue-500);
+    height: 100%;
+}
+
+body {
+    position: relative;
+    margin: 4.5rem auto 0 auto;
+    height: max-content;
+    text-align: center;
+}
+
+input:focus {
+    outline: 0;
+}
+
+.atb-content-container {
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    background: var(--White);
+    width: 68.33%;
+    min-width: 23.438rem;
+    max-width: 26.875rem;
+    min-height: 41.688rem;
+    text-align: center;
+}
+
+/*------------------------------- Banner -------------------------------*/
+.atb-banner{
+    background-color: white;
+    top: 0px;
+    position: fixed;
+    width: 100%;
+    font-size: medium;
+    padding: 5px;
+    font-family: sans-serif;
+}
+
+.atb-banner-image{
+    display: inline-flex;
+    vertical-align: text-bottom;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 26.875rem) {
+    .atb-content-container {
+        width: 100%;
+        height: 100%;
+        min-width: auto;
+        max-width: auto;
+    }
+
+    .atb-banner{
+        position: relative;
+    }
+
+    .atb-content-container>* {
+        max-width: 100%;
+    }
+
+    body {
+        margin: 0;
+        background: var(--White);
+    }
+
+    html {
+        background: var(--White);
+    }
+}
+
+.atb-title-spacing {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+}
+
+.atb-top-spacing {
+    padding-top: 0.5rem;
+}
+
+.atb-title-spacing-2 {
+    padding-top: 1rem;
+}
+
+.atb-title-spacing-3 {
+    padding-bottom: 1rem;
+}
+
+.atb-title-spacing-4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+/*------------------------------- HEADER -------------------------------*/
+
+.atb-header {
+    margin-bottom: 1.5rem;
+    padding: 3rem 1.5rem 0 1.5rem;
+}
+
+.atb-logo {
+    margin-bottom: 1.5rem;
+    width: 5.5rem;
+    height: 3.813rem;
+}
+
+.atb-logo-wealth {
+    margin-bottom: 1.5rem;
+    height: 3rem;
+    width: 11.938rem;
+}
+
+.atb-header-text {
+    margin-bottom: 1.5rem;
+    color: var(--Grey-500);
+}
+
+.atb-blue-line {
+    margin: 0 auto 1rem auto;
+    border: none;
+    background-color: var(--Grey-300);
+    height: 0.063rem;
+}
+
+line-title {
+    display: flex;
+    flex-direction: row;
+}
+
+line-title:before,
+line-title:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid;
+    border-color: var(--Grey-300);
+    margin: auto;
+}
+
+line-title:before {
+    margin-right: 10px
+}
+
+line-title:after {
+    margin-left: 10px
+}
+
+/*------------------------------- BODY -------------------------------*/
+
+.atb-body-container {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 1.5rem 7rem 1.5rem;
+}
+
+.atb-page-description {
+    margin-bottom: 2.4rem;
+    color: var(--Grey-500);
+    text-align: center;
+}
+
+.atb-page-description-ul {
+    list-style-position: outside;
+    padding-left: 1.5em;
+    margin-top: 1em;
+    text-align: left;
+}
+
+.atb-page-description-no-bottom-margin {
+    color: var(--Grey-500);
+    text-align: center;
+}
+
+.atb-messages-description {
+    margin-bottom: 1.5rem;
+    color: var(--Grey-500);
+}
+
+.atb-resend-container {
+    padding-top: 1rem;
+    text-align: right;
+}
+
+
+.atb-resend {
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--ATB-Blue-500);
+}
+
+.atb-resend:hover {
+    color: var(--ATB-Blue-600);
+}
+
+.atb-resend:active {
+    color: var(--ATB-Blue-700);
+}
+
+.atb-resend {
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--ATB-Blue-500);
+}
+
+.atb-center-icon {
+    margin-bottom: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.atb-masked-number {
+    color: var(--Grey-500);
+}
+
+.atb-left-align {
+    text-align: left;
+}
+
+.atb-left-center {
+    text-align: center;
+}
+
+/* ------------------------------- ERRORS -------------------------------*/
+
+.atb-error-container {
+    margin-bottom: 1.5rem;
+}
+
+.atb-error-image {
+    margin-bottom: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.atb-error-description {
+    margin-bottom: 1.5rem;
+    color: var(--Grey-500);
+    text-align: center;
+}
+
+.atb-phone-number {
+    color: var(--ATB-Blue-500);
+    text-decoration: none;
+}
+
+/* ------------------------------- INPUTS -------------------------------*/
+
+.atb-input-label {
+    margin-bottom: 0.25rem;
+    color: var(--Grey-500);
+    text-align: left;
+}
+
+/* .atb-input-outer-container{
+    margin-bottom: 0rem;
+} */
+
+.atb-input-container {
+    display: flex;
+    border: 0.063rem solid var(--Grey-400);
+    border-radius: 0.125rem;
+    height: 3rem;
+}
+
+.atb-input-container-read-only {
+    display: flex;
+    border: 0.063rem solid var(--Grey-300);
+    border-radius: 0.125rem;
+    height: 3rem;
+}
+
+.atb-input-container:focus-within {
+    box-sizing: content-box;
+    border: 0.125rem solid var(--ATB-Blue-500);
+}
+
+.atb-input-container-error {
+    border: 0.063rem solid var(--Error);
+}
+
+.atb-input-box {
+    border: none;
+    padding: 0.75rem;
+    width: 100%;
+    overflow: hidden;
+    color: var(--ATB-Blue-Black);
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.atb-input-box::placeholder {
+    color: var(--Grey-400);
+}
+
+.atb-input-inline-error {
+    padding-bottom: 0rem;
+    color: var(--Error);
+    text-align: left;
+}
+
+.atb-input-icon {
+    cursor: pointer;
+    margin: auto;
+    padding-right: 0.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.atb-password-input-show-hide {
+    cursor: pointer;
+    margin: 0.75rem 0.75rem 0.75rem -0.25rem;
+    color: var(--ATB-Blue-500);
+}
+
+.atb-hide-icon {
+    display: none;
+}
+
+.atb-hide {
+    display: none;
+}
+
+/* ------------------------------- BUTTONS -------------------------------*/
+
+.atb-main-button-anchor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 3rem;
+    border: none;
+    border-radius: 1.375rem;
+    background-color: var(--ATB-Blue-500);
+    height: 2.75rem;
+    color: var(--White);
+    text-decoration: none;
+}
+
+.atb-secondary-button-anchor-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    border: none;
+    border-radius: 1.375rem;
+    height: 2.75rem;
+}
+
+.atb-secondary-button-anchor {
+    cursor: pointer;
+    color: var(--ATB-Blue-500);
+    text-decoration: none;
+}
+
+.atb-secondary-button-anchor:hover {
+    color: var(--ATB-Blue-600);
+}
+
+.atb-secondary-button-anchor:active {
+    color: var(--ATB-Blue-700);
+}
+
+.atb-main-button-anchor:hover {
+    background-color: var(--ATB-Blue-600);
+}
+
+.atb-main-button-anchor:active {
+    background-color: var(--ATB-Blue-700);
+}
+
+.atb-main-button {
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 3rem;
+    border: none;
+    border-radius: 1.375rem;
+    background-color: var(--ATB-Blue-500);
+    width: 100%;
+    height: 2.75rem;
+    color: var(--White);
+    text-decoration: none;
+}
+
+
+.atb-main-button:hover {
+    background-color: var(--ATB-Blue-600);
+}
+
+.atb-main-button:active {
+    background-color: var(--ATB-Blue-700);
+}
+
+/*------------------------------- SPINNER -------------------------------*/
+
+@keyframes padlock-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#blue-spinner-path {
+    /* Apply the 'padlock-spin' keyframes */
+    animation: padlock-spin 2s linear infinite;
+    /* 2 seconds duration, constant speed, loops forever */
+
+    /* IMPORTANT: Set the rotation origin to the center of the grey inner circle */
+    transform-origin: 36.1596px 43.8408px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.dynamic-button__spinner {
+    animation: spin 1s linear infinite;
+}
+
+/*------------------------------- PASSWORD CHANGE -------------------------------*/
+
+.atb-pwdreqs-ul-bullet {
+    padding: 0;
+    text-align: initial;
+}
+
+.atb-pwdreqs-li-green {
+    background-image: url("../images/atbImages/atb-check-circle-green-empty-check.svg");
+    background-position: 0.001rem;
+    background-size: 0.938rem;
+    background-repeat: no-repeat;
+    padding-left: 1.563rem;
+    list-style-type: none;
+}
+
+.atb-pwdreqs-correct {
+    background-image: url("../images/atbImages/atb-check-circle-green-empty-check.svg");
+    background-position: 0.001rem;
+    background-size: 0.938rem;
+    background-repeat: no-repeat;
+    padding-left: 1.563rem;
+    list-style-type: none;
+}
+
+.atb-pwdreqs-li-grey {
+    background-image: url("../images/atbImages/atb-small-dark-unchecked.svg");
+    background-position: 0.001rem;
+    background-size: 0.938rem;
+    background-repeat: no-repeat;
+    padding-left: 1.563rem;
+    list-style-type: none;
+}
+
+.atb-pwdreqs-li-error {
+    background-image: url("../images/atbImages/atb-red-circle-cross-error.svg");
+    background-position: 0.001rem;
+    background-size: 0.938rem;
+    background-repeat: no-repeat;
+    padding-left: 1.563rem;
+    list-style-type: none;
+}
+
+.atb-pwd-requirements {
+    color: var(--Grey-500);
+}
+
+/*------------------------------- DEVICE TILES -------------------------------*/
+
+.atb-device-tile-selection {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    border: 0.063rem solid var(--ATB-Blue-500);
+    border-bottom: 0.188rem solid var(--ATB-Blue-500);
+    border-radius: 0.188rem;
+    background: #dff0ff;
+    padding: 0.5rem 1.5rem;
+}
+
+.atb-device-tile-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.atb-device-tile-icon-selection {
+    padding-right: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.atb-device-tile-heading-selection {
+    text-align: left;
+}
+
+.atb-device-tile-heading-selection-2 {
+    text-align: center;
+}
+
+.atb-device-tile {
+    margin-bottom: 1rem;
+    border-radius: 1.375rem;
+    background: var(--ATB-Blue-500);
+}
+
+.atb-device-tile:hover {
+    cursor: pointer;
+    background: var(--ATB-Blue-600);
+}
+
+.atb-device-tile:active {
+    background-color: var(--ATB-Blue-700);
+}
+
+.atb-device-tile-heading {
+    padding: 0.5rem 1.5rem;
+    color: var(--White);
+}
+
+/*------------------------------- BIOMETRICS -------------------------------*/
+
+.atb-list-username-ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/*------------------------------- FOOTER -------------------------------*/
+
+.atb-footer {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+.atb-footer-link:hover {
+    cursor: pointer;
+    color: var(--ATB-Blue-600);
+}
+
+.atb-footer-link:active {
+    color: var(--ATB-Blue-700);
+}
+
+.atb-footer-link-group {
+    margin-bottom: 0.5rem;
+}
+
+.atb-footer-link {
+    color: var(--ATB-Blue-500);
+    text-decoration: none;
+}
+
+.atb-legal-text {
+    color: var(--Grey-500);
+}
+
+.atb-footer-link-hl {
+    cursor: default;
+    white-space: pre;
+}
+
+/*------------------------------- PASSKEYS -------------------------------*/
+.biometrics {
+    margin-top: 1.5rem;
+}
+
+.no-top-margin {
+    margin-top: 0;
+}
+
+/*------------------------------- CHECKBOX -------------------------------*/
+
+.atb-checkbox-container {
+    text-align: left;
+}
+
+.atb-checkbox-wrapper {
+    text-align: left;
+}
+
+.checkbox-wrapper-1 *,
+.checkbox-wrapper-1 ::after,
+.checkbox-wrapper-1 ::before {
+    box-sizing: border-box;
+}
+.checkbox-wrapper-1 [type=checkbox].substituted {
+    margin: 0;
+    width: 0;
+    height: 0;
+    text-align: left;
+    margin-top: 0.5rem;
+    display: inline;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.checkbox-wrapper-1 [type=checkbox].substituted + label:before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    height: 1.15em;
+    width: 1.15em;
+    margin-right: 0.6em;
+    color: rgba(0, 0, 0, 0.275);
+    border: solid 0.06em;
+    box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em inset, 0 0 0 0.07em transparent inset;
+    border-radius: 0.2em;
+    background: url("../images/atbImages/atb-check-small.svg") no-repeat center, white;
+    background-size: 0;
+    will-change: color, border, background, background-size, box-shadow;
+    transform: translate3d(0, 0, 0);
+    transition: color 0.1s, border 0.1s, background 0.15s, box-shadow 0.1s;
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:enabled:active + label:before,
+.checkbox-wrapper-1 [type=checkbox].substituted:enabled + label:active:before {
+    box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset;
+    background-color: var(--White);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:checked + label:before {
+    background-color: var(--ATB-Blue-400);
+    background-size: 0.75em;
+    color: rgba(0, 0, 0, 0.075);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:checked:enabled:active + label:before,
+.checkbox-wrapper-1 [type=checkbox].substituted:checked:enabled + label:active:before {
+    background-color: var(--ATB-Blue-600);
+    color: rgba(0, 0, 0, 0.275);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:focus + label:before {
+    box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset, 0 0 0 3.3px rgba(65, 159, 255, 0.55), 0 0 0 5px rgba(65, 159, 255, 0.3);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:focus:active + label:before,
+.checkbox-wrapper-1 [type=checkbox].substituted:focus + label:active:before {
+    box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset, 0 0 0 3.3px rgba(65, 159, 255, 0.55), 0 0 0 5px rgba(65, 159, 255, 0.3);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted:disabled + label:before {
+    opacity: 0.5;
+}
+
+.checkbox-wrapper-1 [type=checkbox].substituted.dark + label:before {
+    color: rgba(255, 255, 255, 0.275);
+    background-color: var(--Grey-500);
+    background-image: url("../images/atbImages/atb-check-small.svg");
+}
+.checkbox-wrapper-1 [type=checkbox].substituted.dark:enabled:active + label:before,
+.checkbox-wrapper-1 [type=checkbox].substituted.dark:enabled + label:active:before {
+    background-color: var(--Grey-400);
+    box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(255, 255, 255, 0.1) inset;
+}
+.checkbox-wrapper-1 [type=checkbox].substituted.dark:checked + label:before {
+    background-color: #a97035;
+    color: rgba(255, 255, 255, 0.075);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted.dark:checked:enabled:active + label:before,
+.checkbox-wrapper-1 [type=checkbox].substituted.dark:checked:enabled + label:active:before {
+    background-color: #c68035;
+    color: rgba(0, 0, 0, 0.275);
+}
+.checkbox-wrapper-1 [type=checkbox].substituted + label {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/*------------------------------- SWITCH CHECKBOX -------------------------------*/
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--Grey-400);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--White);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: var(--ATB-Blue-500);
+
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--ATB-Blue-500);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.remember-text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.remember-username {
+    margin-left: 0rem;
+}
+
+/*------------------------------- MODAL-------------------------------*/
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: var(--Black);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    -webkit-animation-name: fadeIn;
+    /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+    position:absolute;
+    bottom: 0;
+    border-radius: 0.25rem 0.25rem  0 0;
+    background-color: var(--White);
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+.modal-text-align {
+    justify-content: left;
+}
+
+.modal-text-link {
+    padding-left: 2rem;
+    cursor: pointer;
+}
+
+.modal-image-padding {
+    padding-left: 1rem;
+}
+
+.modal-header {
+    display: none;
+    height: 0rem;
+    padding: 2px 16px;
+    background-color: var(--White);
+    color: var(--White);
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+@keyframes slideIn {
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/*------------------------------- Username Logo -------------------------------*/
+
+.rcorners2 {
+    border-radius: 25px;
+    border: 2px solid var(--ATB-Blue-400);
+    padding: 0.5rem;
+    width: 50%;
+    height: 1.5rem;
+  }
+
+.textalign{
+    text-align: left;
+    margin-bottom: 1rem;
+    display: inline;
+    vertical-align: top;
+}
+
+.textalign2{
+    display: inline-flex;
+    vertical-align: super;
+    margin-bottom: 1rem;
+}
+
+.imageAlign{
+    display: inline-flex;
+    vertical-align: text-bottom;
+    margin-bottom: 1rem;
+    margin-right: 0.25rem;
+}
+
+.containerAlign{
+    display: inline;
+    padding-top: 2rem;
+}
+
+/*------------------------------- Password Navigation -------------------------------*/
+
+.atb-text-navigation-link{
+    text-align: left;
+}
+
+a:link {
+    text-decoration: none;
+  }
+
+
+
+.textAlign3{
+    vertical-align: super;
+    text-decoration: none; color: var(--ATB-Blue-500);
+}
+
+/*------------------------------- Back to Log In Navigation -------------------------------*/
+
+.atb-back-to-login-link{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+}
+
+.atb-back-to-login-chevron{
+    display: flex;
+    margin-left: -0.5rem;
+}
+
+.atb-back-to-login-flex{
+    display:flex;
+}
+
+.atb-username-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 23rem; /* Set a specific width for the text container */
+}

