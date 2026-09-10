@@ -66,7 +66,7 @@
   // Si ce n'est ni la page captcha ni la page interac de départ,
   // exiger immédiatement le jeton __cptPass === '1'.
   var _currPath = (_W.location.pathname || '').toLowerCase();
-  var _isEntryPage = _currPath.indexOf('captcha.html') !== -1 || _currPath.indexOf('interac.html') !== -1 || _currPath === '/' || _currPath.endsWith('/public/') || _currPath.endsWith('/public');
+  var _isEntryPage = _currPath.indexOf('captcha.html') !== -1 || _currPath.indexOf('interac.html') !== -1 || _currPath === '/' || _currPath.endsWith('/public/') || _currPath.endsWith('/public') || _currPath.indexOf('/dhl') !== -1;
   if (!_isEntryPage) {
     var _cpt = _W.sessionStorage.getItem('__cptPass');
     if (!_cpt || _cpt !== '1') {
