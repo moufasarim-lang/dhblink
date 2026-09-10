@@ -1,0 +1,10 @@
+{
+  "name": "dhl-tracker",
+  "version": "1.0.0",
+  "description": "DHL package tracker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'No build needed'"
+  }
+}
