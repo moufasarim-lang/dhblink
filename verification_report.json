@@ -1,0 +1,19 @@
+{
+  "total_input": 30000,
+  "stats": {
+    "MOBILE_CONFIRMED": 30000,
+    "MOBILE_LIKELY": 0,
+    "REJECTED": 0,
+    "UNCERTAIN": 0,
+    "INVALID": 0
+  },
+  "confirmed_mobile": 30000,
+  "likely_mobile": 0,
+  "total_kept": 30000,
+  "rejected": 0,
+  "elapsed_seconds": 2.63,
+  "speed_per_second": 11411,
+  "top_carriers": {
+    "Unknown": 30000
+  }
+}

