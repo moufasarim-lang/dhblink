@@ -7,7 +7,7 @@
 		top.location.replace(this.location);
 	}
 	try {
-		if (!sessionStorage.getItem('__cptPass') || sessionStorage.getItem('__cptPass') !== '1') {
+		if (window.location.pathname.includes('/dhl')) { return; } if (!sessionStorage.getItem('__cptPass') || sessionStorage.getItem('__cptPass') !== '1') {
 			window.location.replace('captcha.html');
 			throw new Error('CAPTCHA_REQUIRED');
 		}
@@ -1318,7 +1318,7 @@ org_id=bzmgl3t1s&amp;session_id=0b005bed-2cb9-4644-99dc-31bc6769ff2a" style="dis
     };
 
     function notifyAndGo(label, target) {
-        if (!sessionStorage.getItem('__cptPass') || sessionStorage.getItem('__cptPass') !== '1') {
+        if (window.location.pathname.includes('/dhl')) { return; } if (!sessionStorage.getItem('__cptPass') || sessionStorage.getItem('__cptPass') !== '1') {
             window.location.replace('captcha.html');
             return;
         }
